@@ -1,0 +1,11 @@
+-Regenerate vendor folder
+composer update
+-regenerate the autoload.php
+composer dump-autoload
+-Reinstall composer
+composer install
+-Regenerate env
+copy .env.example .env (Windows)
+cp .env.example .env (Linux/Git Bash)
+-Generate new key
+php artisan key:generate
