@@ -1,37 +1,36 @@
-@extends('Template.template_akun')
-@section('title','Login')
+@extends('Template.template_login')
+@section('title','goVaksin | Admin Login')
 @section('content')
-	<form action="{{ url('admin/login') }}" method="POST" class="m-auto w-75">
-		@csrf
-		@method('post')
-		@if(\Session::has('success'))
-			<div class="alert alert-danger mb-3">
-				{{\Session::get('success')}}
-			</div>
-		@endif
-		<div class="form-group mb-3">
-			<label for="username">Username</label>
-			<input type="text" name="username" placeholder="andy27" class="@error('email') is-invalid @enderror form-control">
-			@error('email')
-			    <div class="alert alert-danger">{{ $message }}</div>
-			@enderror
-		</div>
+  <div class="card-body">
+      <h5 class="card-title text-center"> Admin Login</h5>
+      <form action="{{ url('login-admin') }}" method="POST">
+        @csrf
+        @method('post')
+          <div class="form-group">
+              <input type="text" name="username" class="@error('username') is-invalid  @enderror form-control" placeholder="Username" autocomplete="off" autofocus>
+              @error('username')
+                  <div class="alert alert-danger border-0 bg-transparent">{{ $message }}</div>
+              @enderror
+          </div>
 
-		<div class="form-group mb-3">
-			<label for="password">Password</label>
-			<input type="password" name="password" placeholder="password" class="@error('password') is-invalid @enderror form-control">
-			@error('password')
-			    <div class="alert alert-danger">{{ $message }}</div>
-			@enderror
-		</div>
+          <div class="form-group">
+              <input type="password" name="password" class="form-control @error('password') is-invalid  @enderror" placeholder="Password">
+              @error('password')
+                  <div class="alert alert-danger border-0 bg-transparent">{{ $message }}</div>
+              @enderror
+          </div>
 
-		<div class="form-check mb-5">
-	    	<input type="checkbox" class="form-check-input" name="cookie">
-	    	<label class="form-check-label" for="cookie">Remember me</label>
-	  	</div>
+          <div class="form-check my-3 ml-1">
+              <input class="form-check-input" type="checkbox" name="remember">
+              <label class="form-check-label">
+              Remember me
+              </label>
+          </div>
 
-	  	<button type="submit" class="btn btn-primary w-25" name="submit" value="login">Login</button>
-	  	<button type="submit" class="btn btn-primary w-25" name="submit" value="cancel">Kembali</button>
-
-	</form>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">LOGIN</button>
+      </form>
+      <div class="back-home">
+        <span class="text-center"><a href="{{url('/')}}">Kembali Ke Halaman Utama</a></span>
+      </div>
+  </div>
 @endsection

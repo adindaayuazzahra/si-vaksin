@@ -7,7 +7,7 @@
 
 		</div>
 		<div class="row card shadow">
-			<h3 class="text-center">Welcome ... to admin panel</h3>
+			<h3 class="text-center">Welcome {{$akun}} to admin panel</h3>
 		</div>
 	</div>
 

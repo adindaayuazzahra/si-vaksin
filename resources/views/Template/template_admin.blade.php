@@ -72,6 +72,8 @@
 		      	</ul>
 
 		      	<form action="{{ url('logout') }}" method="POST">
+		      		@csrf
+		      		@method('post')
 			        <button type="submit" name="logout" value="logout" class="btn border-0 bg-transparent text-white">Logout</button>
 			    </form>
 		      	
@@ -83,7 +85,7 @@
 		  </div>
 		</nav>
 
-		<div class="container mb-5 mt-5">
+		<div class="container mb-5 mt-5 p-0">
 
 			@yield('content')
 			
@@ -106,9 +108,8 @@
 			$(document).ready(function(){
 			  	$('#table_id').DataTable();
 			});
-		</script>
-		<script>
-		  	function loadPreview() {
+			function loadPreview() {
+				$("#imageUpload").removeClass('d-none');
 		    	var imageUpload = document.getElementById('imageUpload');
 		    	imageUpload.src = URL.createObjectURL(event.target.files[0]);
 			    imageUpload.onload = function() {

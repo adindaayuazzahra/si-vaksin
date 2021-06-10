@@ -9,22 +9,47 @@ use App\Models\Vaccine;
 use App\Models\Payment;
 use App\Models\User;
 use App\Models\UserInformation;
-
+use Auth;
 class AdminController extends Controller
 {
-     //Akun 
+
+    public function index(){
+        $akun = Auth::user()->nama;
+        return view("Admin.index", compact('akun'));
+    }
+    
+    //Akun 
     public function login(){
+        if (Auth::check()) {
+            $akun=Auth::user();
+            return redirect("admin");
+        }
         return view("Admin.akun.login");
     }
 
     public function loginAction(Request $request){
+        if ($request->has('submit')) {
+            $request->validate([
+                'username'=> 'required|string',
+                'password'=>'required'
+            ]);
 
+            $authen = $request->only('username','password');
+            
+            $check = Auth::attempt($authen);
+            if ($check) {
+                $request->session()->regenerate();
+                return redirect("admin");
+            }
+        }
     }
 
-    public function index(){
-        return view("Admin.index");
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect("login-admin");
     }
-
 
     //Data Vaccine
     public function indexVaksin(){
@@ -55,7 +80,6 @@ class AdminController extends Controller
 
     public function editVaksin($id){
         $vaksin = Vaccine::find($id);
-
         return view("Admin.vaksin.edit_vaksin", compact('vaksin'));
     }
 
@@ -168,7 +192,7 @@ class AdminController extends Controller
 
     //Data Admin
     public function indexAdmin(){
-        $list_admin=Admin::all();
+        $list_admin=User::all();
         return view("Admin.akun.index", compact('list_admin'));
     }
 
@@ -186,7 +210,7 @@ class AdminController extends Controller
             $request->img->move(public_path('assets/admin/img/'), $imageName);
 
 
-            $attr = Admin::create([
+            $attr = User::create([
                 'img'=>$imageName,
                 'username'=>$request->username,
                 'nama'=>$request->nama,
@@ -208,7 +232,7 @@ class AdminController extends Controller
     }
 
     public function editAdmin($id){
-        $admin=Admin::find($id);
+        $admin=User::find($id);
         return view("Admin.akun.edit_admin", compact('admin'));
     }
 
@@ -225,7 +249,7 @@ class AdminController extends Controller
 
             $request->img->move(public_path('assets/admin/img/'), $imageName);
 
-            $rs=Admin::find($id)->update([
+            $rs=User::find($id)->update([
                 'img'=>$imageName,
                 'username'=>$request->username,
                 'nama'=>$request->nama,
@@ -246,7 +270,7 @@ class AdminController extends Controller
     }
 
     public function delAdmin($id){
-        Admin::find($id)->delete();
+        User::find($id)->delete();
         return redirect("admin/data-admin");
 
     }

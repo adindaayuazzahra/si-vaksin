@@ -11,6 +11,7 @@
 				<thead>
 					<tr>
 						<th>Vaksin</th>
+						<th>Image</th>
 						<th>Deskripsi</th>
 						<th>Harga</th>
 						<th>Controls</th>
@@ -21,6 +22,9 @@
 					@foreach($list_vaksin as $vaksin)
 						<tr>
 							<td>{{$vaksin->nama_vaksin}}</td>
+							<td>
+								<img src="{{ url('assets/admin/img/'. $vaksin->img) }}" width="100" class="img-thumbnail rounded mx-auto d-block">
+							</td>
 							<td>{{$vaksin->deskripsi}}</td>
 							<td class="fw-bold">Rp. {{$vaksin->harga}}</td>
 							<td>
@@ -41,32 +45,31 @@
 	</div>
 
 	<div class="col-md-3 mb-2 ms-1 card">
-		<form action="{{ url('admin/data-vaksin/add') }}" method="POST" class="mt-2 mb-5 w-100">
+		<form action="{{ url('admin/data-vaksin/add') }}" method="POST" class="mt-2 mb-5 w-100" enctype="multipart/form-data">
 			@csrf
 			@method('post')
 
 			<div class="form-group mb-3">
-				<label for="nama_vaksin">Nama Vaksin</label>
-				<input type="text" name="nama_vaksin" placeholder="andy27" class="@error('nama_vaksin') is-invalid @enderror form-control">
-				@error('nama_vaksin')
-				    <div class="alert alert-danger">{{ $message }}</div>
-				@enderror
+				<label for="nama_vaksin">Vaksin</label>
+				<input type="text" name="nama_vaksin" placeholder="@error('nama_vaksin') Vaksin wajib diisi. @enderror" class="@error('nama_vaksin') is-invalid @enderror form-control">
 			</div>
 
 			<div class="form-group mb-3">
 				<label for="deskripsi">Deskripsi</label>
-				<input type="text" name="deskripsi" placeholder="deskripsi" class="@error('deskripsi') is-invalid @enderror form-control">
-				@error('deskripsi')
-				    <div class="alert alert-danger">{{ $message }}</div>
-				@enderror
+				<input type="text" name="deskripsi" placeholder="@error('deskripsi') Deskripsi wajib diisi. @enderror" class="@error('deskripsi') is-invalid @enderror form-control">
 			</div>
 
 			<div class="form-group mb-3">
 				<label for="harga">Harga</label>
-				<input type="text" name="harga" placeholder="harga" class="@error('harga') is-invalid @enderror form-control">
-				@error('harga')
-				    <div class="alert alert-danger">{{ $message }}</div>
-				@enderror
+				<input type="text" name="harga" placeholder="@error('harga') Harga wajib diisi. @enderror" class="@error('harga') is-invalid @enderror form-control">
+			</div>
+
+			<div class="form-group mb-3">
+				<label for="img">Image</label>
+				<input type="file" name="img" onchange="loadPreview(event)" class="@error('img') is-invalid @enderror form-control">
+			</div>
+			<div>
+				<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto mb-3 d-block d-none">
 			</div>
 
 		  	<button type="submit" class="btn btn-primary w-50" name="submit" value="submit">Simpan</button>
