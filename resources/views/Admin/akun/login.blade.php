@@ -1,14 +1,14 @@
 @extends('Template.template_login')
-@section('title','goVaksin | Masuk')
+@section('title','goVaksin | Admin Login')
 @section('content')
   <div class="card-body">
-      <h5 class="card-title text-center">Login</h5>
-      <form action="{{ url('login') }}" method="POST">
+      <h5 class="card-title text-center"> Admin Login</h5>
+      <form action="{{ url('login-admin') }}" method="POST">
         @csrf
         @method('post')
           <div class="form-group">
-              <input type="email" name="email" class="@error('email') is-invalid  @enderror form-control" placeholder="Email" autocomplete="off" autofocus>
-              @error('email')
+              <input type="text" name="username" class="@error('username') is-invalid  @enderror form-control" placeholder="Username" autocomplete="off" autofocus>
+              @error('username')
                   <div class="alert alert-danger border-0 bg-transparent">{{ $message }}</div>
               @enderror
           </div>
@@ -29,10 +29,6 @@
 
           <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">LOGIN</button>
       </form>
-      <div class="mt-4 text-center">
-        <span>Belum Punya akun ?</span>
-      </div>
-      <a href="{{url('/daftar')}}" class="btn btn-lg btn-danger btn-block mt-2" type="submit" name="submit">REGISTER</a>
       <div class="back-home">
         <span class="text-center"><a href="{{url('/')}}">Kembali Ke Halaman Utama</a></span>
       </div>

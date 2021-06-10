@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateJenisVaksin extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('vaksin.admin', function (Blueprint $table) {
-            $table->increments('id_admin');
+        Schema::create('vaksin.vaksin', function (Blueprint $table) {
+            $table->increments('id_vaksin');
             $table->string('img')->default('admin.svg');
-            $table->text('username');
-            $table->text('nama');
-            $table->text('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->text('nama_vaksin');
+            $table->text('deskripsi');
+            $table->text('harga');
         });
     }
 
@@ -31,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('jenis_vaksin');
     }
 }

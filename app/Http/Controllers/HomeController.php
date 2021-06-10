@@ -14,7 +14,60 @@ class HomeController extends Controller
         return view("User.akun.login");
     }
 
+    public function loginAction(Request $request){
+        if ($request->submit=="login"){
+            $request->validate([
+                'email'=>'required|email',
+                'password'=>'required'
+            ]);
+
+            if(Auth::attempt(['email'=> $request->email, 'password'=>$request->password])){
+                $user=Auth::user();
+                $request->session()->regenerate();
+                return redirect("/")->with('account',$user);
+            }
+            else{
+                return redirect()->back()->with('success', 'Inputed username or password is incorrect!');   
+            }  
+        }
+        else{
+            return redirect("/");
+        }   
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+    }
+
     public function daftar(){
         return view("User.akun.daftar");
+    }
+
+    public function daftarpAction(Request $request){
+        if ($request->submit=="signup") {
+            $akun = $request->validate([
+                'username'=>'required|string',
+                'nama'=>'required|string',
+                'email'=>'required|email',
+                'password'=>'required'
+            ]);
+
+            User::create(
+                array(
+                    'username' => $request->username,
+                    'nama' => $request->nama,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password)
+                )
+            );
+
+            return redirect("login");
+        }
+        else{
+            return redirect("/");
+        }
+
     }
 }
