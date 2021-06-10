@@ -22,4 +22,5 @@ Route::group(['prefix'=>'/'], function(){
     Route::get('/', [Homecontroller::class, 'index']);
     Route::get('login', [Homecontroller::class, 'login']);
     Route::get('daftar', [Homecontroller::class, 'daftar']);
+    Route::get('jadwal', [Homecontroller::class, 'jadwal']);
 });

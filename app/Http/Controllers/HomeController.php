@@ -17,4 +17,8 @@ class HomeController extends Controller
     public function daftar(){
         return view("User.akun.daftar");
     }
+
+    public function jadwal(){
+        return view("User.jadwaltempat");
+    }
 }

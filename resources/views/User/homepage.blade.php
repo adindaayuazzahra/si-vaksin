@@ -30,10 +30,13 @@
               <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#">Jadwal Vaksin</a>
+              <a class="nav-link" href="#">Jadwal & Tempat Vaksin</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#">Daftar Rumah Sakit</a>
+              <a class="nav-link" href="#">Daftar Vaksin</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Syarat Vaksinasi</a>
             </li>
             {{-- <li class="nav-item dropdown active">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
