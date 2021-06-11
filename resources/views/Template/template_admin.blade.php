@@ -116,6 +116,16 @@
 			      URL.revokeObjectURL(imageUpload.src) // free memory
 			    }
 		 	};
+		 	// $('.nav-item nav-link').click(function(e){
+		 	// 	e.preventDefault();
+		 	// 	var href=$(this).attr('href');
+		 	// 	$('.container').load(href);
+		 	// });
+		 	// $('.nav-item ul li a').click(function(e){
+		 	// 	e.preventDefault();
+		 	// 	var href=$(this).attr('href');
+		 	// 	$('.container').load(href);
+		 	// });
 		</script>
 	</body>
 </html>

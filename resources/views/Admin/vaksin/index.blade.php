@@ -23,7 +23,9 @@
 						<tr>
 							<td>{{$vaksin->nama_vaksin}}</td>
 							<td>
-								<img src="{{ url('assets/admin/img/'. $vaksin->img) }}" width="100" class="img-thumbnail rounded mx-auto d-block">
+								@if($vaksin->img)
+									<img src="{{ url('assets/vaksin/img/'. $vaksin->img) }}" width="100" class="img-thumbnail rounded mx-auto d-block">
+								@endif
 							</td>
 							<td>{{$vaksin->deskripsi}}</td>
 							<td class="fw-bold">Rp. {{$vaksin->harga}}</td>

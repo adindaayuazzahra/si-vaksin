@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserInformation extends Model
+class RumahSakit extends Model
 {
     use HasFactory;
-    protected $table = 'informasi_user';
+    public $timestamps=false;
+    protected $table = 'rs';
+    protected $primaryKey = 'id_rs';
     protected $fillable = [
         'img',
-        'nik',
-        'nama',
+        'nama_rs',
         'alamat',
-        'provinsi',
+        'jadwal',
+        'keterangan',
+        'no_telephone'
     ];
 }

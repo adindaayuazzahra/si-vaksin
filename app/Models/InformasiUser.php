@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Hospital extends Model
+class InformasiUser extends Model
 {
     use HasFactory;
-    protected $table = 'rs';
-    protected $primaryKey = 'id_rs';
+    protected $table = 'informasi_user';
     protected $fillable = [
-        'img'.
-        'nama_rs',
+        'img',
+        'nik',
+        'nama',
         'alamat',
         'provinsi',
-        'keterangan',
-        'no_telephone'
     ];
 }

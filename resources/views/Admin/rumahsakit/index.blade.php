@@ -10,9 +10,9 @@
 			<thead>
 				<tr>
 					<th>Rumah Sakit</th>
+					<th>Image</th>
 					<th>Alamat</th>
 					<th>Keterangan</th>
-					<th>Kontak</th>
 					<th>Controls</th>
 				</tr>
 			</thead>
@@ -22,11 +22,16 @@
 					<tr>
 						<td>{{$rs->nama_rs}}</td>
 						<td>
+							@if($rs->img)
+								<img src="{{ url('assets/rs/img/'. $rs->img) }}" width="100" class="img-thumbnail rounded mx-auto d-block">
+							@endif
+						</td>
+						<td>
 							<p>{{$rs->alamat}}</p>
-							<p>{{$rs->provinsi}}</p>
+							<p>{{$rs->jadwal}}</p>
+							<p>Telephone: {{$rs->no_telephone}}</p>
 						</td>
 						<td class="fw-bold">{{$rs->keterangan}}</td>
-						<td>{{$rs->no_telephone}}</td>
 						<td>
 							<a href="{{ url('admin/data-rumah-sakit/edit/'.$rs->id_rs) }}" class="border-0 bg-danger text-white nav-link text-center mb-2">Edit</a>
 							
@@ -44,7 +49,7 @@
 	</div>
 
 	<div class="col-md-3 mb-2 ms-1 card p-25">
-		<form action="{{ url('admin/data-rumah-sakit/add') }}" method="POST" class="mt-2 mb-5 w-100">
+		<form action="{{ url('admin/data-rumah-sakit/add') }}" method="POST" class="mt-2 mb-5 w-100" enctype="multipart/form-data">
 			@csrf
 			@method('post')
 
@@ -65,19 +70,35 @@
 			</div>
 
 			<div class="form-group mb-3">
-				<label for="keterangan">Keterangan</label>
-				<input type="text" name="keterangan" class="@error('keterangan') is-invalid @enderror form-control">
-				@error('keterangan')
+				<label for="no_telephone">Telephone</label>
+				<input type="text" name="no_telephone" placeholder="no_telephone" class="@error('no_telephone') is-invalid @enderror form-control">
+				@error('no_telephone')
 				    <div class="alert alert-danger">{{ $message }}</div>
 				@enderror
 			</div>
 
 			<div class="form-group mb-3">
-				<label for="harga">Harga</label>
-				<input type="text" name="harga" placeholder="harga" class="@error('harga') is-invalid @enderror form-control">
-				@error('harga')
+				<label for="jadwal">Jadwal</label>
+				<input type="text" name="jadwal" placeholder="jadwal" class="@error('jadwal') is-invalid @enderror form-control">
+				@error('jadwal')
 				    <div class="alert alert-danger">{{ $message }}</div>
 				@enderror
+			</div>
+
+			<div class="form-group mb-3">
+				<label for="keterangan">Keterangan</label>
+				<input type="text" name="keterangan" class="form-control">
+			</div>
+
+			<div class="form-group mb-3">
+				<label for="img">Image</label>
+				<input type="file" name="img" onchange="loadPreview(event)" class="@error('img') is-invalid @enderror form-control">
+				@error('img')
+				    <div class="alert alert-danger">{{ $message }}</div>
+				@enderror
+			</div>
+			<div>
+				<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto d-block d-none">
 			</div>
 
 		  	<button type="submit" class="btn btn-primary w-50" name="submit" value="submit">Simpan</button>

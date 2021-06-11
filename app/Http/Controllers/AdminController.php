@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Admin;
-use App\Models\Hospital;
-use App\Models\Vaccine;
-use App\Models\Payment;
+use Illuminate\Support\Facades\File; 
+use App\Models\Pendaftar;
+use App\Models\Registrasi;
+use App\Models\InformasiUser;
+use App\Models\RumahSakit;
+use App\Models\Vaksin;
+use App\Models\Pembayaran;
 use App\Models\User;
-use App\Models\UserInformation;
 use Auth;
 class AdminController extends Controller
 {
 
     public function index(){
-        $akun = Auth::user()->nama;
+        $akun = Auth::user();
         return view("Admin.index", compact('akun'));
     }
     
@@ -53,19 +55,36 @@ class AdminController extends Controller
 
     //Data Vaccine
     public function indexVaksin(){
-        $list_vaksin=Vaccine::all();
+        $list_vaksin=Vaksin::all();
         return view("Admin.vaksin.index", compact('list_vaksin'));
     }
 
     public function addVaksin(Request $request){
         if ($request->submit=="submit") {
             $attr = $request->validate([
+                'img'=>'image|mimes:png,jpeg,jpg,gif,svg',
                 'nama_vaksin'=>'required|string',
                 'deskripsi'=>'required|string',
                 'harga'=>'required|string'
             ]);
+            $imageName=null;
 
-            if(Vaccine::create($attr)){
+            if ($request->hasFile('img')) {
+                $imageName=time() . "-" . $request->nama_vaksin . "-" . $request->img->extension();
+
+                $request->img->move(public_path('assets/vaksin/img/'), $imageName);
+            }
+
+            
+
+            $vaksin=Vaksin::create([
+                'img'=>$imageName,
+                'nama_vaksin'=>$request->nama_vaksin,
+                'deskripsi'=>$request->deskripsi,
+                'harga'=>$request->harga,
+            ]);
+
+            if($vaksin){
                 return redirect("admin/data-vaksin");
             }
             else{
@@ -79,25 +98,38 @@ class AdminController extends Controller
     }
 
     public function editVaksin($id){
-        $vaksin = Vaccine::find($id);
+        $vaksin = Vaksin::find($id);
         return view("Admin.vaksin.edit_vaksin", compact('vaksin'));
     }
 
     public function editVaksinAction(Request $request, $id){
         if ($request->submit=="submit") {
             $request->validate([
+                'img'=>'image|mimes:png,jpeg,jpg,gif,svg',
                 'nama_vaksin'=>'required|string',
                 'deskripsi'=>'required|string',
                 'harga'=>'required|string'
             ]);
 
-            $attr= Vaccine::find($id)->update([
+            $imageName=null;
+            
+            $vaksinData = Vaksin::find($id);
+            if ($request->hasFile('img')) {
+                if ($vaksinData->img) {
+                    File::delete(public_path('assets/vaksin/img/') . $vaksinData->img);
+                }
+                $imageName=time() . "-" . $request->nama_vaksin . "-" . $request->img->extension();
+                $request->img->move(public_path('assets/vaksin/img/'), $imageName);
+            }
+
+            $vaksin = $vaksinData->update([
+                'img'=>$imageName,
                 'nama_vaksin'=>$request->nama_vaksin,
                 'deskripsi'=>$request->deskripsi,
-                'harga'=>$request->harga            
+                'harga'=>$request->harga,           
             ]);
 
-            if ($attr) {
+            if ($vaksin) {
                 return redirect("admin/data-vaksin");
             }
             else{
@@ -111,30 +143,47 @@ class AdminController extends Controller
     }
 
     public function delVaksin($id){
-        Vaccine::find($id)->delete();
+        $data = Vaksin::find($id);
+        File::delete(public_path('assets/vaksin/img/') . $data->img);
+        $data->delete();
         return redirect("admin/data-vaksin")->with('success','Data has been deleted!');
     }
 
 
     //Data Rumah Sakit
     public function indexRS(){
-        $list_rs=Hospital::all();
+        $list_rs=RumahSakit::all();
         return view("Admin.rumahsakit.index", compact('list_rs'));
     }
 
 
     public function addRS(Request $request){
         if ($request->submit=="submit") {
-             $attr= $request->validate([
+            $request->validate([
                 'nama_rs'=>'required|string',
                 'alamat'=>'required|string',
-                'kelurahan'=>'required|string',
-                'kecamatan'=>'required|string',
-                'provinsi'=>'required|string',
-                'keterangan'=>'required|string'
+                'no_telephone'=>'required',
+                'jadwal'=>'required|string',
+                'img'=>'image|mimes:jpeg,png,jpg,gif,svg',
             ]);
 
-            if(Hospital::create($attr)){
+            $imageName=null;
+
+            if ($request->hasFile('img')) {
+                $imageName=time() . "-" . $request->nama_rs . "-" . $request->img->extension();
+                $request->img->move(public_path('assets/rs/img/'), $imageName);
+            }
+
+            $rs=RumahSakit::create([
+                'img'=>$imageName,
+                'nama_rs'=>$request->nama_rs,
+                'alamat'=>$request->alamat,
+                'jadwal'=>$request->jadwal,
+                'keterangan'=>$request->keterangan,
+                'no_telephone'=>$request->no_telephone,
+            ]);
+
+            if($rs){
                 return redirect("admin/data-rumah-sakit");
             }
             else{
@@ -147,7 +196,7 @@ class AdminController extends Controller
     }
 
     public function editRS($id){
-        $rs=Hospital::find($id);
+        $rs=RumahSakit::find($id);
         return view("Admin.rumahsakit.edit_rs", compact('rs'));
     }
 
@@ -156,19 +205,30 @@ class AdminController extends Controller
             $request->validate([
                 'nama_rs'=>'required|string',
                 'alamat'=>'required|string',
-                'kelurahan'=>'required|string',
-                'kecamatan'=>'required|string',
-                'provinsi'=>'required|string',
-                'keterangan'=>'required|string'
+                'no_telephone'=>'required',
+                'jadwal'=>'required|string',
+                'img'=>'image|mimes:jpeg,png,jpg,gif,svg',
             ]);
 
-            $rs=Hospital::find($id)->update([
+            $imageName=null;
+
+            $rsData=RumahSakit::find($id);
+
+            if ($request->hasFile('img')) {
+                if ($rsData->img) {
+                    File::delete(public_path('assets/rs/img/') . $rsData->img);
+                }
+                $imageName=time() . "-" . $request->nama_rs . "-" . $request->img->extension();
+                $request->img->move(public_path('assets/rs/img/'), $imageName);
+            }
+
+            $rs= $rsData->update([
+                'img'=>$imageName,
                 'nama_rs'=>$request->nama_rs,
                 'alamat'=>$request->alamat,
-                'kelurahan'=>$request->kelurahan,
-                'kecamatan'=>$request->kecamatan,
-                'provinsi'=>$request->provinsi,
+                'jadwal'=>$request->jadwal,
                 'keterangan'=>$request->keterangan,
+                'no_telephone'=>$request->no_telephone,
             ]);
 
             if ($rs) {
@@ -185,7 +245,9 @@ class AdminController extends Controller
     }
 
     public function delRS($id){
-        Hospital::find($id)->delete();
+        $data=RumahSakit::find($id);
+        File::delete(public_path('assets/rs/img/') . $data->img);
+        $data->delete();
         return redirect("admin/data-rumah-sakit")->with('success','Data has been deleted!');
     }
 
@@ -205,11 +267,12 @@ class AdminController extends Controller
                 'password'=>'required'
             ]);
 
-            $imageName=time() . "-" . $request->username . "-" . $request->img->extension();
+            if ($request->hasFile('img')) {
+                $imageName=time() . "-" . $request->username . "-" . $request->img->extension();
 
-            $request->img->move(public_path('assets/admin/img/'), $imageName);
-
-
+                $request->img->move(public_path('assets/admin/img/'), $imageName);
+            }
+            
             $attr = User::create([
                 'img'=>$imageName,
                 'username'=>$request->username,
@@ -217,7 +280,6 @@ class AdminController extends Controller
                 'password'=>bcrypt($request->password)
             ]);
             
-
             if ($attr) {
                 return redirect("admin/data-admin");
             }
@@ -245,18 +307,24 @@ class AdminController extends Controller
                 'password'=>'required'
             ]);
 
-            $imageName=time() . "-" . $request->username . "-" . $request->img->extension();
+            $adminData = User::find($id);
 
-            $request->img->move(public_path('assets/admin/img/'), $imageName);
+            if ($request->hasFile('img') && !($adminData->img == "admin.svg") ) {
+                File::delete(public_path('assets/admin/img/') . $adminData->img);
 
-            $rs=User::find($id)->update([
+                $imageName=time() . "-" . $request->username . "-" . $request->img->extension();
+
+                $request->img->move(public_path('assets/admin/img/'), $imageName);
+            }
+
+            $inputAdmin=User::find($id)->update([
                 'img'=>$imageName,
                 'username'=>$request->username,
                 'nama'=>$request->nama,
                 'password'=>bcrypt($request->password)
             ]);
 
-            if ($rs) {
+            if ($inputAdmin) {
                 return redirect("admin/data-admin");
             }
             else{
@@ -270,7 +338,11 @@ class AdminController extends Controller
     }
 
     public function delAdmin($id){
-        User::find($id)->delete();
+        $data = User::find($id);
+        if (!($data->img=="admin.svg")) {
+            File::delete(public_path('assets/admin/img/') . $data->img);
+        }
+        $data->delete();
         return redirect("admin/data-admin");
 
     }

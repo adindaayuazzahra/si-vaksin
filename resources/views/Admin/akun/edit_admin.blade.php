@@ -1,5 +1,5 @@
-@extends('Template.template_akun')
-@section('title','Login')
+@extends('Template.template_admin')
+@section('title','goVaksin | Edit Admin')
 @section('content')
 	<form action="{{ url('admin/data-admin/edit/'. $admin->id_admin) }}" method="POST" class="m-auto w-75"  enctype="multipart/form-data">
 		@csrf
@@ -41,7 +41,7 @@
 					@enderror
 				</div>
 				<div>
-					<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto d-block">
+					<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto d-block" src="{{ url('assets/admin/img/'. $admin->img) }}">
 				</div>
 			</div>
 		</div>

@@ -15,11 +15,11 @@ class CreateRumahSakit extends Migration
     {
         Schema::create('vaksin.rs', function (Blueprint $table) {
             $table->increments('id_rs');
-            $table->string('img')->default('admin.svg');
+            $table->string('img')->nullable();
             $table->text('nama_rs');
             $table->text('alamat');
-            $table->text('provinsi');
-            $table->text('keterangan');
+            $table->text('jadwal');
+            $table->text('keterangan')->nullable();
             $table->text('no_telephone');
         });
     }
@@ -31,6 +31,6 @@ class CreateRumahSakit extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rumah_sakit');
+        Schema::dropIfExists('rs');
     }
 }
