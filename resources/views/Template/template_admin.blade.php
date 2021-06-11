@@ -42,7 +42,7 @@
 		        </li>
 
 		        <li class="nav-item">
-		          <a class="nav-link text-white" href="#">Laporan Pendaftaran</a>
+		          <a class="nav-link text-white" href="{{ url('admin/laporan') }}">Laporan Pendaftaran</a>
 		        </li>
 
 		        <li class="nav-item dropdown">
@@ -93,9 +93,9 @@
 
 		
 
-		<footer class="bg-dark p-4 h-20 bottom-0 position-relative w-100">
+		<!-- <footer class="bg-dark p-4 h-20 bottom-0 position-relative w-100">
 			
-		</footer>
+		</footer> -->
 		
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 		

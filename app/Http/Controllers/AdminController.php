@@ -53,6 +53,12 @@ class AdminController extends Controller
         return redirect("login-admin");
     }
 
+    //Data Laporan
+    public function indexLaporan(){
+        $laporan = Registrasi::all();
+        return view("Admin.laporan.index", compact('laporan'));
+    }
+
     //Data Vaccine
     public function indexVaksin(){
         $list_vaksin=Vaksin::all();

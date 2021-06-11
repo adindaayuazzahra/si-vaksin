@@ -11,8 +11,9 @@ class Pendaftar extends Model
     protected $table = 'user';
     protected $primaryKey = 'id_user';
     protected $fillable = [
+        'id_user',
         'username',
-        'name',
+        'nama',
         'email',
         'password',
     ];

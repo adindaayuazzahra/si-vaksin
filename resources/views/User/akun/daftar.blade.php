@@ -25,21 +25,23 @@
                   </div>
                   <div class="card-body">
                       <h5 class="card-title text-center">Registrasi</h5>
-                      <form action="" method="POST">
+                      <form action="{{ url('daftar') }}" method="POST">
+                        @csrf
+                        @method('post')
                           <div class="form-group">
-                              <input type="text"  class="form-control" placeholder="Username" name="username" autocomplete="off" required autofocus>
+                              <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Username" autocomplete="off" autofocus>
                           </div>
                           
                           <div class="form-group">
-                            <input type="text"  class="form-control" placeholder="Nama" name="name" autocomplete="off" required autofocus>
+                            <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" placeholder="Nama" autocomplete="off" autofocus>
                           </div>
                         
                           <div class="form-group">
-                              <input type="email" class="form-control" placeholder="Email" name="email" autocomplete="off" required autofocus>
+                              <input type="email" name="email"  class="form-control @error('email') is-invalid @enderror" placeholder="Email" autocomplete="off" autofocus>
                           </div>
 
                           <div class="form-group">
-                              <input type="password" class="form-control" placeholder="Password" name="password" required>
+                              <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
                           </div>
 
                           {{-- <div class="form-check my-3 ml-1">
@@ -49,12 +51,12 @@
                               </label>
                           </div> --}}
 
-                          <button class="btn btn-lg btn-danger btn-block" type="submit" name="submit">REGISTER</button>
+                          <button type="submit" class="btn btn-lg btn-danger btn-block" name="submit" value="submit">REGISTER</button>
                       </form>
                       <div class="mt-4 text-center">
                         <span>Sudah Punya akun ?</span>
                       </div>
-                      <a href="{{url('/login')}}" class="btn btn-lg btn-primary btn-block mt-2" type="submit" name="submit">LOGIN</a>
+                      <a href="{{url('/login')}}" class="btn btn-lg btn-primary btn-block mt-2">LOGIN</a>
                       <div class="mt-5 text-center">
                         <span class="text-center"><a href="{{url('/')}}">Kembali Ke Halaman Utama</a></span>
                       </div>
