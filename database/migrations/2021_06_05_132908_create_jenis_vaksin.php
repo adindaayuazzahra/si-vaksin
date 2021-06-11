@@ -17,7 +17,7 @@ class CreateJenisVaksin extends Migration
             $table->increments('id_vaksin');
             $table->string('img')->nullable();
             $table->text('nama_vaksin');
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
             $table->text('harga');
         });
     }
