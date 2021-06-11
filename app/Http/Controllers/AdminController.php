@@ -9,7 +9,8 @@ use App\Models\Vaccine;
 use App\Models\Payment;
 use App\Models\User;
 use App\Models\UserInformation;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+
 class AdminController extends Controller
 {
 
