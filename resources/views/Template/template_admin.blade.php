@@ -2,16 +2,19 @@
 <html>
 	<head>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>@yield('title')</title>
 		<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('img/logo.png') }}">
 
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-
-		
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
 		<style>
 			body{
+				background: #7e21ff;
+			    background-repeat: no-repeat;
+			    background-size: cover;
+			    background-attachment: fixed;
 				height: 100vh;
 			}
 			.text-justify{
@@ -26,7 +29,7 @@
 	</head>
 
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+		<nav class="navbar navbar-expand-lg bg-dark">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="{{ url('/') }}">
 	          <img src="{{asset('img/goVaksinwhite.png')}}" height="35" class="d-inline-block align-top" alt="">
@@ -60,6 +63,10 @@
 
 		            <li><a class="dropdown-item font-weight-bold" href="{{ url('admin/data-admin') }}">Database Admin</a></li>
 
+		            <li><hr class="dropdown-divider"></li>
+
+		            <li><a class="dropdown-item font-weight-bold" href="{{ url('admin/data-status') }}">Database Status</a></li>
+
 		          </ul>
 		        </li>
 
@@ -85,7 +92,7 @@
 		  </div>
 		</nav>
 
-		<div class="container mb-5 mt-5 p-0">
+		<div class="container mb-5 mt-5 p-4 shadow card rounded">
 
 			@yield('content')
 			
@@ -102,12 +109,34 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 		<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 		<script>
 			$(document).ready(function(){
 			  	$('#table_id').DataTable();
+			  	//Create
+			  	$("#createForm").submit(function(e){
+			  		e.preventDefault();
+
+					let status = $("#status").val();
+					let _token = $("input[name=_token]").val();
+
+					$.ajax({
+						url: "{{route('status.add')}}",
+						type: "POST",
+						data:{
+							status:status,
+							_token:_token,
+						},
+						success:function(response){
+							if (response) {
+								$("#table_id tbody").prepend('<tr><td class="text-center sorting_1" >'+response.id_status+'</td><td class="fw-bold text-center">'+response.status+'</td><td><a href="" class="border-0 bg-danger text-white nav-link text-center mb-2">Edit</a><form action="" method="POST"> @csrf @method("post") <button class="border-0 bg-warning text-dark nav-link w-100" type="submit" name="delete" value="delete">Delete</button></form></td>');
+								$("#createForm")[0].reset();
+							}
+						}
+					});
+				});
 			});
+
 			function loadPreview() {
 				$("#imageUpload").removeClass('d-none');
 		    	var imageUpload = document.getElementById('imageUpload');
@@ -127,5 +156,6 @@
 		 	// 	$('.container').load(href);
 		 	// });
 		</script>
+		<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 	</body>
 </html>

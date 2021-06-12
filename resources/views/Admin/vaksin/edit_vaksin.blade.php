@@ -1,8 +1,11 @@
 @extends('Template.template_admin')
 @section('title','goVaksin | Edit Vaksin')
 @section('content')
-<div class=" container mb-5">
-	
+<div class="row">
+	<h1 class="text-center w-100">Edit Vaksin</h1>
+	<hr class="dropdown-divider">
+</div>
+<div class="row">
 	<form action="{{ url('admin/data-vaksin/edit/'.$vaksin->id_vaksin) }}" method="POST" enctype="multipart/form-data">
 		@csrf
 		@method('post')
@@ -39,7 +42,7 @@
 			@enderror
 		</div>
 		<div>
-			<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto d-block" src="@if($vaksin->img) {{ url('assets/vaksin/img/'. $vaksin->img) }} @endif">
+			<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto d-block mb-4" src="@if($vaksin->img) {{ url('assets/vaksin/img/'. $vaksin->img) }} @endif">
 		</div>
 		
 
@@ -47,8 +50,5 @@
 	  	<button type="submit" class="btn btn-primary w-25" name="submit" value="cancel">Kembali</button>
 
 	</form>
-
-
 </div>
-
 @endsection

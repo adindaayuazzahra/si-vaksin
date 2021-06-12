@@ -1,6 +1,11 @@
 @extends('Template.template_admin')
 @section('title','goVaksin | Edit Admin')
 @section('content')
+<div class="row">
+	<h1 class="text-center w-100">Edit Admin</h1>
+	<hr class="dropdown-divider">
+</div>
+<div class="row">
 	<form action="{{ url('admin/data-admin/edit/'. $admin->id_admin) }}" method="POST" class="m-auto w-75"  enctype="multipart/form-data">
 		@csrf
 		@method('post')
@@ -41,7 +46,7 @@
 					@enderror
 				</div>
 				<div>
-					<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto d-block" src="{{ url('assets/admin/img/'. $admin->img) }}">
+					<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto d-block mb-4" src="{{ url('assets/admin/img/'. $admin->img) }}">
 				</div>
 			</div>
 		</div>
@@ -51,4 +56,5 @@
 
 
 	</form>
+</div>
 @endsection

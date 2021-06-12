@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('vaksin.admin', function (Blueprint $table) {
             $table->increments('id_admin');
-            $table->string('img')->default('admin.svg');
+            $table->string('img')->nullable();
             $table->text('username');
             $table->text('nama');
             $table->text('password');

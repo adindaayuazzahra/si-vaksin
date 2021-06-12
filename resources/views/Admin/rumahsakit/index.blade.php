@@ -5,7 +5,7 @@
 	<h2 class="text-dark justify-content-center">Data Rumah Sakit</h2>
 </div>
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-9">
 		<table id="table_id" class="display">
 			<thead>
 				<tr>
@@ -48,7 +48,7 @@
 		</table>
 	</div>
 
-	<div class="col-md-3 mb-2 ms-1 card p-25">
+	<div class="col-md-3 mb-2 card p-25">
 		<form action="{{ url('admin/data-rumah-sakit/add') }}" method="POST" class="mt-2 mb-5 w-100" enctype="multipart/form-data">
 			@csrf
 			@method('post')

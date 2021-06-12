@@ -5,7 +5,7 @@
 	<h2 class="text-dark justify-content-center">Data Pendaftaran Vaksin</h2>
 </div>
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-9">
 		<div class="row">
 			<table id="table_id" class="display">
 				<thead>
@@ -42,7 +42,7 @@
 		</div>
 	</div>
 
-	<div class="col-md-3 mb-2 ms-1 card">
+	<div class="col-md-3 mb-2 card">
 		<form action="" method="POST" class="mt-2 mb-5 w-100" enctype="multipart/form-data">
 			@csrf
 			@method('post')

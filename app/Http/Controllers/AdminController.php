@@ -11,6 +11,7 @@ use App\Models\RumahSakit;
 use App\Models\Vaksin;
 use App\Models\Pembayaran;
 use App\Models\User;
+use App\Models\Status;
 use Auth;
 class AdminController extends Controller
 {
@@ -273,6 +274,7 @@ class AdminController extends Controller
                 'password'=>'required'
             ]);
 
+            $imageName=null;
             if ($request->hasFile('img')) {
                 $imageName=time() . "-" . $request->username . "-" . $request->img->extension();
 
@@ -357,23 +359,59 @@ class AdminController extends Controller
 
 
     //Jadwal Vaksinasi
-    public function addJadwal(){
+    public function indexStatus(){
+        $status = Status::all();
+        return view('Admin.status.index', compact('status'));
+    }
+
+    public function addStatus(Request $request){
+        // if($request->submit=="submit"){
+            $request->validate([
+                'status'=>'required|string'
+            ]);
+            $status = new Status();
+            $status->status=$request->status;
+            $status->save();
+            return response()->json($status);
+            // if(Status::create($attr)){
+            //     // return redirect("admin/data-status");
+                
+            // }
+            // else{
+            //     return redirect()->back()->with('success', 'Storing inputed data failed!');  
+            // }
+        // }
+        // else{
+        //     return redirect("admin/data-status");
+        // }
+    }
+
+    public function editStatus($id){
+        $status = Status::find($id);
+        return view('Admin.status.edit_status',compact('status'));
+        
+    }
+
+    public function editStatusAction(Request $request, $id){
+        if ($request->submit=="submit") {
+            $request->validate([
+                'status'=>'required|string'
+            ]);
+
+            $attr=Status::find($id)->update([
+                'status'=>$request->status,
+            ]);
+
+            if (!$attr) {
+                return redirect()->back()->with('success', 'Storing inputed data failed!');
+            }
+        }
+        return redirect("admin/data-status");
 
     }
 
-    public function addJadwalAction(){
-
-    }
-
-    public function editJadwal(){
-
-    }
-
-    public function editJadwalAction(){
-
-    }
-
-    public function delJadwal(){
-
+    public function delStatus($id){
+        Status::find($id)->delete();
+        return redirect("admin/data-status");
     }
 }
