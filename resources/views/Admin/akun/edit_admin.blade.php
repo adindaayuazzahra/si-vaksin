@@ -46,7 +46,7 @@
 					@enderror
 				</div>
 				<div>
-					<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto d-block mb-4" src="{{ url('assets/admin/img/'. $admin->img) }}">
+					<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto d-block mb-4" src="@if($admin->img){{ url('assets/admin/img/'. $admin->img) }} @endif">
 				</div>
 			</div>
 		</div>

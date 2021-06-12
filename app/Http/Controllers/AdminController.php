@@ -128,6 +128,11 @@ class AdminController extends Controller
                 $imageName=time() . "-" . $request->nama_vaksin . "-" . $request->img->extension();
                 $request->img->move(public_path('assets/vaksin/img/'), $imageName);
             }
+            else{
+                if ($vaksinData->img) {
+                    $imageName=$vaksinData->img;
+                }
+            }
 
             $vaksin = $vaksinData->update([
                 'img'=>$imageName,
@@ -228,6 +233,11 @@ class AdminController extends Controller
                 $imageName=time() . "-" . $request->nama_rs . "-" . $request->img->extension();
                 $request->img->move(public_path('assets/rs/img/'), $imageName);
             }
+            else{
+                if ($rsData->img) {
+                    $imageName=$rsData->img;
+                }
+            }
 
             $rs= $rsData->update([
                 'img'=>$imageName,
@@ -323,6 +333,11 @@ class AdminController extends Controller
                 $imageName=time() . "-" . $request->username . "-" . $request->img->extension();
 
                 $request->img->move(public_path('assets/admin/img/'), $imageName);
+            }
+            else{
+                if($adminData->img){
+                    $imageName=$adminData->img;
+                }
             }
 
             $inputAdmin=User::find($id)->update([
