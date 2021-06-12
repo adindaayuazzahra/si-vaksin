@@ -401,11 +401,34 @@ class AdminController extends Controller
         // }
     }
 
+    // public function editStatus($id){
+    //     $status = Status::find($id);
+    //     return view('Admin.status.edit_status',compact('status'));
+        
+    // }
+
     public function editStatus($id){
         $status = Status::find($id);
-        return view('Admin.status.edit_status',compact('status'));
-        
+        return response()->json($status);
     }
+
+    // public function editStatusAction(Request $request, $id){
+    //     if ($request->submit=="submit") {
+    //         $request->validate([
+    //             'status'=>'required|string'
+    //         ]);
+
+    //         $attr=Status::find($id)->update([
+    //             'status'=>$request->status,
+    //         ]);
+
+    //         if (!$attr) {
+    //             return redirect()->back()->with('success', 'Storing inputed data failed!');
+    //         }
+    //     }
+    //     return redirect("admin/data-status");
+
+    // }
 
     public function editStatusAction(Request $request, $id){
         if ($request->submit=="submit") {
@@ -413,12 +436,13 @@ class AdminController extends Controller
                 'status'=>'required|string'
             ]);
 
-            $attr=Status::find($id)->update([
+            $attr=Status::find($id);
+            $attr->update([
                 'status'=>$request->status,
             ]);
 
-            if (!$attr) {
-                return redirect()->back()->with('success', 'Storing inputed data failed!');
+            if ($attr) {
+                return response()->json($attr); 
             }
         }
         return redirect("admin/data-status");
@@ -426,7 +450,9 @@ class AdminController extends Controller
     }
 
     public function delStatus($id){
-        Status::find($id)->delete();
-        return redirect("admin/data-status");
+        $status = Status::find($id);
+        $status->delete();
+        return response()->json(['success'=>'Record has been deleted']);
+        // return redirect("admin/data-status");
     }
 }

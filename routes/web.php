@@ -81,9 +81,9 @@ Route::middleware(['auth'])->group(function(){
             Route::post('add',[Admincontroller::class, 'addStatus'])->name('status.add');
 
             Route::get('edit/{id}',[Admincontroller::class, 'editStatus']);
-            Route::post('edit/{id}',[Admincontroller::class, 'editStatusAction']);
+            Route::post('edit/{id}',[Admincontroller::class, 'editStatusAction'])->name('status.edit');
 
-            Route::post('delete/{id}',[Admincontroller::class, 'delStatus']);
+            Route::post('delete/{id}',[Admincontroller::class, 'delStatus'])->name('status.del');
 
         });
 

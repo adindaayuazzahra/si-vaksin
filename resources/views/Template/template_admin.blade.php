@@ -103,38 +103,16 @@
 		<!-- <footer class="bg-dark p-4 h-20 bottom-0 position-relative w-100">
 			
 		</footer> -->
-		
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 		
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+		@yield('script')
 		<script>
 			$(document).ready(function(){
 			  	$('#table_id').DataTable();
-			  	//Create
-			  	$("#createForm").submit(function(e){
-			  		e.preventDefault();
-
-					let status = $("#status").val();
-					let _token = $("input[name=_token]").val();
-
-					$.ajax({
-						url: "{{route('status.add')}}",
-						type: "POST",
-						data:{
-							status:status,
-							_token:_token,
-						},
-						success:function(response){
-							if (response) {
-								$("#table_id tbody").prepend('<tr><td class="text-center sorting_1" >'+response.id_status+'</td><td class="fw-bold text-center">'+response.status+'</td><td><a href="" class="border-0 bg-danger text-white nav-link text-center mb-2">Edit</a><form action="" method="POST"> @csrf @method("post") <button class="border-0 bg-warning text-dark nav-link w-100" type="submit" name="delete" value="delete">Delete</button></form></td>');
-								$("#createForm")[0].reset();
-							}
-						}
-					});
-				});
 			});
 
 			function loadPreview() {
@@ -156,6 +134,5 @@
 		 	// 	$('.container').load(href);
 		 	// });
 		</script>
-		<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 	</body>
 </html>
