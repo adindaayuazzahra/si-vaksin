@@ -401,15 +401,10 @@ class AdminController extends Controller
         // }
     }
 
-    // public function editStatus($id){
-    //     $status = Status::find($id);
-    //     return view('Admin.status.edit_status',compact('status'));
-        
-    // }
-
     public function editStatus($id){
         $status = Status::find($id);
         return response()->json($status);
+        // return view('Admin.status.edit_status',compact('status'));
     }
 
     // public function editStatusAction(Request $request, $id){
@@ -430,27 +425,24 @@ class AdminController extends Controller
 
     // }
 
-    public function editStatusAction(Request $request, $id){
-        if ($request->submit=="submit") {
-            $request->validate([
-                'status'=>'required|string'
-            ]);
+    public function editStatusAction(Request $request){
+        // if ($request->submit=="submit") {
+        $request->validate([
+            'status'=>'required|string'
+        ]);
 
-            $attr=Status::find($id);
-            $attr->status=$request->status;
-            $attr->save();
-            if ($attr) {
-                return response()->json($attr); 
-            }
-        }
-        return redirect("admin/data-status");
+        Status::find($request->id)->update([
+            'status'=>$request->status,
+        ]);
+        $status=Status::find($request->id);
 
+        return response()->json($status);
     }
 
     public function delStatus(Request $request){
-        $status = Status::find($request->id_status);
+        $status = Status::find($request->id);
         $status->delete();
-        return response()->json(['success'=>'Record has been deleted']);
+        return response()->json($status);
         // return redirect("admin/data-status");
     }
 }

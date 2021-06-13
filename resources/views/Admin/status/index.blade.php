@@ -20,9 +20,9 @@
 				<tbody>
 					@foreach($status as $status)
 						<tr id="sid{{$status->id_status}}">
-							<td class="text-center">{{$status->id_status}}</td>
-							<td class="fw-bold text-center">{{$status->status}}</td>
-							<td>
+							<td id="text-id_status" class="text-center">{{$status->id_status}}</td>
+							<td id="text-status" class="fw-bold text-center">{{$status->status}}</td>
+							<td id="text-button">
 								<!-- Button trigger modal -->
 								<button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editStatus({{$status->id_status}})" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
 
@@ -58,11 +58,11 @@
 								  	</div>
 								</div>
 								
-								<form method="POST" id="deleteForm">
+								<form id="deleteForm" method="POST">
 									@csrf
 									@method('post')
 									<input type="hidden" name="id_status" id="id_status" value="{{$status->id_status}}">
-									<button class="btn btn-danger text-white  w-100" type="submit" name="submit" value="submit">Delete</button>
+									<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button>
 								</form>
 							</td>
 						</tr>
@@ -103,8 +103,10 @@
 				data:$("#createForm").serialize(),
 				success:function(response){
 					if (response) {
+						$("#table_id tbody").append('<tr id="sid'+response.id_status+'"><td id="text-id_status" class="text-center">'+response.id_status+'</td><td id="text-status" class="fw-bold text-center">'+response.status+'</td><td id="text-button"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editStatus('+response.id_status+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST"> @csrf @method("post") <input type="hidden" name="id_status" id="id_status" value="'+response.id_status+'"><button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
 						
-						$("#table_id tbody").prepend('<tr><td class="text-center sorting_1" >'+response.id_status+'</td><td class="fw-bold text-center">'+response.status+'</td><td><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editStatus('+response.id_status+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form action="" method="POST"> @csrf @method("post") <button class="border-0 bg-danger text-dark nav-link w-100" type="submit" name="delete" value="delete">Delete</button></form></td>');
+
+						// $("#table_id tbody").prepend('<tr><td class="text-center sorting_1" >'+response.id_status+'</td><td class="fw-bold text-center">'+response.status+'</td><td><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editStatus('+response.id_status+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form action="" method="POST"> @csrf @method("post") <button class="border-0 bg-danger text-dark nav-link w-100" type="submit" name="delete" value="delete">Delete</button></form></td>');
 						
 						$("#createForm")[0].reset();
 					}
@@ -112,27 +114,7 @@
 			});
 		});
 		
-		//delete handler
-		// $("#deleteForm").submit(function(e){
-	 //  		e.preventDefault();
-
-		// 	let id = $("#id_status").val();
-		// 	let _token=$("input[name=_token]").val();
-		// 	// data-status/delete/
-		// 	$.ajax({
-		// 		url: "{{route('status.del')}}",
-		// 		type: "POST",
-		// 		data: {
-		// 			id_status=id,
-		// 			_token=_token,
-		// 		},
-		// 		success:function(response){
-		// 			if (response) {
-		// 				console.log(response);
-		// 			}
-		// 		}
-		// 	});
-		// });
+		
 
 		//edit handler
 		$("#editForm").submit(function(e){
@@ -141,20 +123,40 @@
 	  		let id = $("#id_status2").val();
 	  		let status=$("#status2").val();
 	  		let _token=$("input[name=_token]").val();
-
 			$.ajax({
-				url: "data-status/edit/"+id,
+				url: "{{route('status.edit')}}",
 				type: "POST",
 				data:{
+					id:id,
 					status:status,
 					_token:_token,
 				},
 				success:function(response){
 					if (response) {
-						$("#sid"+response.id_status+" td").text(response.id_status);
-						$("#sid"+response.id_status+" td").text(response.status);
+						$("#sid"+response.id_status+" #text-id_status").text(response.id_status);
+						$("#sid"+response.id_status+" #text-status").text(response.status);
 						$("#editModal").modal('toggle');
 						$("#editForm")[0].reset();
+					}
+				}
+			});
+		});
+
+		$("#deleteForm").submit(function(e){
+	  		e.preventDefault();
+
+	  		let id = $("#id_status").val();
+	  		let _token=$("input[name=_token]").val();
+			$.ajax({
+				url: "{{route('status.del')}}",
+				type: "POST",
+				data:{
+					id:id,
+					_token:_token,
+				},
+				success:function(response){
+					if (response) {
+						console.log(response);
 					}
 				}
 			});
