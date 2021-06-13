@@ -147,6 +147,7 @@
 
 	  		let id = $("#id_status").val();
 	  		let _token=$("input[name=_token]").val();
+	  		
 			$.ajax({
 				url: "{{route('status.del')}}",
 				type: "POST",
@@ -155,8 +156,8 @@
 					_token:_token,
 				},
 				success:function(response){
-					if (response) {
-						console.log(response);
+					if (!response) {
+						$("#sid"+id).remove();
 					}
 				}
 			});

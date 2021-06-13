@@ -440,8 +440,8 @@ class AdminController extends Controller
     }
 
     public function delStatus(Request $request){
-        $status = Status::find($request->id);
-        $status->delete();
+        Status::find($request->id)->delete();
+        $status=Status::find($request->id);
         return response()->json($status);
         // return redirect("admin/data-status");
     }
