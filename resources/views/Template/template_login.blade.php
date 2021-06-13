@@ -8,10 +8,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="icon" type="image/png" sizes="96x96" href="img/logo.png">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/loginuser.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/loginuser.css')}}">
 
     {{-- font --}}
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,700|Prata" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic" rel="stylesheet" />
 
     <title>@yield('title')</title>
   </head>

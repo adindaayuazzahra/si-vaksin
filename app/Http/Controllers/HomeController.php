@@ -15,6 +15,10 @@ class HomeController extends Controller
     public function index(){
         return view("User.homepage");
     }
+  
+    public function jadwal(){
+        return view("User.jadwaltempat");
+    }
 
     //Akun
     public function login(){

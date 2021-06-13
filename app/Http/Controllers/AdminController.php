@@ -12,7 +12,8 @@ use App\Models\Vaksin;
 use App\Models\Pembayaran;
 use App\Models\User;
 use App\Models\Status;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+
 class AdminController extends Controller
 {
 
