@@ -24,11 +24,11 @@ class CreatePendaftaranVaksin extends Migration
             $table->integer('id_vaksin')->unsigned();
             $table->foreign('id_vaksin')->references('id_vaksin')->on('vaksin.vaksin');
 
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
 
             $table->timestamp('tgl_pendaftaran')->useCurrent();
 
-            $table->integer('id_status')->unsigned();
+            $table->integer('id_status')->unsigned()->nullable();
             $table->foreign('id_status')->references('id_status')->on('vaksin.status');
         });
     }
@@ -40,6 +40,6 @@ class CreatePendaftaranVaksin extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pendaftaran_vaksin');
+        Schema::dropIfExists('pendaftaran');
     }
 }

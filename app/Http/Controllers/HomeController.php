@@ -3,65 +3,64 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Pendaftar;
+use App\Models\Registrasi;
+use App\Models\InformasiUser;
+use App\Models\RumahSakit;
+use App\Models\Vaksin;
+use App\Models\Pembayaran;
 
 class HomeController extends Controller
 {
     public function index(){
         return view("User.homepage");
     }
+  
+    public function jadwal(){
+        return view("User.jadwaltempat");
+    }
+
     //Akun
     public function login(){
         return view("User.akun.login");
     }
 
     public function loginAction(Request $request){
-        if ($request->submit=="login"){
+        if ($request->submit=="submit") {
             $request->validate([
                 'email'=>'required|email',
                 'password'=>'required'
-            ]);
-
-            if(Auth::attempt(['email'=> $request->email, 'password'=>$request->password])){
-                $user=Auth::user();
-                $request->session()->regenerate();
-                return redirect("/")->with('account',$user);
-            }
-            else{
-                return redirect()->back()->with('success', 'Inputed username or password is incorrect!');   
-            }  
+            ]);   
         }
-        else{
-            return redirect("/");
-        }   
     }
 
     public function logout(Request $request){
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    
     }
 
     public function daftar(){
         return view("User.akun.daftar");
     }
 
-    public function jadwal(){
-        return view("User.jadwaltempat");
-    }
-    
-    public function daftarpAction(Request $request){
-        if ($request->submit=="signup") {
-            $akun = $request->validate([
+    public function daftarAction(Request $request){
+        if ($request->submit=="submit") {
+            $request->validate([
                 'username'=>'required|string',
                 'nama'=>'required|string',
                 'email'=>'required|email',
                 'password'=>'required'
             ]);
 
-            User::create(
+            $userid=mt_rand(100000000, 999999999);
+            $count=0;
+            while (Pendaftar::find($userid) && $count < 899999999) {
+                $count++;
+                $userid=mt_rand(100000000, 999999999);
+            }
+
+            Pendaftar::create(
                 array(
+                    'id_user'=>$userid,
                     'username' => $request->username,
                     'nama' => $request->nama,
                     'email' => $request->email,

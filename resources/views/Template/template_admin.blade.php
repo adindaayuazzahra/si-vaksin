@@ -2,16 +2,19 @@
 <html>
 	<head>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>@yield('title')</title>
 		<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('img/logo.png') }}">
 
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-
-		
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
 		<style>
 			body{
+				background: #7e21ff;
+			    background-repeat: no-repeat;
+			    background-size: cover;
+			    background-attachment: fixed;
 				height: 100vh;
 			}
 			.text-justify{
@@ -26,7 +29,7 @@
 	</head>
 
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+		<nav class="navbar navbar-expand-lg bg-dark">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="{{ url('/') }}">
 	          <img src="{{asset('img/goVaksinwhite.png')}}" height="35" class="d-inline-block align-top" alt="">
@@ -42,7 +45,7 @@
 		        </li>
 
 		        <li class="nav-item">
-		          <a class="nav-link text-white" href="#">Laporan Pendaftaran</a>
+		          <a class="nav-link text-white" href="{{ url('admin/laporan') }}">Laporan Pendaftaran</a>
 		        </li>
 
 		        <li class="nav-item dropdown">
@@ -59,6 +62,10 @@
 		            <li><hr class="dropdown-divider"></li>
 
 		            <li><a class="dropdown-item font-weight-bold" href="{{ url('admin/data-admin') }}">Database Admin</a></li>
+
+		            <li><hr class="dropdown-divider"></li>
+
+		            <li><a class="dropdown-item font-weight-bold" href="{{ url('admin/data-status') }}">Database Status</a></li>
 
 		          </ul>
 		        </li>
@@ -85,7 +92,7 @@
 		  </div>
 		</nav>
 
-		<div class="container mb-5 mt-5 p-0">
+		<div class="container mb-5 mt-5 p-4 shadow card rounded">
 
 			@yield('content')
 			
@@ -93,21 +100,21 @@
 
 		
 
-		<footer class="bg-dark p-4 h-20 bottom-0 position-relative w-100">
+		<!-- <footer class="bg-dark p-4 h-20 bottom-0 position-relative w-100">
 			
-		</footer>
-		
+		</footer> -->
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 		
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 		<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+		@yield('script')
 		<script>
 			$(document).ready(function(){
 			  	$('#table_id').DataTable();
 			});
+
 			function loadPreview() {
 				$("#imageUpload").removeClass('d-none');
 		    	var imageUpload = document.getElementById('imageUpload');
@@ -116,6 +123,16 @@
 			      URL.revokeObjectURL(imageUpload.src) // free memory
 			    }
 		 	};
+		 	// $('.nav-item nav-link').click(function(e){
+		 	// 	e.preventDefault();
+		 	// 	var href=$(this).attr('href');
+		 	// 	$('.container').load(href);
+		 	// });
+		 	// $('.nav-item ul li a').click(function(e){
+		 	// 	e.preventDefault();
+		 	// 	var href=$(this).attr('href');
+		 	// 	$('.container').load(href);
+		 	// });
 		</script>
 	</body>
 </html>

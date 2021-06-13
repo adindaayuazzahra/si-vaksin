@@ -5,7 +5,7 @@
 	<h2 class="text-dark justify-content-center">Data Vaksin</h2>
 </div>
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-9">
 		<div class="row">
 			<table id="table_id" class="display">
 				<thead>
@@ -23,7 +23,9 @@
 						<tr>
 							<td>{{$vaksin->nama_vaksin}}</td>
 							<td>
-								<img src="{{ url('assets/admin/img/'. $vaksin->img) }}" width="100" class="img-thumbnail rounded mx-auto d-block">
+								@if($vaksin->img)
+									<img src="{{ url('assets/vaksin/img/'. $vaksin->img) }}" width="100" class="img-thumbnail rounded mx-auto d-block">
+								@endif
 							</td>
 							<td>{{$vaksin->deskripsi}}</td>
 							<td class="fw-bold">Rp. {{$vaksin->harga}}</td>
@@ -44,7 +46,7 @@
 		</div>
 	</div>
 
-	<div class="col-md-3 mb-2 ms-1 card">
+	<div class="col-md-3 mb-2 card">
 		<form action="{{ url('admin/data-vaksin/add') }}" method="POST" class="mt-2 mb-5 w-100" enctype="multipart/form-data">
 			@csrf
 			@method('post')

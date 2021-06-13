@@ -1,9 +1,12 @@
 @extends('Template.template_admin')
-@section('title','Data Vaksin')
+@section('title','goVaksin | Edit Vaksin')
 @section('content')
-<div class=" container mb-5">
-	
-	<form action="{{ url('admin/data-vaksin/edit/'.$vaksin->id_vaksin) }}" method="POST">
+<div class="row">
+	<h1 class="text-center w-100">Edit Vaksin</h1>
+	<hr class="dropdown-divider">
+</div>
+<div class="row">
+	<form action="{{ url('admin/data-vaksin/edit/'.$vaksin->id_vaksin) }}" method="POST" enctype="multipart/form-data">
 		@csrf
 		@method('post')
 
@@ -31,12 +34,21 @@
 			@enderror
 		</div>
 
+		<div class="form-group mb-4">
+			<label for="img">Image</label>
+			<input type="file" name="img" onchange="loadPreview(event)" class="@error('img') is-invalid @enderror form-control">
+			@error('img')
+			    <div class="alert alert-danger">{{ $message }}</div>
+			@enderror
+		</div>
+		<div>
+			<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto d-block mb-4" src="@if($vaksin->img) {{ url('assets/vaksin/img/'. $vaksin->img) }} @endif">
+		</div>
+		
+
 	  	<button type="submit" class="btn btn-primary w-25" name="submit" value="submit">Simpan</button>
 	  	<button type="submit" class="btn btn-primary w-25" name="submit" value="cancel">Kembali</button>
 
 	</form>
-
-
 </div>
-
 @endsection

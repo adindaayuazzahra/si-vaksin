@@ -15,9 +15,9 @@ class CreateJenisVaksin extends Migration
     {
         Schema::create('vaksin.vaksin', function (Blueprint $table) {
             $table->increments('id_vaksin');
-            $table->string('img')->default('admin.svg');
+            $table->string('img')->nullable();
             $table->text('nama_vaksin');
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
             $table->text('harga');
         });
     }
@@ -29,6 +29,6 @@ class CreateJenisVaksin extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jenis_vaksin');
+        Schema::dropIfExists('vaksin');
     }
 }

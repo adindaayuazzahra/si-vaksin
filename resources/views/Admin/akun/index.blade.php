@@ -5,7 +5,7 @@
 	<h2 class="text-dark justify-content-center">Data Admin</h2>
 </div>
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-9">
 		<table id="table_id" class="display">
 			<thead>
 				<tr>
@@ -21,7 +21,9 @@
 					<tr>
 						<td>{{$admin->username}}</td>
 						<td>
+							@if($admin->img)
 							<img src="{{ url('assets/admin/img/'. $admin->img) }}" width="100" class="img-thumbnail rounded mx-auto d-block">
+							@endif
 						</td>
 						<td>{{$admin->nama}}</td>
 						<td>
@@ -40,7 +42,7 @@
 		</table>
 	</div>
 
-	<div class="col-md-3 mb-2 ms-1 card p-25">
+	<div class="col-md-3 mb-2 card p-25">
 		<form action="{{ url('admin/data-admin/add') }}" method="POST" class="mt-3 mb-3 w-100" enctype="multipart/form-data">
 			@csrf
 			@method('post')

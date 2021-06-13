@@ -18,9 +18,9 @@ class CreateUserPendaftar extends Migration
             $table->primary('id_user');
             $table->text('name');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->text('password');
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 
@@ -31,6 +31,6 @@ class CreateUserPendaftar extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_pendaftar');
+        Schema::dropIfExists('user');
     }
 }

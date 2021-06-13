@@ -16,9 +16,9 @@ class CreateUserInformation extends Migration
         Schema::create('vaksin.informasi_user', function (Blueprint $table) {
             $table->integer('id_user')->unsigned();
             $table->foreign('id_user')->references('id_user')->on('vaksin.user');
-            $table->string('img')->default('admin.svg');
+            $table->string('img')->default('user.svg');
             $table->text('nik');
-            $table->text('nama');
+            $table->text('name');
             $table->text('alamat');
             $table->text('provinsi');
             $table->timestamp('tgl_verifikasi')->useCurrent();
@@ -32,6 +32,6 @@ class CreateUserInformation extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_information');
+        Schema::dropIfExists('informasi_user');
     }
 }
