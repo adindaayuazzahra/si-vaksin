@@ -437,10 +437,8 @@ class AdminController extends Controller
             ]);
 
             $attr=Status::find($id);
-            $attr->update([
-                'status'=>$request->status,
-            ]);
-
+            $attr->status=$request->status;
+            $attr->save();
             if ($attr) {
                 return response()->json($attr); 
             }
@@ -449,8 +447,8 @@ class AdminController extends Controller
 
     }
 
-    public function delStatus($id){
-        $status = Status::find($id);
+    public function delStatus(Request $request){
+        $status = Status::find($request->id_status);
         $status->delete();
         return response()->json(['success'=>'Record has been deleted']);
         // return redirect("admin/data-status");

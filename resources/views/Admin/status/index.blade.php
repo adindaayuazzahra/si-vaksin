@@ -62,7 +62,7 @@
 									@csrf
 									@method('post')
 									<input type="hidden" name="id_status" id="id_status" value="{{$status->id_status}}">
-									<button class="border-0 bg-danger text-white nav-link w-100" type="submit" name="delete" value="delete">Delete</button>
+									<button class="btn btn-danger text-white  w-100" type="submit" name="submit" value="submit">Delete</button>
 								</form>
 							</td>
 						</tr>
@@ -92,20 +92,15 @@
 @section('script')
 <script>
 	$(document).ready(function(){
-		//create
+
+		//create handler
 		$("#createForm").submit(function(e){
 	  		e.preventDefault();
-
-			let status = $("#status").val();
-			let _token = $("input[name=_token]").val();
 
 			$.ajax({
 				url: "{{route('status.add')}}",
 				type: "POST",
-				data:{
-					status:status,
-					_token:_token,
-				},
+				data:$("#createForm").serialize(),
 				success:function(response){
 					if (response) {
 						
@@ -117,36 +112,38 @@
 			});
 		});
 		
+		//delete handler
 		// $("#deleteForm").submit(function(e){
 	 //  		e.preventDefault();
 
-		// 	let status = $("#id_status").val();
-		// 	let _token = $("input[name=_token]").val();
-
+		// 	let id = $("#id_status").val();
+		// 	let _token=$("input[name=_token]").val();
+		// 	// data-status/delete/
 		// 	$.ajax({
-		// 		url: 'delete/'+ status,
+		// 		url: "{{route('status.del')}}",
 		// 		type: "POST",
-		// 		data:{
-		// 			status:status,
-		// 			_token:_token,
+		// 		data: {
+		// 			id_status=id,
+		// 			_token=_token,
 		// 		},
 		// 		success:function(response){
 		// 			if (response) {
-		// 				// console.log(response);
+		// 				console.log(response);
 		// 			}
 		// 		}
 		// 	});
 		// });
 
+		//edit handler
 		$("#editForm").submit(function(e){
 	  		e.preventDefault();
 
 	  		let id = $("#id_status2").val();
-			let status = $("#status2").val();
-			let _token = $("input[name=_token]").val();
+	  		let status=$("#status2").val();
+	  		let _token=$("input[name=_token]").val();
 
 			$.ajax({
-				url: "edit/"+id,
+				url: "data-status/edit/"+id,
 				type: "POST",
 				data:{
 					status:status,
@@ -154,8 +151,8 @@
 				},
 				success:function(response){
 					if (response) {
-						$("#sid"+response.id_status+" td:nth-child(1)").text(response.id_status);
-						$("#sid"+response.id_status+" td:nth-child(2)").text(response.status);
+						$("#sid"+response.id_status+" td").text(response.id_status);
+						$("#sid"+response.id_status+" td").text(response.status);
 						$("#editModal").modal('toggle');
 						$("#editForm")[0].reset();
 					}
