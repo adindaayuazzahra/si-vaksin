@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-	<h2 class="text-dark justify-content-center">Data Pendaftaran Vaksin</h2>
+	<h2 class="text-dark justify-content-center">Data Status</h2>
 </div>
 <div class="row">
 	<div class="col-md-9">
@@ -35,7 +35,7 @@
 									        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									      	</div>
 								      
-									        <form method="POST" class="mt-5 mb-5 w-100" id="editForm">
+									        <form method="POST" class="w-100" id="editForm">
 									        	<div class="modal-body">
 													@csrf
 													@method('post')
@@ -147,16 +147,17 @@
 
 	  		let id = $("#id_status").val();
 	  		let _token=$("input[name=_token]").val();
-	  		
+	  		let _method=$("input[name_method]").val();
 			$.ajax({
-				url: "{{route('status.del')}}",
+				url: "{{route('status.delete')}}",
 				type: "POST",
 				data:{
 					id:id,
 					_token:_token,
+					_method:_method,
 				},
 				success:function(response){
-					if (!response) {
+					if (response) {
 						$("#sid"+id).remove();
 					}
 				}

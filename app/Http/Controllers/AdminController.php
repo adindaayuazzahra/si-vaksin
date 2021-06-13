@@ -68,50 +68,6 @@ class AdminController extends Controller
     }
 
     public function addVaksin(Request $request){
-        if ($request->submit=="submit") {
-            $attr = $request->validate([
-                'img'=>'image|mimes:png,jpeg,jpg,gif,svg',
-                'nama_vaksin'=>'required|string',
-                'deskripsi'=>'required|string',
-                'harga'=>'required|string'
-            ]);
-            $imageName=null;
-
-            if ($request->hasFile('img')) {
-                $imageName=time() . "-" . $request->nama_vaksin . "-" . $request->img->extension();
-
-                $request->img->move(public_path('assets/vaksin/img/'), $imageName);
-            }
-
-            
-
-            $vaksin=Vaksin::create([
-                'img'=>$imageName,
-                'nama_vaksin'=>$request->nama_vaksin,
-                'deskripsi'=>$request->deskripsi,
-                'harga'=>$request->harga,
-            ]);
-
-            if($vaksin){
-                return redirect("admin/data-vaksin");
-            }
-            else{
-                return redirect()->back()->with('success', 'Storing inputed data failed!');   
-            }
-        }
-        else{
-            return redirect("admin/data-vaksin");
-        }
-
-    }
-
-    public function editVaksin($id){
-        $vaksin = Vaksin::find($id);
-        return view("Admin.vaksin.edit_vaksin", compact('vaksin'));
-    }
-
-    public function editVaksinAction(Request $request, $id){
-        if ($request->submit=="submit") {
             $request->validate([
                 'img'=>'image|mimes:png,jpeg,jpg,gif,svg',
                 'nama_vaksin'=>'required|string',
@@ -120,39 +76,84 @@ class AdminController extends Controller
             ]);
 
             $imageName=null;
-            
-            $vaksinData = Vaksin::find($id);
-            if ($request->hasFile('img')) {
-                if ($vaksinData->img) {
-                    File::delete(public_path('assets/vaksin/img/') . $vaksinData->img);
-                }
-                $imageName=time() . "-" . $request->nama_vaksin . "-" . $request->img->extension();
+            if ($request->img) {
+                $imageName=time() . "-" . $request->nama_vaksin . "." . $request->img->extension();
+
                 $request->img->move(public_path('assets/vaksin/img/'), $imageName);
             }
-            else{
-                if ($vaksinData->img) {
-                    $imageName=$vaksinData->img;
-                }
-            }
 
-            $vaksin = $vaksinData->update([
+            $vaksin=Vaksin::create([
                 'img'=>$imageName,
                 'nama_vaksin'=>$request->nama_vaksin,
                 'deskripsi'=>$request->deskripsi,
-                'harga'=>$request->harga,           
+                'harga'=>$request->harga,
             ]);
 
-            if ($vaksin) {
-                return redirect("admin/data-vaksin");
+            // if($vaksin){
+            return response()->json($vaksin);
+                // return redirect("admin/data-vaksin");
+            // }
+            // else{
+            //     return redirect()->back()->with('success', 'Storing inputed data failed!');   
+            // }
+        // }
+        // else{
+        //     return redirect("admin/data-vaksin");
+        // }
+
+    }
+
+    public function editVaksin($id){
+        $vaksin = Vaksin::find($id);
+        return response()->json($vaksin);
+        // return view("Admin.vaksin.edit_vaksin", compact('vaksin'));
+    }
+
+    public function editVaksinAction(Request $request){
+        // if ($request->submit=="submit") {
+        $request->validate([
+            'img'=>'image|mimes:png,jpeg,jpg,gif,svg',
+            'nama_vaksin'=>'required|string',
+            'deskripsi'=>'required|string',
+            'harga'=>'required|string'
+        ]);
+
+        $imageName=null;
+        
+        $vaksinData = Vaksin::find($request->id);
+        if ($request->hasFile('img')) {
+            if ($vaksinData->img) {
+                File::delete(public_path('assets/vaksin/img/') . $vaksinData->img);
             }
-            else{
-                return redirect()->back()->with('success','Storing inputed data fail!');
-            }
-            
+            $imageName=time() . "-" . $request->nama_vaksin . "." . $request->img->extension();
+            $request->img->move(public_path('assets/vaksin/img/'), $imageName);
         }
         else{
-            return redirect("admin/data-vaksin");
+            if ($vaksinData->img) {
+                $imageName=$vaksinData->img;
+            }
         }
+
+        $vaksinData->update([
+            'img'=>$imageName,
+            'nama_vaksin'=>$request->nama_vaksin,
+            'deskripsi'=>$request->deskripsi,
+            'harga'=>$request->harga,           
+        ]);
+
+        $vaksin=Vaksin::find($request->id);
+        return response()->json($vaksin);
+            // if ($vaksin) {
+            //     return redirect("admin/data-vaksin");
+            // }
+            // else{
+            //     return redirect()->back()->with('success','Storing inputed data fail!');
+            // }
+            
+        // }
+        // else{
+        //     return redirect("admin/data-vaksin");
+        // }
     }
 
     public function delVaksin($id){
@@ -183,7 +184,7 @@ class AdminController extends Controller
             $imageName=null;
 
             if ($request->hasFile('img')) {
-                $imageName=time() . "-" . $request->nama_rs . "-" . $request->img->extension();
+                $imageName=time() . "-" . $request->nama_rs . "." . $request->img->extension();
                 $request->img->move(public_path('assets/rs/img/'), $imageName);
             }
 
@@ -231,7 +232,7 @@ class AdminController extends Controller
                 if ($rsData->img) {
                     File::delete(public_path('assets/rs/img/') . $rsData->img);
                 }
-                $imageName=time() . "-" . $request->nama_rs . "-" . $request->img->extension();
+                $imageName=time() . "-" . $request->nama_rs . "." . $request->img->extension();
                 $request->img->move(public_path('assets/rs/img/'), $imageName);
             }
             else{
@@ -371,9 +372,10 @@ class AdminController extends Controller
             $request->validate([
                 'status'=>'required|string'
             ]);
-            $status = new Status();
-            $status->status=$request->status;
-            $status->save();
+
+            $status = Status::create([
+                'status'=>$request->status,
+            ]);
             return response()->json($status);
             // if(Status::create($attr)){
             //     // return redirect("admin/data-status");
@@ -427,8 +429,7 @@ class AdminController extends Controller
     }
 
     public function delStatus(Request $request){
-        Status::find($request->id)->delete();
-        $status=Status::find($request->id);
+        $status=Status::find($request->id)->delete();
         return response()->json($status);
         // return redirect("admin/data-status");
     }

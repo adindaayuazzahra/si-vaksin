@@ -35,9 +35,7 @@ Route::post('login-admin',[Admincontroller::class, 'loginAction']);
 
 Route::middleware(['auth'])->group(function(){
     Route::middleware(['authcheck:1'])->group(function(){
-
         Route::post('logout',[Admincontroller::class, 'logout']);
-
         Route::group(['prefix'=>'admin'],function(){
             
             Route::get('/',[Admincontroller::class, 'index']);
@@ -48,12 +46,12 @@ Route::middleware(['auth'])->group(function(){
 
             Route::group(['prefix'=>'data-vaksin'], function(){
                 Route::get('/',[Admincontroller::class, 'indexVaksin']);
-                Route::post('add',[Admincontroller::class, 'addVaksin']);
+                Route::post('add',[Admincontroller::class, 'addVaksin'])->name('vaksin.add');
                 
                 Route::get('edit/{id}',[Admincontroller::class, 'editVaksin']);
-                Route::post('edit/{id}',[Admincontroller::class, 'editVaksinAction']);
+                Route::post('edit',[Admincontroller::class, 'editVaksinAction'])->name('vaksin.edit');
 
-                Route::post('delete/{id}',[Admincontroller::class, 'delVaksin']);
+                Route::post('delete',[Admincontroller::class, 'delVaksin'])->name('vaksin.delete');;
             });
 
             Route::group(['prefix'=>'data-rumah-sakit'], function(){
@@ -65,18 +63,6 @@ Route::middleware(['auth'])->group(function(){
 
                 Route::post('delete/{id}',[Admincontroller::class, 'delRS']);
             });
-
-            Route::group(['prefix'=>'data-admin'], function(){
-                Route::get('/',[Admincontroller::class, 'indexAdmin']);
-                Route::post('add',[Admincontroller::class, 'addAdmin']);
-
-                Route::get('edit/{id}',[Admincontroller::class, 'editAdmin']);
-                Route::post('edit/{id}',[Admincontroller::class, 'editAdminAction']);
-
-                Route::post('delete/{id}',[Admincontroller::class, 'delAdmin']);
-
-            });
-
             Route::group(['prefix'=>'data-status'], function(){
                 Route::get('/',[Admincontroller::class, 'indexStatus']);
                 Route::post('add',[Admincontroller::class, 'addStatus'])->name('status.add');
@@ -84,11 +70,24 @@ Route::middleware(['auth'])->group(function(){
                 Route::get('edit/{id}',[Admincontroller::class, 'editStatus']);
                 Route::post('edit',[Admincontroller::class, 'editStatusAction'])->name('status.edit');
 
-                Route::post('delete',[Admincontroller::class, 'delStatus'])->name('status.del');
+                Route::post('delete',[Admincontroller::class, 'delStatus'])->name('status.delete');
 
             });
         });
+    });
 
+    Route::middleware(['authcheck:1'])->group(function(){
+        Route::group(['prefix'=>'admin'], function(){
+            Route::group(['prefix'=>'data-admin'],function(){
+                Route::get('/',[Admincontroller::class, 'indexAdmin']);
+                Route::post('add',[Admincontroller::class, 'addAdmin']);
+
+                Route::get('edit/{id}',[Admincontroller::class, 'editAdmin']);
+                Route::post('edit/{id}',[Admincontroller::class, 'editAdminAction']);
+
+                Route::post('delete/{id}',[Admincontroller::class, 'delAdmin']);
+            });
+        });
     });
 });
 
