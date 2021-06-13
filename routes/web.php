@@ -15,10 +15,6 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/', function () {
-    return view('homepage');
-});
-
 Route::group(['prefix'=>'/'], function(){
     Route::get('/', [Homecontroller::class, 'index']);
     Route::get('login', [Homecontroller::class, 'login']);

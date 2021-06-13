@@ -8,17 +8,54 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('img/logo.png') }}">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/homepageuser.css')}}"> --}}
 
     {{-- font --}}
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,700|Prata" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Prata&display=swap" rel="stylesheet">
 
     <title>goVaksin | Homepage</title>
+    <style>
+      body{
+        background: #7e21ff;
+        font-family: 'Lato', sans-serif;
+        color: white;
+      }
+      .container img {
+        margin-top: 50px;
+        margin-right: -50px;
+      }
+      .container .content {
+        margin-top: 140px;
+        margin-left: -50px;
+      }
+      .container .content h1 {
+        font-weight:600; 
+        font-size: 46pt;
+        font-family: 'Prata', serif;
+        margin-bottom: 9px;
+      }
+      .container a {
+        margin-top: 5px;
+        font-weight: 600;
+        color: white;
+        background-color: #ff7d63;
+        border-radius: 10px;
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.5);
+      }
+      .navbar-text a {
+        border-radius: 10px;
+      }
+
+      @media (min-width: 576px) {
+       
+      }
+    </style>
 
   </head>
-  <body>
+  <body style="">
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{url('/')}}">
           <img src="{{asset('img/goVaksinwhite.png')}}" height="35" class="d-inline-block align-top" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,10 +64,10 @@
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link" href="{{url('/')}}">Home</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="#">Jadwal & Tempat Vaksin</a>
+              <a class="nav-link" href="{{url('/jadwal')}}">Jadwal & Tempat Vaksin</a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="#">Daftar Vaksin</a>
@@ -38,19 +75,6 @@
             <li class="nav-item active">
               <a class="nav-link" href="#">Syarat Vaksinasi</a>
             </li>
-            {{-- <li class="nav-item dropdown active">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Konsultasi
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          	<li><p class="dropdown-item font-weight-bold">Konsultasi Vaksinasi</p></li>
-		            <li><a class="dropdown-item" href="#">Menu 1</a></li>
-		            <li><a class="dropdown-item" href="#">Menu 2</a></li>
-		            <li><hr class="dropdown-divider"></li>
-		            <li><p class="dropdown-item font-weight-bold">Konsultasi Pencegahan</p></li>
-		            <li><a class="dropdown-item" href="#">Menu 3</a></li>
-		          </ul>
-            </li> --}}
           </ul>
           <span class="navbar-text">
             <a href="{{url('/login')}}" type="submit" class="btn text-white">MASUK</a>
@@ -60,31 +84,21 @@
     </nav>
 
     {{-- jumbotron --}}
-    <div class="jumbotron">
-      <div class="container">
-        <div class="row">
-          
-          <div class="col">
-            <div class="content">
-              <h1>Bersedia Untuk Lindungi Indonesia Bebas Dari Covid?</h1>
-              <p class="lead">Dapatkan Segera Vaksin di Rumah Sakit Terdekat!</p>
-              <a class="btn btn-lg" href="{{url('/login')}}" role="button">Bersedia Sekarang</a>
-            </div>
-          </div>
-  
-          <div class="col">
-            <img src="{{asset('img/gambar.png')}}" width="100%" height="100%" class="float-right" alt="">
-          </div>
-
-        </div>
-      </div>
-    </div>
-
     <div class="container">
       <div class="row">
+        
         <div class="col">
-          
+          <div class="content">
+            <h1>Bersedia Untuk Lindungi Indonesia Bebas Dari Covid?</h1>
+            <p class="lead">Dapatkan Segera Vaksin di Rumah Sakit Terdekat!</p>
+            <a class="btn btn-lg" href="{{url('/login')}}" role="button">Bersedia Sekarang</a>
+          </div>
         </div>
+
+        <div class="col">
+          <img src="{{asset('img/gambar.png')}}" width="100%" height="100%" class="float-right" alt="">
+        </div>
+
       </div>
     </div>
 
