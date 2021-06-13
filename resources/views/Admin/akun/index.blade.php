@@ -10,8 +10,8 @@
 			<thead>
 				<tr>
 					<th class="text-center">Username</th>
-					<th class="text-center">Image</th>
 					<th class="text-center">Nama</th>
+					<th class="text-center">Email</th>
 					<th class="text-center">Controls</th>
 				</tr>
 			</thead>
@@ -19,17 +19,13 @@
 			<tbody>
 				@foreach($list_admin as $admin)
 					<tr>
-						<td>{{$admin->username}}</td>
+						<td class="text-center">{{$admin->username}}</td>
+						<td class="text-center">{{$admin->nama}}</td>
+						<td class="text-center">{{$admin->email}}</td>
 						<td>
-							@if($admin->img)
-							<img src="{{ url('assets/admin/img/'. $admin->img) }}" width="100" class="img-thumbnail rounded mx-auto d-block">
-							@endif
-						</td>
-						<td>{{$admin->nama}}</td>
-						<td>
-							<a href="{{ url('admin/data-admin/edit/'.$admin->id_admin) }}" class="border-0 bg-danger text-white nav-link text-center mb-2">Edit</a>
+							<a href="{{ url('admin/data-admin/edit/'.$admin->id_user) }}" class="border-0 bg-danger text-white nav-link text-center mb-2">Edit</a>
 							
-							<form action="{{ url('admin/data-admin/delete/'.$admin->id_admin) }}" method="POST">
+							<form action="{{ url('admin/data-admin/delete/'.$admin->id_user) }}" method="POST">
 								@csrf
 								@method('post')
 								<button class="border-0 bg-warning text-dark nav-link w-100" type="submit" name="delete" value="delete">Delete</button>
@@ -52,6 +48,11 @@
 			</div>
 
 			<div class="form-group mb-3">
+				<label for="email">Email</label>
+				<input type="email" name="email" class="@error('email') is-invalid @enderror form-control">
+			</div>
+
+			<div class="form-group mb-3">
 				<label for="nama">Nama</label>
 				<input type="text" name="nama" placeholder="@error('nama') Nama wajib diisi. @enderror" class="@error('nama') is-invalid @enderror form-control">
 			</div>
@@ -61,15 +62,9 @@
 				<input type="password" name="password" class="@error('password') is-invalid @enderror form-control">
 			</div>
 
-			<div class="form-group mb-4">
-				<label for="img">Image</label>
-				<input type="file" name="img" onchange="loadPreview(event)" class="@error('img') is-invalid @enderror form-control">
-				@error('img')
-				    <div class="alert alert-danger">{{ $message }}</div>
-				@enderror
-			</div>
-			<div>
-				<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto d-block d-none">
+			<div class="form-group mb-3">
+				<label for="level">Level</label>
+				<input type="number" name="level" class="@error('level') is-invalid @enderror form-control">
 			</div>
 
 			<button type="submit" class="btn btn-primary w-50" name="submit" value="submit">Simpan</button>

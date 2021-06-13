@@ -272,31 +272,34 @@ class AdminController extends Controller
 
     //Data Admin
     public function indexAdmin(){
-        $list_admin=User::all();
+        $list_admin=User::where('level',1)->get();
         return view("Admin.akun.index", compact('list_admin'));
     }
 
     public function addAdmin(Request $request){
          if ($request->submit=="submit") {
             $request->validate([
-                'img'=>'image|mimes:jpeg,png,jpg,gif,svg',
                 'username'=>'required|string',
+                'email'=>'required|email',
                 'nama'=>'required|string',
-                'password'=>'required'
+                'password'=>'required',
+                'level'=>'required'
             ]);
-
-            $imageName=null;
-            if ($request->hasFile('img')) {
-                $imageName=time() . "-" . $request->username . "-" . $request->img->extension();
-
-                $request->img->move(public_path('assets/admin/img/'), $imageName);
-            }
             
+            $userid=mt_rand(100000000, 999999999);
+            $count=0;
+            while (Pendaftar::find($userid) && $count < 899999999) {
+                $count++;
+                $userid=mt_rand(100000000, 999999999);
+            }
+
             $attr = User::create([
-                'img'=>$imageName,
+                'id_user'=>$userid,
                 'username'=>$request->username,
+                'email'=>$request->email,
                 'nama'=>$request->nama,
-                'password'=>bcrypt($request->password)
+                'password'=>bcrypt($request->password),
+                'level'=>$request->level,
             ]);
             
             if ($attr) {
@@ -320,32 +323,19 @@ class AdminController extends Controller
     public function editAdminAction(Request $request, $id){
         if ($request->submit=="submit") {
             $request->validate([
-                'img'=>'image|mimes:jpeg,png,jpg,gif,svg',
                 'username'=>'required|string',
+                'email'=>'required|email',
                 'nama'=>'required|string',
-                'password'=>'required'
+                'password'=>'required',
+                'level'=>'required'
             ]);
 
-            $adminData = User::find($id);
-
-            if ($request->hasFile('img') && !($adminData->img == "admin.svg") ) {
-                File::delete(public_path('assets/admin/img/') . $adminData->img);
-
-                $imageName=time() . "-" . $request->username . "-" . $request->img->extension();
-
-                $request->img->move(public_path('assets/admin/img/'), $imageName);
-            }
-            else{
-                if($adminData->img){
-                    $imageName=$adminData->img;
-                }
-            }
-
             $inputAdmin=User::find($id)->update([
-                'img'=>$imageName,
                 'username'=>$request->username,
+                'email'=>$request->email,
                 'nama'=>$request->nama,
-                'password'=>bcrypt($request->password)
+                'password'=>bcrypt($request->password),
+                'level'=>$request->level,
             ]);
 
             if ($inputAdmin) {
@@ -362,11 +352,7 @@ class AdminController extends Controller
     }
 
     public function delAdmin($id){
-        $data = User::find($id);
-        if (!($data->img=="admin.svg")) {
-            File::delete(public_path('assets/admin/img/') . $data->img);
-        }
-        $data->delete();
+        $data = User::find($id)->delete();
         return redirect("admin/data-admin");
 
     }

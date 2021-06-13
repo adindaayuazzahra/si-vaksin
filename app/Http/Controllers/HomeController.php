@@ -16,8 +16,9 @@ class HomeController extends Controller
         return view("User.homepage");
     }
   
-    public function jadwal(){
-        return view("User.jadwaltempat");
+    public function infoJadwal(){
+        $list_rs=RumahSakit::all();
+        return view("User.jadwaltempat", compact('list_rs'));
     }
 
     //Akun

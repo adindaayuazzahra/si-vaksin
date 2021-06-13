@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthCheck
 {
@@ -14,8 +15,20 @@ class AuthCheck
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $level)
     {
-        return $next($request);
+        if (!Auth::check()) {
+            return route('login.admin');
+        }
+        else{
+            $authen=Auth::user();
+            if ($authen->level==$level) {
+                return $next($request);
+            }
+            else{
+                abort(404);
+            }
+        }
+        
     }
 }
