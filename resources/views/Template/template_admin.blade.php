@@ -61,9 +61,12 @@
 
 		            <li><hr class="dropdown-divider"></li>
 
+		            @if(Auth::user()->level==1)
+
 		            <li><a class="dropdown-item font-weight-bold" href="{{ url('admin/data-admin') }}">Database Admin</a></li>
 
 		            <li><hr class="dropdown-divider"></li>
+		            @endif
 
 		            <li><a class="dropdown-item font-weight-bold" href="{{ url('admin/data-status') }}">Database Status</a></li>
 

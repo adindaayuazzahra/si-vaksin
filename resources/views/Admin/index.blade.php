@@ -10,9 +10,4 @@
 			<h3 class="text-center">Welcome {{$akun->nama}} to admin panel</h3>
 		</div>
 	</div>
-
-
-
-
-
 @endsection

@@ -272,7 +272,7 @@ class AdminController extends Controller
 
     //Data Admin
     public function indexAdmin(){
-        $list_admin=User::where('level',1)->get();
+        $list_admin=User::where('level',1)->orWhere('level',2)->get();
         return view("Admin.akun.index", compact('list_admin'));
     }
 
