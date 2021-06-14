@@ -17,14 +17,14 @@ class AuthCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        $pangkat=array_slice(func_get_args(), 2);
+        $level=array_slice(func_get_args(), 2);
         if (!Auth::check()) {
             return route('login.admin');
         }
         else{
-            foreach($pangkat as $admin){
-                $authen=Auth::user();
-                if ($authen->level==$admin) {
+            $authen=Auth::user();
+            foreach($level as $level){
+                if ($authen->level==$level) {
                     return $next($request);
                 }
             }

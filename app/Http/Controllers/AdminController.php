@@ -98,6 +98,7 @@ class AdminController extends Controller
 
     public function editVaksinAction(Request $request){
         $request->validate([
+            'id_vaksin2'=>'required',
             'nama_vaksin2'=>'required|string',
             'deskripsi2'=>'required|string',
             'harga2'=>'required',
@@ -106,12 +107,12 @@ class AdminController extends Controller
 
         $imageName=null;
         
-        $vaksinData = Vaksin::find($request->id);
-        if ($request->hasFile('img')) {
+        $vaksinData = Vaksin::find($request->id_vaksin2);
+        if ($request->hasFile('img2')) {
             if ($vaksinData->img) {
                 File::delete(public_path('assets/vaksin/img/') . $vaksinData->img);
             }
-            $imageName=time() . "-" . $request->nama_vaksin . "." . $request->img->extension();
+            $imageName=time() . "-" . $request->nama_vaksin2 . "." . $request->img->extension();
             $request->img->move(public_path('assets/vaksin/img/'), $imageName);
         }
         else{
@@ -121,13 +122,14 @@ class AdminController extends Controller
         }
 
         $vaksinData->update([
+            'id_vaksin'=>$request->id_vaksin2,
             'img'=>$imageName,
-            'nama_vaksin'=>$request->nama_vaksin,
-            'deskripsi'=>$request->deskripsi,
-            'harga'=>$request->harga,           
+            'nama_vaksin'=>$request->nama_vaksin2,
+            'deskripsi'=>$request->deskripsi2,
+            'harga'=>$request->harga2,           
         ]);
 
-        $vaksin=Vaksin::find($request->id);
+        $vaksin=Vaksin::find($request->id_vaksin2);
         return response()->json($vaksin);
             // if ($vaksin) {
             //     return redirect("admin/data-vaksin");

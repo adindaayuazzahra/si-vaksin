@@ -7,7 +7,7 @@
 <div class="row">
 	<div class="col-md-9">
 		<div class="row">
-			<table id="table_id" class="display" onchange="loadData()">
+			<table id="table_id" class="display">
 				<thead>
 					<tr>
 						<th>Vaksin</th>
@@ -41,11 +41,13 @@
 									        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									      	</div>
 								      
-									        <form method="POST" class="w-100" id="editForm" enctype="multipart/form-data">
+									        <form class="w-100" id="editForm" enctype="multipart/form-data" method="POST">
 									        	<div class="modal-body">
 													@csrf
 													@method('post')
+
 													<input type="hidden" id="id_vaksin2" name="id_vaksin2">
+
 													<div class="form-group mb-3">
 														<label for="nama_vaksin2">Vaksin</label>
 														<input id="nama_vaksin2" type="text" name="nama_vaksin2" placeholder="@error('nama_vaksin2') Vaksin wajib diisi. @enderror" class="@error('nama_vaksin2') is-invalid @enderror form-control">
@@ -154,12 +156,16 @@
 				success:function(response){
 					if (response) {
 						$("#table_id tbody").append('<tr id="vid'+response.id_vaksin+'"><td id="nama-vaksin">'+response.nama_vaksin+'</td><td id="img-vaksin">@if('+response.img+')<img id="imageContent" src="" width="100" class="img-thumbnail rounded mx-auto d-block">@endif</td><td id="deskripsi-vaksin">'+response.deskripsi+'</td><td id="harga-vaksin" class="fw-bold">Rp. '+response.harga+'</td><td id="kontrol-vaksin"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editVaksin('+response.id_vaksin+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST">@csrf @method("post")<input type="hidden" name="id_vaksin3" id="id_vaksin3" value="'+response.id_vaksin+'"><button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
+						
 						if (response.img) {
 							var imageCreateUpload=document.getElementById("#imageContent");
-							imageCreateUpload.src="{{url('assets/vaksin/img/"+response.img+"')}}";
+							imageCreateUpload.src=`{{url('assets/vaksin/img/${response.img}')}}`;
 							imageCreateUpload.onload = function() {
 						      URL.revokeObjectURL(imageCreateUpload.src) // free memory
-						    }
+							}
+						}
+						else{
+							$("#imageContent").addClass('d-none');
 						}
 						$("#createForm")[0].reset();
 					}
@@ -180,10 +186,8 @@
 				data: formData,
 				contentType: false,
 				processData: false,
-
 				success:function(response){
 					if (response) {
-						console.log(data);
 						console.log(response);
 						$("#vid"+response.id_vaksin+" #nama-vaksin").text(response.nama_vaksin);
 						$("#vid"+response.id_vaksin+" #deskripsi-vaksin").text(response.deskripsi);
@@ -217,6 +221,9 @@
 			    imageUpload2.onload = function() {
 			      	URL.revokeObjectURL(imageUpload2.src); // free memory
 			    }
+			}
+			else{
+				$("#imageUpload2").addClass('d-none');
 			}
 		});
 	}
