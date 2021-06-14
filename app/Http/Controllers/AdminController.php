@@ -57,14 +57,16 @@ class AdminController extends Controller
 
     //Data Laporan
     public function indexLaporan(){
+        $akun=Auth::user();
         $laporan = Registrasi::all();
-        return view("Admin.laporan.index", compact('laporan'));
+        return view("Admin.laporan.index", compact('laporan'),compact('akun'));
     }
 
     //Data Vaccine
     public function indexVaksin(){
+        $akun=Auth::user();
         $list_vaksin=Vaksin::all();
-        return view("Admin.vaksin.index", compact('list_vaksin'));
+        return view("Admin.vaksin.index", compact('list_vaksin'),compact('akun'));
     }
 
     public function addVaksin(Request $request){
@@ -154,8 +156,9 @@ class AdminController extends Controller
 
     //Data Rumah Sakit
     public function indexRS(){
+        $akun=Auth::user();
         $list_rs=RumahSakit::all();
-        return view("Admin.rumahsakit.index", compact('list_rs'));
+        return view("Admin.rumahsakit.index", compact('list_rs'), compact('akun'));
     }
 
 
@@ -261,8 +264,9 @@ class AdminController extends Controller
 
     //Data Admin
     public function indexAdmin(){
+        $akun=Auth::user();
         $list_admin=User::where('level',1)->orWhere('level',2)->get();
-        return view("Admin.akun.index", compact('list_admin'));
+        return view("Admin.akun.index", compact('list_admin'), compact('akun'));
     }
 
     public function addAdmin(Request $request){
@@ -330,8 +334,9 @@ class AdminController extends Controller
 
     //Jadwal Vaksinasi
     public function indexStatus(){
+        $akun=Auth::user();
         $status = Status::all();
-        return view('Admin.status.index', compact('status'));
+        return view('Admin.status.index', compact('status'),compact('akun'));
     }
 
     public function addStatus(Request $request){

@@ -75,7 +75,7 @@
 
 		      	<ul class="navbar-nav mb-2 mb-lg-0">
 			      	<li class="nav-item">
-			          <a class="nav-link text-white" href="">Profile</a>
+			          <a class="nav-link text-white">{{$akun->nama}}</a>
 			      	</li>
 		      	</ul>
 

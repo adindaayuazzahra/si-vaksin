@@ -33,8 +33,12 @@ Route::get('jadwal', [Homecontroller::class, 'infoJadwal']);
 Route::get('login-admin',[Admincontroller::class, 'login'])->name('login.admin');
 Route::post('login-admin',[Admincontroller::class, 'loginAction']);
 
+Route::middleware(['pendaftarcheck'])->group(function(){
+
+});
+
 Route::middleware(['auth'])->group(function(){
-    
+    //Admin
     Route::middleware(['authcheck:1,2'])->group(function(){
         
         Route::post('logout',[Admincontroller::class, 'logout']);
@@ -79,15 +83,19 @@ Route::middleware(['auth'])->group(function(){
         });
     });
 
+    //Superadmin
+
     Route::middleware(['authcheck:1'])->group(function(){
-        Route::group(['prefix'=>'data-admin'],function(){
-            Route::get('/',[Admincontroller::class, 'indexAdmin']);
-            Route::post('add',[Admincontroller::class, 'addAdmin'])->name('admin.add');
+        Route::group(['prefix'=>'admin'],function(){
+            Route::group(['prefix'=>'data-admin'],function(){
+                Route::get('/',[Admincontroller::class, 'indexAdmin']);
+                Route::post('add',[Admincontroller::class, 'addAdmin'])->name('admin.add');
 
-            Route::get('edit/{id}',[Admincontroller::class, 'editAdmin']);
-            Route::post('edit',[Admincontroller::class, 'editAdminAction'])->name('admin.edit');
+                Route::get('edit/{id}',[Admincontroller::class, 'editAdmin']);
+                Route::post('edit',[Admincontroller::class, 'editAdminAction'])->name('admin.edit');
 
-            Route::post('delete/{id}',[Admincontroller::class, 'delAdmin'])->name('admin.delete');
+                Route::post('delete/{id}',[Admincontroller::class, 'delAdmin'])->name('admin.delete');
+            });
         });
     });
 });
