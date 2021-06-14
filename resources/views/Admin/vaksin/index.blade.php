@@ -7,7 +7,7 @@
 <div class="row">
 	<div class="col-md-9">
 		<div class="row">
-			<table id="table_id" class="display">
+			<table id="table_id" class="display" onchange="loadData()">
 				<thead>
 					<tr>
 						<th>Vaksin</th>
@@ -24,7 +24,7 @@
 							<td id="nama-vaksin">{{$vaksin->nama_vaksin}}</td>
 							<td id="img-vaksin">
 								@if($vaksin->img)
-									<img src="{{$vaksin->img}}" width="100" class="img-thumbnail rounded mx-auto d-block">
+									<img id="imageContent" src="{{url('assets/vaksin/img'.$vaksin->img) }}" width="100" class="img-thumbnail rounded mx-auto d-block">
 								@endif
 							</td>
 							<td id="deskripsi-vaksin">{{$vaksin->deskripsi}}</td>
@@ -129,6 +129,7 @@
 
 		</form>
 	</div>
+
 	
 </div>
 	
@@ -152,7 +153,14 @@
 				processData: false,
 				success:function(response){
 					if (response) {
-						$("#table_id tbody").append('<tr id="vid'+response.id_vaksin+'"><td id="nama-vaksin">'+response.nama_vaksin+'</td><td id="img-vaksin">@if('+response.img+')<img src="'+response.img+'" width="100" class="img-thumbnail rounded mx-auto d-block"> @endif </td><td id="deskripsi-vaksin">'+response.deskripsi+'</td><td id="harga-vaksin" class="fw-bold">Rp. '+response.harga+'</td><td id="kontrol-vaksin"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editVaksin('+response.id_vaksin+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST">@csrf @method("post")<input type="hidden" name="id_vaksin3" id="id_vaksin3" value="'+response.id_vaksin+'"><button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
+						$("#table_id tbody").append('<tr id="vid'+response.id_vaksin+'"><td id="nama-vaksin">'+response.nama_vaksin+'</td><td id="img-vaksin">@if('+response.img+')@if('+response.img+')<img id="imageContent" src="" width="100" class="img-thumbnail rounded mx-auto d-block">@endif</td><td id="deskripsi-vaksin">'+response.deskripsi+'</td><td id="harga-vaksin" class="fw-bold">Rp. '+response.harga+'</td><td id="kontrol-vaksin"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editVaksin('+response.id_vaksin+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST">@csrf @method("post")<input type="hidden" name="id_vaksin3" id="id_vaksin3" value="'+response.id_vaksin+'"><button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
+						if (response.img) {
+							var imageCreateUpload=document.getElementById("#imageContent");
+							imageCreateUpload.src="{{url('assets/vaksin/img/"+response.img+"')}}";
+							imageCreateUpload.onload = function() {
+						      URL.revokeObjectURL(imageCreateUpload.src) // free memory
+						    }
+						}
 						$("#createForm")[0].reset();
 					}
 				}
@@ -165,30 +173,29 @@
 		$("#editForm").submit(function(e){
 	  		e.preventDefault();
 
-	  		let id = $("#id_vaksin2").val();
-	  		let nama_vaksin=$("#nama_vaksin2").val();
-	  		let deskripsi=$("#deskripsi2").val();
-	  		let harga=$("#harga2").val();
-	  		let img=$("#img2").val();
-	  		let _token=$("input[name=_token]").val();
-
+	  		let formData = new FormData(this);
 			$.ajax({
 				url: "{{route('vaksin.edit')}}",
 				type: "POST",
-				data:{
-					id:id,
-					nama_vaksin:nama_vaksin,
-					deskripsi:deskripsi,
-					harga:harga,
-					img:img,
-					_token:_token,
-				},
+				data: formData,
+				contentType: false,
+				processData: false,
+
 				success:function(response){
 					if (response) {
+						console.log(data);
+						console.log(response);
 						$("#vid"+response.id_vaksin+" #nama-vaksin").text(response.nama_vaksin);
 						$("#vid"+response.id_vaksin+" #deskripsi-vaksin").text(response.deskripsi);
 						$("#vid"+response.id_vaksin+" #img-vaksin").text(response.img);
 						$("#vid"+response.id_vaksin+" #harga-vaksin").text(response.harga);
+						if (response.img) {
+							var imageEditUpload=document.getElementById("#imageContent");
+							imageEditUpload.src="{{url('assets/vaksin/img/"+response.img+"')}}";
+							imageEditUpload.onload = function() {
+						      	URL.revokeObjectURL(imageEditUpload.src) // free memory
+						    }
+						}
 						$("#editModal").modal('toggle');
 						$("#editForm")[0].reset();
 					}
@@ -205,14 +212,12 @@
 			$("#harga2").val(vaksin.harga);
 			if (vaksin.img) {
 				$("#imageUpload2").removeClass('d-none');
-				console.log(vaksin.img);
 		    	var imageUpload2 = document.getElementById('imageUpload2');
-		    	imageUpload2.src = URL.createObjectURL(vaksin.img);
+		    	imageUpload2.src = "{{url('assets/vaksin/img/"+vaksin.img+"')}}";
 			    imageUpload2.onload = function() {
-			      URL.revokeObjectURL(imageUpload2.src) // free memory
+			      	URL.revokeObjectURL(imageUpload2.src); // free memory
 			    }
 			}
-			// $("#img2").val(vaksin.img);
 		});
 	}
 </script>

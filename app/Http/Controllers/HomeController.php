@@ -51,7 +51,7 @@ class HomeController extends Controller
                 'email'=>'required|email',
                 'password'=>'required'
             ]);
-
+            $level=null;
             $userid=mt_rand(100000000, 999999999);
             $count=0;
             while (Pendaftar::find($userid) && $count < 899999999) {
@@ -65,7 +65,8 @@ class HomeController extends Controller
                     'username' => $request->username,
                     'nama' => $request->nama,
                     'email' => $request->email,
-                    'password' => bcrypt($request->password)
+                    'password' => bcrypt($request->password),
+                    'level'=>$level,
                 )
             );
 

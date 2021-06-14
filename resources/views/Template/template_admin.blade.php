@@ -99,8 +99,6 @@
 			
 		</div>
 
-		
-
 		<!-- <footer class="bg-dark p-4 h-20 bottom-0 position-relative w-100">
 			
 		</footer> -->

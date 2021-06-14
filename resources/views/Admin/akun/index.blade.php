@@ -75,10 +75,9 @@
 							    	</div>
 							  	</div>
 							</div>	
-							<form id="deleteForm" method="POST">
+							<form id="deleteForm" method="POST" action="{{url('admin/data-admin/delete/'.$admin->id_user) }}">
 								@csrf
 								@method('post')
-								<input type="hidden" name="id_user3" id="id_user3" value="{{$admin->id_user}}">
 								<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button>
 							</form>
 						</td>
@@ -138,8 +137,7 @@
 				data: $("#createForm").serialize(),
 				success:function(response){
 					if (response) {
-						
-						$("#table_id tbody").append('<tr id="aid'+response.id_user+'"><td id="text-username" class="text-center">'+response.username+'</td><td id="text-nama" class="text-center">'+response.nama+'</td><td id="text-email" class="text-center">'+response.email+'</td><td id="text-control" ><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editAdmin('+response.id_user+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST">@csrf @method("post")<input type="hidden" name="id_user3" id="id_user3" value="'+response.id_user+'"><button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
+						$("#table_id tbody").append('<tr id="aid'+response.id_user+'"><td id="text-username" class="text-center">'+response.username+'</td><td id="text-nama" class="text-center">'+response.nama+'</td><td id="text-email" class="text-center">'+response.email+'</td><td id="text-control" ><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editAdmin('+response.id_user+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST" action="data-admin/delete/'+response.id_user+'">@csrf @method("post")<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
 						
 						$("#createForm")[0].reset();
 					}
@@ -151,26 +149,10 @@
 		$("#editForm").submit(function(e){
 	  		e.preventDefault();
 
-	  		let id = $("#id_user2").val();
-	  		let username = $("#username2").val();
-	  		let email = $("#email2").val();
-	  		let nama= $("#nama2").val();
-	  		let password = $("#password2").val();
-	  		let level = $("#level2").val();
-	  		let _token=$("input[name=_token]").val();
-
 			$.ajax({
-				url: "{{route('vaksin.edit')}}",
+				url: "{{route('admin.edit')}}",
 				type: "POST",
-				data:{
-					id:id,
-					username:username,
-					email:email,
-					nama:nama,
-					password:password,
-					level:level,
-					_token:_token,
-				},
+				data: $("#editForm").serialize(),
 				success:function(response){
 					if (response) {
 						$("#aid"+response.id_user+" #text-username").text(response.username);
@@ -190,6 +172,7 @@
 			$("#username2").val(admin.username);
 			$("#email2").val(admin.email);
 			$("#nama2").val(admin.nama);
+			$("#password2").val(admin.password);
 			$("#level2").val(admin.level);
 		});
 	}

@@ -58,10 +58,9 @@
 								  	</div>
 								</div>
 								
-								<form id="deleteForm" method="GET">
+								<form id="deleteForm" method="POST" action="data-status/delete/{{$status->id_status}}">
 									@csrf
-									@method('get')
-									<input type="hidden" name="id_status3" id="id_status3" value="{{$status->id_status}}">
+									@method('post')
 									<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button>
 								</form>
 							</td>
@@ -103,11 +102,8 @@
 				data:$("#createForm").serialize(),
 				success:function(response){
 					if (response) {
-						$("#table_id tbody").append('<tr id="sid'+response.id_status+'"><td id="text-id_status" class="text-center">'+response.id_status+'</td><td id="text-status" class="fw-bold text-center">'+response.status+'</td><td id="text-button"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editStatus('+response.id_status+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST">@csrf @method("get")<input type="hidden" name="id_status3" id="id_status3" value="'+response.id_status+'"><button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
-						
-
-						// $("#table_id tbody").prepend('<tr><td class="text-center sorting_1" >'+response.id_status+'</td><td class="fw-bold text-center">'+response.status+'</td><td><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editStatus('+response.id_status+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form action="" method="POST"> @csrf @method("post") <button class="border-0 bg-danger text-dark nav-link w-100" type="submit" name="delete" value="delete">Delete</button></form></td>');
-						
+						$("#table_id tbody").append('<tr id="sid'+response.id_status+'"><td id="text-id_status" class="text-center">'+response.id_status+'</td><td id="text-status" class="fw-bold text-center">'+response.status+'</td><td id="text-button"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editStatus('+response.id_status+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST" action="data-status/delete/'+response.id_status+'">@csrf @method("post")<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
+						$("#table_id dataTables_empty").addClass('d-none');
 						$("#createForm")[0].reset();
 					}
 				}
@@ -115,7 +111,6 @@
 		});
 		
 		
-
 		//edit handler
 		$("#editForm").submit(function(e){
 	  		e.preventDefault();
@@ -137,28 +132,6 @@
 						$("#sid"+response.id_status+" #text-status").text(response.status);
 						$("#editModal").modal('toggle');
 						$("#editForm")[0].reset();
-					}
-				}
-			});
-		});
-
-		$("#deleteForm").submit(function(e){
-	  		e.preventDefault();
-
-	  		let id = $("#id_status3").val();
-	  		let _token=$("input[name=_token]").val();
-
-			$.ajax({
-				url: "data-status/delete/"+id,
-				type: "GET",
-				data: {
-					_token:_token,
-				},
-				success:function(response){
-					console.log(response);
-					if (response) {
-						$("#sid"+id).remove();
-						$("#deleteForm")[0].reset();
 					}
 				}
 			});

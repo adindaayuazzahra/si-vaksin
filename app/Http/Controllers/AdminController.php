@@ -77,7 +77,7 @@ class AdminController extends Controller
 
             $imageName=null;
             if ($request->file('img')) {
-                $imageName=public_path('assets/vaksin/img/') . $request->nama_vaksin . "." . $request->img->extension();
+                $imageName=time() . "-" . $request->nama_vaksin . "." . $request->img->extension();
 
                 $request->img->move(public_path('assets/vaksin/img/'), $imageName);
             }
@@ -89,18 +89,7 @@ class AdminController extends Controller
                 'harga'=>$request->harga,
             ]);
 
-            // if($vaksin){
             return response()->json($vaksin);
-                // return redirect("admin/data-vaksin");
-            // }
-            // else{
-            //     return redirect()->back()->with('success', 'Storing inputed data failed!');   
-            // }
-        // }
-        // else{
-        //     return redirect("admin/data-vaksin");
-        // }
-
     }
 
     public function editVaksin($id){
@@ -110,12 +99,11 @@ class AdminController extends Controller
     }
 
     public function editVaksinAction(Request $request){
-        // if ($request->submit=="submit") {
         $request->validate([
-            'nama_vaksin'=>'required|string',
-            'deskripsi'=>'required|string',
-            'harga'=>'required',
-            'img'=>'image|mimes:png,jpeg,jpg,gif,svg',
+            'nama_vaksin2'=>'required|string',
+            'deskripsi2'=>'required|string',
+            'harga2'=>'required',
+            'img2'=>'image|mimes:png,jpeg,jpg,gif,svg',
         ]);
 
         $imageName=null;
@@ -158,7 +146,7 @@ class AdminController extends Controller
 
     public function delVaksin($id){
         $data = Vaksin::find($id);
-        File::delete(public_path('assets/vaksin/img/') . $data->img);
+        File::delete(public_path('assets/vaksin/img/').$data->img);
         $data->delete();
         return redirect("admin/data-vaksin")->with('success','Data has been deleted!');
     }
@@ -292,8 +280,7 @@ class AdminController extends Controller
             $count++;
             $userid=mt_rand(100000000, 999999999);
         }
-
-        $attr = User::create([
+        User::create([
             'id_user'=>$userid,
             'username'=>$request->username,
             'email'=>$request->email,
@@ -301,13 +288,9 @@ class AdminController extends Controller
             'password'=>bcrypt($request->password),
             'level'=>$request->level,
         ]);
-        
-        if ($attr) {
-            return response()->json($attr);
-        }
-        else{
-            return redirect()->back()->with('success','Storing inputed data failed!');
-        }
+
+        $attr=User::find($userid);
+        return response()->json($attr); 
     }
 
     public function editAdmin($id){
@@ -318,34 +301,31 @@ class AdminController extends Controller
 
     public function editAdminAction(Request $request){
         $request->validate([
-            'id'=>'required',
-            'username'=>'required|string',
-            'email'=>'required|email',
-            'nama'=>'required|string',
-            'password'=>'required',
-            'level'=>'required'
+            'id_user2'=>'required',
+            'username2'=>'required|string',
+            'email2'=>'required|email',
+            'nama2'=>'required|string',
+            'password2'=>'required',
+            'level2'=>'required'
         ]);
 
-        User::find($request->id)->update([
-            'id_user'=>$request->id,
-            'username'=>$request->username,
-            'email'=>$request->email,
-            'nama'=>$request->nama,
-            'password'=>bcrypt($request->password),
-            'level'=>$request->level,
+        User::find($request->id_user2)->update([
+            'id_user'=>$request->id_user2,
+            'username'=>$request->username2,
+            'email'=>$request->email2,
+            'nama'=>$request->nama2,
+            'password'=>bcrypt($request->password2),
+            'level'=>$request->level2,
         ]);
 
-        $inputAdmin=User::find($request->id);
+        $inputAdmin=User::find($request->id_user2);
         return response()->json($inputAdmin);
     }
 
     public function delAdmin($id){
-        $data = User::find($id)->delete();
+        User::destroy($id);
         return redirect("admin/data-admin");
-
     }
-
-
 
 
     //Jadwal Vaksinasi
@@ -416,8 +396,7 @@ class AdminController extends Controller
     }
 
     public function delStatus(Request $request, $id){
-        Status::find($id)->delete();
-        return response()->json(['success','Delete success']);
-        // return redirect("admin/data-status");
+        Status::destroy($id);
+        return redirect("admin/data-status");
     }
 }
