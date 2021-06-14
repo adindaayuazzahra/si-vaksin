@@ -74,11 +74,9 @@ class AdminController extends Controller
                 'deskripsi'=>'required|string',
                 'harga'=>'required|string'
             ]);
-
             $imageName=null;
             if ($request->file('img')) {
                 $imageName=time() . "-" . $request->nama_vaksin . "." . $request->img->extension();
-
                 $request->img->move(public_path('assets/vaksin/img/'), $imageName);
             }
 

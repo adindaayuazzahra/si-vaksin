@@ -15,19 +15,20 @@ class AuthCheck
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $level)
+    public function handle(Request $request, Closure $next)
     {
+        $pangkat=array_slice(func_get_args(), 2);
         if (!Auth::check()) {
             return route('login.admin');
         }
         else{
-            $authen=Auth::user();
-            if ($authen->level==$level) {
-                return $next($request);
+            foreach($pangkat as $admin){
+                $authen=Auth::user();
+                if ($authen->level==$admin) {
+                    return $next($request);
+                }
             }
-            else{
-                abort(404);
-            }
+            abort(404);   
         }
         
     }
