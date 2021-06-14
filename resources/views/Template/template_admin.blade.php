@@ -124,6 +124,15 @@
 			      URL.revokeObjectURL(imageUpload.src) // free memory
 			    }
 		 	};
+
+		 	function loadPreviewModal() {
+				$("#imageUpload2").removeClass('d-none');
+		    	var imageUpload2 = document.getElementById('imageUpload2');
+		    	imageUpload2.src = URL.createObjectURL(event.target.files[0]);
+			    imageUpload2.onload = function() {
+			      URL.revokeObjectURL(imageUpload2.src) // free memory
+			    }
+		 	};
 		 	// $('.nav-item nav-link').click(function(e){
 		 	// 	e.preventDefault();
 		 	// 	var href=$(this).attr('href');

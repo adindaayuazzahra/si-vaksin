@@ -70,7 +70,7 @@ Route::middleware(['auth'])->group(function(){
                 Route::get('edit/{id}',[Admincontroller::class, 'editStatus']);
                 Route::post('edit',[Admincontroller::class, 'editStatusAction'])->name('status.edit');
 
-                Route::post('delete',[Admincontroller::class, 'delStatus'])->name('status.delete');
+                Route::get('delete/{id}',[Admincontroller::class, 'delStatus'])->name('status.delete');
 
             });
         });
@@ -80,10 +80,10 @@ Route::middleware(['auth'])->group(function(){
         Route::group(['prefix'=>'admin'], function(){
             Route::group(['prefix'=>'data-admin'],function(){
                 Route::get('/',[Admincontroller::class, 'indexAdmin']);
-                Route::post('add',[Admincontroller::class, 'addAdmin']);
+                Route::post('add',[Admincontroller::class, 'addAdmin'])->name('admin.add');
 
                 Route::get('edit/{id}',[Admincontroller::class, 'editAdmin']);
-                Route::post('edit/{id}',[Admincontroller::class, 'editAdminAction']);
+                Route::post('edit/{id}',[Admincontroller::class, 'editAdminAction'])->name('admin.edit');
 
                 Route::post('delete/{id}',[Admincontroller::class, 'delAdmin']);
             });

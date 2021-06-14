@@ -76,8 +76,8 @@ class AdminController extends Controller
             ]);
 
             $imageName=null;
-            if ($request->img) {
-                $imageName=time() . "-" . $request->nama_vaksin . "." . $request->img->extension();
+            if ($request->file('img')) {
+                $imageName=public_path('assets/vaksin/img/') . $request->nama_vaksin . "." . $request->img->extension();
 
                 $request->img->move(public_path('assets/vaksin/img/'), $imageName);
             }
@@ -112,10 +112,10 @@ class AdminController extends Controller
     public function editVaksinAction(Request $request){
         // if ($request->submit=="submit") {
         $request->validate([
-            'img'=>'image|mimes:png,jpeg,jpg,gif,svg',
             'nama_vaksin'=>'required|string',
             'deskripsi'=>'required|string',
-            'harga'=>'required|string'
+            'harga'=>'required',
+            'img'=>'image|mimes:png,jpeg,jpg,gif,svg',
         ]);
 
         $imageName=null;
@@ -278,78 +278,65 @@ class AdminController extends Controller
     }
 
     public function addAdmin(Request $request){
-         if ($request->submit=="submit") {
-            $request->validate([
-                'username'=>'required|string',
-                'email'=>'required|email',
-                'nama'=>'required|string',
-                'password'=>'required',
-                'level'=>'required'
-            ]);
-            
+        $request->validate([
+            'username'=>'required|string',
+            'email'=>'required|email',
+            'nama'=>'required|string',
+            'password'=>'required',
+            'level'=>'required'
+        ]);
+        
+        $userid=mt_rand(100000000, 999999999);
+        $count=0;
+        while (Pendaftar::find($userid) && $count < 899999999) {
+            $count++;
             $userid=mt_rand(100000000, 999999999);
-            $count=0;
-            while (Pendaftar::find($userid) && $count < 899999999) {
-                $count++;
-                $userid=mt_rand(100000000, 999999999);
-            }
+        }
 
-            $attr = User::create([
-                'id_user'=>$userid,
-                'username'=>$request->username,
-                'email'=>$request->email,
-                'nama'=>$request->nama,
-                'password'=>bcrypt($request->password),
-                'level'=>$request->level,
-            ]);
-            
-            if ($attr) {
-                return redirect("admin/data-admin");
-            }
-            else{
-                return redirect()->back()->with('success','Storing inputed data failed!');
-            }
+        $attr = User::create([
+            'id_user'=>$userid,
+            'username'=>$request->username,
+            'email'=>$request->email,
+            'nama'=>$request->nama,
+            'password'=>bcrypt($request->password),
+            'level'=>$request->level,
+        ]);
+        
+        if ($attr) {
+            return response()->json($attr);
         }
         else{
-            return redirect("admin/data-admin");
+            return redirect()->back()->with('success','Storing inputed data failed!');
         }
-
     }
 
     public function editAdmin($id){
         $admin=User::find($id);
-        return view("Admin.akun.edit_admin", compact('admin'));
+        return response()->json($admin);
+        // return view("Admin.akun.edit_admin", compact('admin'));
     }
 
-    public function editAdminAction(Request $request, $id){
-        if ($request->submit=="submit") {
-            $request->validate([
-                'username'=>'required|string',
-                'email'=>'required|email',
-                'nama'=>'required|string',
-                'password'=>'required',
-                'level'=>'required'
-            ]);
+    public function editAdminAction(Request $request){
+        $request->validate([
+            'id'=>'required',
+            'username'=>'required|string',
+            'email'=>'required|email',
+            'nama'=>'required|string',
+            'password'=>'required',
+            'level'=>'required'
+        ]);
 
-            $inputAdmin=User::find($id)->update([
-                'username'=>$request->username,
-                'email'=>$request->email,
-                'nama'=>$request->nama,
-                'password'=>bcrypt($request->password),
-                'level'=>$request->level,
-            ]);
+        User::find($request->id)->update([
+            'id_user'=>$request->id,
+            'username'=>$request->username,
+            'email'=>$request->email,
+            'nama'=>$request->nama,
+            'password'=>bcrypt($request->password),
+            'level'=>$request->level,
+        ]);
 
-            if ($inputAdmin) {
-                return redirect("admin/data-admin");
-            }
-            else{
-                return redirect()->back()-with('success','Data update failed!');
-            }
-        }
-        
-        else{
-            return redirect("admin/data-admin");
-        }
+        $inputAdmin=User::find($request->id);
+        return response()->json($inputAdmin);
     }
 
     public function delAdmin($id){
@@ -428,9 +415,9 @@ class AdminController extends Controller
         return response()->json($status);
     }
 
-    public function delStatus(Request $request){
-        $status=Status::find($request->id)->delete();
-        return response()->json($status);
+    public function delStatus(Request $request, $id){
+        Status::find($id)->delete();
+        return response()->json(['success','Delete success']);
         // return redirect("admin/data-status");
     }
 }
