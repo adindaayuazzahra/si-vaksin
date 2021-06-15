@@ -44,13 +44,6 @@
                               <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
                           </div>
 
-                          {{-- <div class="form-check my-3 ml-1">
-                              <input class="form-check-input" type="checkbox" name="remember">
-                              <label class="form-check-label">
-                              Remember me
-                              </label>
-                          </div> --}}
-
                           <button type="submit" class="btn btn-lg btn-danger btn-block" name="submit" value="submit">REGISTER</button>
                       </form>
                       <div class="mt-4 text-center">

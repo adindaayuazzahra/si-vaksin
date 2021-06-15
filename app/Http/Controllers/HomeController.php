@@ -20,6 +20,18 @@ class HomeController extends Controller
         $list_rs=RumahSakit::all();
         return view("User.jadwaltempat", compact('list_rs'));
     }
+    
+    public function syarat(){
+        return view("User.syarat");
+    }
+
+    public function harga(){
+        return view("User.harga");
+    }
+    // ganti aja ini cuman nyoba buat ngeliat hasil doang
+    public function homepageuser(){
+        return view("User.akun.index");
+    }
 
     //Akun
     public function login(){

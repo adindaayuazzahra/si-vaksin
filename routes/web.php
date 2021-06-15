@@ -27,7 +27,12 @@ Route::post('login',[Homecontroller::class, 'loginAction']);
 
 Route::get('daftar', [Homecontroller::class, 'daftar']);
 Route::post('daftar', [Homecontroller::class, 'daftarAction']);
+
 Route::get('jadwal', [Homecontroller::class, 'infoJadwal']);
+
+Route::get('syarat', [Homecontroller::class, 'syarat']);
+Route::get('harga', [Homecontroller::class, 'harga']);
+Route::get('homepageuser', [Homecontroller::class, 'homepageuser']);
 
 
 Route::get('login-admin',[Admincontroller::class, 'login'])->name('login.admin');
