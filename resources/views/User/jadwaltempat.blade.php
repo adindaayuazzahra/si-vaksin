@@ -74,31 +74,25 @@
   <div class="col-md-12">
     <p class="judul">Jadwal Dan Tempat Vaksinasi COVID-19</p>
     <div class="row mt-4">
-    <div class="container">
-      <div class="col-md-12">
-        <p class="judul">Jadwal Dan Tempat Vaksinasi COVID-19</p>
-        <div class="row mt-4">
-          @foreach($list_rs as $rs)
-          <div class="col-md-5 m-auto d-block">
-            <div class="card mb-5">
-              <img class="" src="{{asset('assets/user/rs.jpeg')}}" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title"><i class="fas fa-hospital"></i>{{$rs->nama_rs}}</h5>
-                <p class="card-text"><i class="fas fa-map-marker-alt"></i>{{$rs->alamat}}</p>
-                <p class="card-text"><i class="fas fa-map-marker-alt"></i>Telephone : {{$rs->no_telephone}}</p>
-                <h5 class="card-text"><i class="fas fa-clock"></i> 
-                  <span class="badge badge-pill badge-dark">{{$rs->jadwal}}</span>
-                </h5>
-              </div>
-            </div>
+      @foreach($list_rs as $rs)
+      <div class="col-md-5 m-auto d-block">
+        <div class="card mb-5">
+          <img class="" src="{{asset('assets/user/rs.jpeg')}}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-hospital"></i>{{$rs->nama_rs}}</h5>
+            <p class="card-text"><i class="fas fa-map-marker-alt"></i>{{$rs->alamat}}</p>
+            <p class="card-text"><i class="fas fa-map-marker-alt"></i>Telephone : {{$rs->no_telephone}}</p>
+            <h5 class="card-text"><i class="fas fa-clock"></i> 
+              <span class="badge badge-pill badge-dark">{{$rs->jadwal}}</span>
+            </h5>
           </div>
-          @endforeach
         </div>
       </div>
-      
+      @endforeach
     </div>
-  </div>  
+  </div>
 </div>
+  
 @endsection
 
 @section('footer')
