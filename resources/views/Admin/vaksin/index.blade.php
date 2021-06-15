@@ -27,7 +27,7 @@
 									<img id="imageContent{{$vaksin->id_vaksin}}" src="{{url('assets/vaksin/img/'.$vaksin->img) }}" width="100" class="img-thumbnail rounded mx-auto d-block">
 								@endif
 							</td>
-							<td id="deskripsi-vaksin">{{$vaksin->deskripsi}}</td>
+							<td id="deskripsi-vaksin" class="text-justify">{!!$vaksin->deskripsi!!}</td>
 							<td id="harga-vaksin" class="fw-bold">Rp. {{$vaksin->harga}}</td>
 							<td id="kontrol-vaksin">
 								<button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editVaksin({{$vaksin->id_vaksin}})" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>

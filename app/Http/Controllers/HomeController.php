@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Pendaftar;
 use App\Models\Registrasi;
 use App\Models\InformasiUser;
@@ -13,29 +14,40 @@ use App\Models\Pembayaran;
 class HomeController extends Controller
 {
     public function index(){
-        return view("User.homepage");
+        $akun=Auth::user();
+        return view("User.homepage",compact('akun'));
     }
   
     public function infoJadwal(){
+        $akun=Auth::user();
         $list_rs=RumahSakit::all();
-        return view("User.jadwaltempat", compact('list_rs'));
+        return view("User.jadwaltempat", compact('list_rs'),compact('akun'));
     }
     
     public function syarat(){
-        return view("User.syarat");
+        $akun=Auth::user();
+        return view("User.syarat",compact('akun'));
     }
 
     public function harga(){
-        return view("User.harga");
+        $akun=Auth::user();
+        $list_vaksin=Vaksin::all();
+        return view("User.harga",compact('list_vaksin'),compact('akun'));
     }
     // ganti aja ini cuman nyoba buat ngeliat hasil doang
     public function homepageuser(){
-        return view("User.akun.index");
+        $akun=Auth::user();
+        return view("User.akun.index", compact('akun'));
     }
 
     //Akun
     public function login(){
-        return view("User.akun.login");
+        if (Auth::check()) {
+            return redirect("/");
+        }
+        else{
+            return view("User.akun.login");
+        }
     }
 
     public function loginAction(Request $request){
@@ -43,15 +55,32 @@ class HomeController extends Controller
             $request->validate([
                 'email'=>'required|email',
                 'password'=>'required'
-            ]);   
+            ]);
+
+            $authen = $request->only('email','password');
+            $check=Auth::attempt($authen);
+            if ($check) {
+                $request->session()->regenerate();
+                return redirect("/");
+            }   
         }
     }
 
     public function logout(Request $request){
-    
+        if (Auth::check()) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect("/");
+        }
+        return redirect("login");
     }
 
     public function daftar(){
+        if (Auth::check()) {
+            return redirect("/");
+        }
+
         return view("User.akun.daftar");
     }
 
@@ -63,7 +92,6 @@ class HomeController extends Controller
                 'email'=>'required|email',
                 'password'=>'required'
             ]);
-            $level=null;
             $userid=mt_rand(100000000, 999999999);
             $count=0;
             while (Pendaftar::find($userid) && $count < 899999999) {
@@ -71,22 +99,37 @@ class HomeController extends Controller
                 $userid=mt_rand(100000000, 999999999);
             }
 
-            Pendaftar::create(
-                array(
-                    'id_user'=>$userid,
-                    'username' => $request->username,
-                    'nama' => $request->nama,
-                    'email' => $request->email,
-                    'password' => bcrypt($request->password),
-                    'level'=>$level,
-                )
-            );
+            Pendaftar::create([
+                'id_user'=>$userid,
+                'username' => $request->username,
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
 
             return redirect("login");
         }
         else{
             return redirect("/");
         }
+
+    }
+
+
+    //Registrasi Vaksinasi
+    public function registerVaksinasi(){
+        $list_vaksin=Vaksin::all();
+        $list_rs=RumahSakit::all();
+        // return view();
+    }
+
+    public function registerVaksinasiAction(Request $request){
+        if ($request->submit=="submit") {
+            // code...
+        }
+    }
+
+    public function infoRegistrasiVaksinasi(Request $request, $id){
 
     }
 }
