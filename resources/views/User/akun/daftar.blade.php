@@ -16,9 +16,9 @@
     <title>goVaksin | Daftar</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container mb-5">
       <div class="row">
-          <div class="col-lg-10 col-xl-9 mx-auto">
+          <div class="mx-auto">
               <div class="card card-login flex-row">
                   <div class="card-img d-none d-md-flex">
                       <!-- bacground ada di css -->

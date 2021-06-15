@@ -61,9 +61,10 @@
 
 		            <li><hr class="dropdown-divider"></li>
 
+		            @if(auth()->user()->level==1)
 		            <li><a class="dropdown-item font-weight-bold" href="{{ url('admin/data-admin') }}">Database Admin</a></li>
-
 		            <li><hr class="dropdown-divider"></li>
+		            @endif
 
 		            <li><a class="dropdown-item font-weight-bold" href="{{ url('admin/data-status') }}">Database Status</a></li>
 
@@ -74,7 +75,7 @@
 
 		      	<ul class="navbar-nav mb-2 mb-lg-0">
 			      	<li class="nav-item">
-			          <a class="nav-link text-white" href="">Profile</a>
+			          <a class="nav-link text-white">{{$akun->nama}}</a>
 			      	</li>
 		      	</ul>
 
@@ -98,8 +99,6 @@
 			
 		</div>
 
-		
-
 		<!-- <footer class="bg-dark p-4 h-20 bottom-0 position-relative w-100">
 			
 		</footer> -->
@@ -121,6 +120,15 @@
 		    	imageUpload.src = URL.createObjectURL(event.target.files[0]);
 			    imageUpload.onload = function() {
 			      URL.revokeObjectURL(imageUpload.src) // free memory
+			    }
+		 	};
+
+		 	function loadPreviewModal() {
+				$("#imageUpload2").removeClass('d-none');
+		    	var imageUpload2 = document.getElementById('imageUpload2');
+		    	imageUpload2.src = URL.createObjectURL(event.target.files[0]);
+			    imageUpload2.onload = function() {
+			      URL.revokeObjectURL(imageUpload2.src) // free memory
 			    }
 		 	};
 		 	// $('.nav-item nav-link').click(function(e){

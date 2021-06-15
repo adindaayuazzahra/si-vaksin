@@ -74,68 +74,25 @@
   <div class="col-md-12">
     <p class="judul">Jadwal Dan Tempat Vaksinasi COVID-19</p>
     <div class="row mt-4">
-
-      <div class="col-md-5 col-sm-12 m-auto d-block">
-        <div class="card mb-5">
-          <img class="" src="{{asset('assets/user/rs.jpeg')}}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title"><i class="fas fa-hospital"></i> Rumah Sakit Premier Jatinegara</h5>
-            <p class="card-text"><i class="fas fa-map-marker-alt"></i> Jl Jatinegara Timur II No.9, RT.12/RW.2, Rawa Bunga, Jatinegara, Kota Jakarta Timur, 13310</p>
-            <h5 class="card-text"><i class="fas fa-clock"></i> 
-              <span class="badge badge-pill badge-dark">08.00</span>
-              <span class="badge badge-pill badge-dark">10.00</span>
-              <span class="badge badge-pill badge-dark">13.00</span>
-              <span class="badge badge-pill badge-dark">16.00</span>
-            </h5>
+    <div class="container">
+      <div class="col-md-12">
+        <p class="judul">Jadwal Dan Tempat Vaksinasi COVID-19</p>
+        <div class="row mt-4">
+          @foreach($list_rs as $rs)
+          <div class="col-md-5 m-auto d-block">
+            <div class="card mb-5">
+              <img class="" src="{{asset('assets/user/rs.jpeg')}}" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-hospital"></i>{{$rs->nama_rs}}</h5>
+                <p class="card-text"><i class="fas fa-map-marker-alt"></i>{{$rs->alamat}}</p>
+                <p class="card-text"><i class="fas fa-map-marker-alt"></i>Telephone : {{$rs->no_telephone}}</p>
+                <h5 class="card-text"><i class="fas fa-clock"></i> 
+                  <span class="badge badge-pill badge-dark">{{$rs->jadwal}}</span>
+                </h5>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      
-      <div class="col-md-5 col-sm-12 m-auto d-block">
-        <div class="card mb-5">
-          <img class="card-img-top" src="{{asset('assets/user/rs.jpeg')}}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title"><i class="fas fa-hospital"></i> Rumah Sakit Premier Jatinegara</h5>
-            <p class="card-text"><i class="fas fa-map-marker-alt"></i> Jl Jatinegara Timur II No.9, RT.12/RW.2, Rawa Bunga, Jatinegara, Kota Jakarta Timur, 13310</p>
-            <h5 class="card-text"><i class="fas fa-clock"></i> 
-              <span class="badge badge-pill badge-dark">08.00</span>
-              <span class="badge badge-pill badge-dark">10.00</span>
-              <span class="badge badge-pill badge-dark">13.00</span>
-              <span class="badge badge-pill badge-dark ">16.00</span>
-            </h5>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-5 col-sm-12 m-auto d-block">
-        <div class="card mb-5">
-          <img class="card-img-top" src="{{asset('assets/user/rs.jpeg')}}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title"><i class="fas fa-hospital"></i> Rumah Sakit Premier Jatinegara</h5>
-            <p class="card-text"><i class="fas fa-map-marker-alt"></i> Jl Jatinegara Timur II No.9, RT.12/RW.2, Rawa Bunga, Jatinegara, Kota Jakarta Timur, 13310</p>
-            <h5 class="card-text"><i class="fas fa-clock"></i> 
-              <span class="badge badge-pill badge-dark">08.00</span>
-              <span class="badge badge-pill badge-dark">10.00</span>
-              <span class="badge badge-pill badge-dark">13.00</span>
-              <span class="badge badge-pill badge-dark ">16.00</span>
-            </h5>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-md-5 col-sm-12 m-auto d-block">
-        <div class="card mb-5">
-          <img class="card-img-top" src="{{asset('assets/user/rs.jpeg')}}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title"><i class="fas fa-hospital"></i> Rumah Sakit Premier Jatinegara</h5>
-            <p class="card-text"><i class="fas fa-map-marker-alt"></i> Jl Jatinegara Timur II No.9, RT.12/RW.2, Rawa Bunga, Jatinegara, Kota Jakarta Timur, 13310</p>
-            <h5 class="card-text"><i class="fas fa-clock"></i> 
-              <span class="badge badge-pill badge-dark">08.00</span>
-              <span class="badge badge-pill badge-dark">10.00</span>
-              <span class="badge badge-pill badge-dark">13.00</span>
-              <span class="badge badge-pill badge-dark ">16.00</span>
-            </h5>
-          </div>
+          @endforeach
         </div>
       </div>
       

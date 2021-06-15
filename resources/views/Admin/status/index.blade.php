@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-	<h2 class="text-dark justify-content-center">Data Pendaftaran Vaksin</h2>
+	<h2 class="text-dark justify-content-center">Data Status</h2>
 </div>
 <div class="row">
 	<div class="col-md-9">
@@ -35,7 +35,7 @@
 									        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									      	</div>
 								      
-									        <form method="POST" class="mt-5 mb-5 w-100" id="editForm">
+									        <form method="POST" class="w-100" id="editForm">
 									        	<div class="modal-body">
 													@csrf
 													@method('post')
@@ -58,10 +58,9 @@
 								  	</div>
 								</div>
 								
-								<form id="deleteForm" method="POST">
+								<form id="deleteForm" method="POST" action="data-status/delete/{{$status->id_status}}">
 									@csrf
 									@method('post')
-									<input type="hidden" name="id_status" id="id_status" value="{{$status->id_status}}">
 									<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button>
 								</form>
 							</td>
@@ -103,11 +102,8 @@
 				data:$("#createForm").serialize(),
 				success:function(response){
 					if (response) {
-						$("#table_id tbody").append('<tr id="sid'+response.id_status+'"><td id="text-id_status" class="text-center">'+response.id_status+'</td><td id="text-status" class="fw-bold text-center">'+response.status+'</td><td id="text-button"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editStatus('+response.id_status+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST"> @csrf @method("post") <input type="hidden" name="id_status" id="id_status" value="'+response.id_status+'"><button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
-						
-
-						// $("#table_id tbody").prepend('<tr><td class="text-center sorting_1" >'+response.id_status+'</td><td class="fw-bold text-center">'+response.status+'</td><td><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editStatus('+response.id_status+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form action="" method="POST"> @csrf @method("post") <button class="border-0 bg-danger text-dark nav-link w-100" type="submit" name="delete" value="delete">Delete</button></form></td>');
-						
+						$("#table_id tbody").append('<tr id="sid'+response.id_status+'"><td id="text-id_status" class="text-center">'+response.id_status+'</td><td id="text-status" class="fw-bold text-center">'+response.status+'</td><td id="text-button"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editStatus('+response.id_status+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST" action="data-status/delete/'+response.id_status+'">@csrf @method("post")<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
+						$("#table_id dataTables_empty").addClass('d-none');
 						$("#createForm")[0].reset();
 					}
 				}
@@ -115,7 +111,6 @@
 		});
 		
 		
-
 		//edit handler
 		$("#editForm").submit(function(e){
 	  		e.preventDefault();
@@ -137,26 +132,6 @@
 						$("#sid"+response.id_status+" #text-status").text(response.status);
 						$("#editModal").modal('toggle');
 						$("#editForm")[0].reset();
-					}
-				}
-			});
-		});
-
-		$("#deleteForm").submit(function(e){
-	  		e.preventDefault();
-
-	  		let id = $("#id_status").val();
-	  		let _token=$("input[name=_token]").val();
-			$.ajax({
-				url: "{{route('status.del')}}",
-				type: "POST",
-				data:{
-					id:id,
-					_token:_token,
-				},
-				success:function(response){
-					if (response) {
-						console.log(response);
 					}
 				}
 			});

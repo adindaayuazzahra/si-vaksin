@@ -57,33 +57,30 @@ class AdminController extends Controller
 
     //Data Laporan
     public function indexLaporan(){
+        $akun=Auth::user();
         $laporan = Registrasi::all();
-        return view("Admin.laporan.index", compact('laporan'));
+        return view("Admin.laporan.index", compact('laporan'),compact('akun'));
     }
 
     //Data Vaccine
     public function indexVaksin(){
+        $akun=Auth::user();
         $list_vaksin=Vaksin::all();
-        return view("Admin.vaksin.index", compact('list_vaksin'));
+        return view("Admin.vaksin.index", compact('list_vaksin'),compact('akun'));
     }
 
     public function addVaksin(Request $request){
-        if ($request->submit=="submit") {
-            $attr = $request->validate([
+            $request->validate([
                 'img'=>'image|mimes:png,jpeg,jpg,gif,svg',
                 'nama_vaksin'=>'required|string',
                 'deskripsi'=>'required|string',
                 'harga'=>'required|string'
             ]);
             $imageName=null;
-
-            if ($request->hasFile('img')) {
-                $imageName=time() . "-" . $request->nama_vaksin . "-" . $request->img->extension();
-
+            if ($request->file('img')) {
+                $imageName=time() . "-" . $request->nama_vaksin . "." . $request->img->extension();
                 $request->img->move(public_path('assets/vaksin/img/'), $imageName);
             }
-
-            
 
             $vaksin=Vaksin::create([
                 'img'=>$imageName,
@@ -92,72 +89,66 @@ class AdminController extends Controller
                 'harga'=>$request->harga,
             ]);
 
-            if($vaksin){
-                return redirect("admin/data-vaksin");
-            }
-            else{
-                return redirect()->back()->with('success', 'Storing inputed data failed!');   
-            }
-        }
-        else{
-            return redirect("admin/data-vaksin");
-        }
-
+            return response()->json($vaksin);
     }
 
     public function editVaksin($id){
         $vaksin = Vaksin::find($id);
-        return view("Admin.vaksin.edit_vaksin", compact('vaksin'));
+        return response()->json($vaksin);
+        // return view("Admin.vaksin.edit_vaksin", compact('vaksin'));
     }
 
-    public function editVaksinAction(Request $request, $id){
-        if ($request->submit=="submit") {
-            $request->validate([
-                'img'=>'image|mimes:png,jpeg,jpg,gif,svg',
-                'nama_vaksin'=>'required|string',
-                'deskripsi'=>'required|string',
-                'harga'=>'required|string'
-            ]);
+    public function editVaksinAction(Request $request){
+        $request->validate([
+            'id_vaksin2'=>'required',
+            'nama_vaksin2'=>'required|string',
+            'deskripsi2'=>'required|string',
+            'harga2'=>'required',
+            'img2'=>'image|mimes:png,jpeg,jpg,gif,svg',
+        ]);
 
-            $imageName=null;
-            
-            $vaksinData = Vaksin::find($id);
-            if ($request->hasFile('img')) {
-                if ($vaksinData->img) {
-                    File::delete(public_path('assets/vaksin/img/') . $vaksinData->img);
-                }
-                $imageName=time() . "-" . $request->nama_vaksin . "-" . $request->img->extension();
-                $request->img->move(public_path('assets/vaksin/img/'), $imageName);
+        $imageName=null;
+        
+        $vaksinData = Vaksin::find($request->id_vaksin2);
+        if ($request->hasFile('img2')) {
+            if ($vaksinData->img) {
+                File::delete(public_path('assets/vaksin/img/') . $vaksinData->img);
             }
-            else{
-                if ($vaksinData->img) {
-                    $imageName=$vaksinData->img;
-                }
-            }
-
-            $vaksin = $vaksinData->update([
-                'img'=>$imageName,
-                'nama_vaksin'=>$request->nama_vaksin,
-                'deskripsi'=>$request->deskripsi,
-                'harga'=>$request->harga,           
-            ]);
-
-            if ($vaksin) {
-                return redirect("admin/data-vaksin");
-            }
-            else{
-                return redirect()->back()->with('success','Storing inputed data fail!');
-            }
-            
+            $imageName=time() . "-" . $request->nama_vaksin2 . "." . $request->img->extension();
+            $request->img->move(public_path('assets/vaksin/img/'), $imageName);
         }
         else{
-            return redirect("admin/data-vaksin");
+            if ($vaksinData->img) {
+                $imageName=$vaksinData->img;
+            }
         }
+
+        $vaksinData->update([
+            'id_vaksin'=>$request->id_vaksin2,
+            'img'=>$imageName,
+            'nama_vaksin'=>$request->nama_vaksin2,
+            'deskripsi'=>$request->deskripsi2,
+            'harga'=>$request->harga2,           
+        ]);
+
+        $vaksin=Vaksin::find($request->id_vaksin2);
+        return response()->json($vaksin);
+            // if ($vaksin) {
+            //     return redirect("admin/data-vaksin");
+            // }
+            // else{
+            //     return redirect()->back()->with('success','Storing inputed data fail!');
+            // }
+            
+        // }
+        // else{
+        //     return redirect("admin/data-vaksin");
+        // }
     }
 
     public function delVaksin($id){
         $data = Vaksin::find($id);
-        File::delete(public_path('assets/vaksin/img/') . $data->img);
+        File::delete(public_path('assets/vaksin/img/').$data->img);
         $data->delete();
         return redirect("admin/data-vaksin")->with('success','Data has been deleted!');
     }
@@ -165,8 +156,9 @@ class AdminController extends Controller
 
     //Data Rumah Sakit
     public function indexRS(){
+        $akun=Auth::user();
         $list_rs=RumahSakit::all();
-        return view("Admin.rumahsakit.index", compact('list_rs'));
+        return view("Admin.rumahsakit.index", compact('list_rs'), compact('akun'));
     }
 
 
@@ -183,7 +175,7 @@ class AdminController extends Controller
             $imageName=null;
 
             if ($request->hasFile('img')) {
-                $imageName=time() . "-" . $request->nama_rs . "-" . $request->img->extension();
+                $imageName=time() . "-" . $request->nama_rs . "." . $request->img->extension();
                 $request->img->move(public_path('assets/rs/img/'), $imageName);
             }
 
@@ -231,7 +223,7 @@ class AdminController extends Controller
                 if ($rsData->img) {
                     File::delete(public_path('assets/rs/img/') . $rsData->img);
                 }
-                $imageName=time() . "-" . $request->nama_rs . "-" . $request->img->extension();
+                $imageName=time() . "-" . $request->nama_rs . "." . $request->img->extension();
                 $request->img->move(public_path('assets/rs/img/'), $imageName);
             }
             else{
@@ -272,112 +264,79 @@ class AdminController extends Controller
 
     //Data Admin
     public function indexAdmin(){
-        $list_admin=User::all();
-        return view("Admin.akun.index", compact('list_admin'));
+        $akun=Auth::user();
+        $list_admin=User::where('level',1)->orWhere('level',2)->get();
+        return view("Admin.akun.index", compact('list_admin'), compact('akun'));
     }
 
     public function addAdmin(Request $request){
-         if ($request->submit=="submit") {
-            $request->validate([
-                'img'=>'image|mimes:jpeg,png,jpg,gif,svg',
-                'username'=>'required|string',
-                'nama'=>'required|string',
-                'password'=>'required'
-            ]);
-
-            $imageName=null;
-            if ($request->hasFile('img')) {
-                $imageName=time() . "-" . $request->username . "-" . $request->img->extension();
-
-                $request->img->move(public_path('assets/admin/img/'), $imageName);
-            }
-            
-            $attr = User::create([
-                'img'=>$imageName,
-                'username'=>$request->username,
-                'nama'=>$request->nama,
-                'password'=>bcrypt($request->password)
-            ]);
-            
-            if ($attr) {
-                return redirect("admin/data-admin");
-            }
-            else{
-                return redirect()->back()->with('success','Storing inputed data failed!');
-            }
+        $request->validate([
+            'username'=>'required|string',
+            'email'=>'required|email',
+            'nama'=>'required|string',
+            'password'=>'required',
+            'level'=>'required'
+        ]);
+        
+        $userid=mt_rand(100000000, 999999999);
+        $count=0;
+        while (Pendaftar::find($userid) && $count < 899999999) {
+            $count++;
+            $userid=mt_rand(100000000, 999999999);
         }
-        else{
-            return redirect("admin/data-admin");
-        }
+        User::create([
+            'id_user'=>$userid,
+            'username'=>$request->username,
+            'email'=>$request->email,
+            'nama'=>$request->nama,
+            'password'=>bcrypt($request->password),
+            'level'=>$request->level,
+        ]);
 
+        $attr=User::find($userid);
+        return response()->json($attr); 
     }
 
     public function editAdmin($id){
         $admin=User::find($id);
-        return view("Admin.akun.edit_admin", compact('admin'));
+        return response()->json($admin);
+        // return view("Admin.akun.edit_admin", compact('admin'));
     }
 
-    public function editAdminAction(Request $request, $id){
-        if ($request->submit=="submit") {
-            $request->validate([
-                'img'=>'image|mimes:jpeg,png,jpg,gif,svg',
-                'username'=>'required|string',
-                'nama'=>'required|string',
-                'password'=>'required'
-            ]);
+    public function editAdminAction(Request $request){
+        $request->validate([
+            'id_user2'=>'required',
+            'username2'=>'required|string',
+            'email2'=>'required|email',
+            'nama2'=>'required|string',
+            'password2'=>'required',
+            'level2'=>'required'
+        ]);
 
-            $adminData = User::find($id);
+        User::find($request->id_user2)->update([
+            'id_user'=>$request->id_user2,
+            'username'=>$request->username2,
+            'email'=>$request->email2,
+            'nama'=>$request->nama2,
+            'password'=>bcrypt($request->password2),
+            'level'=>$request->level2,
+        ]);
 
-            if ($request->hasFile('img') && !($adminData->img == "admin.svg") ) {
-                File::delete(public_path('assets/admin/img/') . $adminData->img);
-
-                $imageName=time() . "-" . $request->username . "-" . $request->img->extension();
-
-                $request->img->move(public_path('assets/admin/img/'), $imageName);
-            }
-            else{
-                if($adminData->img){
-                    $imageName=$adminData->img;
-                }
-            }
-
-            $inputAdmin=User::find($id)->update([
-                'img'=>$imageName,
-                'username'=>$request->username,
-                'nama'=>$request->nama,
-                'password'=>bcrypt($request->password)
-            ]);
-
-            if ($inputAdmin) {
-                return redirect("admin/data-admin");
-            }
-            else{
-                return redirect()->back()-with('success','Data update failed!');
-            }
-        }
-        
-        else{
-            return redirect("admin/data-admin");
-        }
+        $inputAdmin=User::find($request->id_user2);
+        return response()->json($inputAdmin);
     }
 
     public function delAdmin($id){
-        $data = User::find($id);
-        if (!($data->img=="admin.svg")) {
-            File::delete(public_path('assets/admin/img/') . $data->img);
-        }
-        $data->delete();
+        User::destroy($id);
         return redirect("admin/data-admin");
-
     }
-
-
 
 
     //Jadwal Vaksinasi
     public function indexStatus(){
+        $akun=Auth::user();
         $status = Status::all();
-        return view('Admin.status.index', compact('status'));
+        return view('Admin.status.index', compact('status'),compact('akun'));
     }
 
     public function addStatus(Request $request){
@@ -385,9 +344,10 @@ class AdminController extends Controller
             $request->validate([
                 'status'=>'required|string'
             ]);
-            $status = new Status();
-            $status->status=$request->status;
-            $status->save();
+
+            $status = Status::create([
+                'status'=>$request->status,
+            ]);
             return response()->json($status);
             // if(Status::create($attr)){
             //     // return redirect("admin/data-status");
@@ -440,10 +400,8 @@ class AdminController extends Controller
         return response()->json($status);
     }
 
-    public function delStatus(Request $request){
-        $status = Status::find($request->id);
-        $status->delete();
-        return response()->json($status);
-        // return redirect("admin/data-status");
+    public function delStatus(Request $request, $id){
+        Status::destroy($id);
+        return redirect("admin/data-status");
     }
 }

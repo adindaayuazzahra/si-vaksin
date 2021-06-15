@@ -13,14 +13,17 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('vaksin.admin', function (Blueprint $table) {
-            $table->increments('id_admin');
-            $table->string('img')->nullable();
+        Schema::create('vaksin.user', function (Blueprint $table) {
+            $table->integer('id_user')->unsigned();
+            $table->primary('id_user');
             $table->text('username');
+            $table->string('email')->unique();
             $table->text('nama');
             $table->text('password');
+            $table->integer('level')->default(3);
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->rememberToken();
-            $table->timestamps();
         });
     }
 

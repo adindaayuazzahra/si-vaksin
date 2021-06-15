@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 12, 2021 at 06:06 AM
+-- Generation Time: Jun 13, 2021 at 08:08 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.3
 
@@ -24,30 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `id_admin` int(10) UNSIGNED NOT NULL,
-  `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'admin.svg',
-  `username` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`id_admin`, `img`, `username`, `nama`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(6, '1623477448-admin-png', 'admin', 'admin', '$2y$10$3WnWr3K8UPMGT5PyHVi22edtufK7K2Yu8NO0FvKDZBuvPMJSR8raq', NULL, '2021-06-11 21:04:41', '2021-06-11 22:57:28');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `informasi_user`
 --
 
@@ -55,7 +31,7 @@ CREATE TABLE `informasi_user` (
   `id_user` int(10) UNSIGNED NOT NULL,
   `img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user.svg',
   `nik` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `provinsi` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `tgl_verifikasi` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -78,15 +54,13 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_100000_create_password_resets_table', 1),
-(2, '2019_08_19_000000_create_failed_jobs_table', 1),
-(3, '2021_06_03_103505_create_user_pendaftar', 1),
-(4, '2021_06_04_045933_create_status', 1),
-(5, '2021_06_05_072119_create_user_information', 1),
-(6, '2021_06_05_072249_create_rumah_sakit', 1),
-(7, '2021_06_05_132908_create_jenis_vaksin', 1),
-(8, '2021_06_05_141241_create_pendaftaran_vaksin', 1),
-(9, '2021_06_05_143909_create_pembayaran', 1);
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2021_06_04_045933_create_status', 1),
+(3, '2021_06_05_072119_create_user_information', 1),
+(4, '2021_06_05_072249_create_rumah_sakit', 1),
+(5, '2021_06_05_132908_create_jenis_vaksin', 1),
+(6, '2021_06_05_141241_create_pendaftaran_vaksin', 1),
+(7, '2021_06_05_143909_create_pembayaran', 1);
 
 -- --------------------------------------------------------
 
@@ -112,7 +86,7 @@ CREATE TABLE `pendaftaran` (
   `id_user` int(10) UNSIGNED NOT NULL,
   `id_rs` int(10) UNSIGNED NOT NULL,
   `id_vaksin` int(10) UNSIGNED NOT NULL,
-  `keterangan` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `keterangan` text COLLATE utf8mb4_unicode_ci,
   `tgl_pendaftaran` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_status` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -138,8 +112,7 @@ CREATE TABLE `rs` (
 --
 
 INSERT INTO `rs` (`id_rs`, `img`, `nama_rs`, `alamat`, `jadwal`, `keterangan`, `no_telephone`) VALUES
-(1, '1623403197-RS Harapan Kita-png', 'RS Harapan Kita', 'Jl. Setia Budi No 27 Jakarta', 'Senin - Jumat 08:00 - 18:00', NULL, '0825638503'),
-(2, '1623477358-RS Hermina-png', 'RS Hermina', 'Jl. Setia Budi no 29 Jakarta', 'Senin - Jumat 08:00 - 18:00', NULL, '082568888');
+(1, '1623570322-RS Cempaka Putih-jpg', 'RS Cempaka Putih', 'Jl. Setia Budi No 27 Jakarta Selatan', 'Senin - Jumat 08:00 - 16:00', NULL, '0856565657');
 
 -- --------------------------------------------------------
 
@@ -157,9 +130,9 @@ CREATE TABLE `status` (
 --
 
 INSERT INTO `status` (`id_status`, `status`) VALUES
-(1, 'Telah mendaftar'),
-(2, 'Telah melakukan vaksinasi pertama'),
-(3, 'Telah melakukan vaksinasi kedua');
+(1, 'Telah mendaftar dan membayar'),
+(2, 'Vaksinasi pertama'),
+(3, 'Vaksinasi kedua');
 
 -- --------------------------------------------------------
 
@@ -168,22 +141,23 @@ INSERT INTO `status` (`id_status`, `status`) VALUES
 --
 
 CREATE TABLE `user` (
-  `id_user` int(10) UNSIGNED NOT NULL,
+  `id_user` int(10) UNSIGNED NOT NULL DEFAULT '1',
   `username` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `level` int(11) NOT NULL DEFAULT '3',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `username`, `nama`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(462755917, 'steven', 'Steven Pinantyo', 'steven@example.com', '$2y$10$TyxZMy2n295lGZ8BQx1CdOMyycrs/oJNLFIBjLNrz3VaPOhM10D6i', NULL, '2021-06-11 03:20:24', '2021-06-11 03:20:24');
+INSERT INTO `user` (`id_user`, `username`, `email`, `nama`, `password`, `level`, `created_at`, `updated_at`, `remember_token`) VALUES
+(1, 'admin', 'admin@example.com', 'admin', '$2y$10$rlF562xotqJoVkqHG8zr2e8VAqg8OK2shAl/iVaagrwvLQiq1bvMm', 1, '2021-06-13 00:42:08', '2021-06-13 00:42:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -195,7 +169,7 @@ CREATE TABLE `vaksin` (
   `id_vaksin` int(10) UNSIGNED NOT NULL,
   `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama_vaksin` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deskripsi` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deskripsi` text COLLATE utf8mb4_unicode_ci,
   `harga` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -204,18 +178,12 @@ CREATE TABLE `vaksin` (
 --
 
 INSERT INTO `vaksin` (`id_vaksin`, `img`, `nama_vaksin`, `deskripsi`, `harga`) VALUES
-(1, '1623403088-Sinovac-png', 'Sinovac', 'Vaksin Sinovac', '20000'),
-(4, '1623477154-Pfizer-png', 'Pfizer', 'Vaksin Pfizer', '28000');
+(1, '1623570356-Sinovac-png', 'Sinovac', 'Sinovac Vaccine', '20000'),
+(2, NULL, 'Pfizer', 'Pfizer Vaccine', '28000');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id_admin`);
 
 --
 -- Indexes for table `informasi_user`
@@ -276,16 +244,10 @@ ALTER TABLE `vaksin`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id_admin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
@@ -303,7 +265,7 @@ ALTER TABLE `pendaftaran`
 -- AUTO_INCREMENT for table `rs`
 --
 ALTER TABLE `rs`
-  MODIFY `id_rs` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_rs` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `status`
@@ -315,7 +277,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `vaksin`
 --
 ALTER TABLE `vaksin`
-  MODIFY `id_vaksin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_vaksin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables

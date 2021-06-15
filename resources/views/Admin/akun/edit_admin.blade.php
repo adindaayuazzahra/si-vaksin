@@ -6,7 +6,7 @@
 	<hr class="dropdown-divider">
 </div>
 <div class="row">
-	<form action="{{ url('admin/data-admin/edit/'. $admin->id_admin) }}" method="POST" class="m-auto w-75"  enctype="multipart/form-data">
+	<form action="{{ url('admin/data-admin/edit/'. $admin->id_user) }}" method="POST" class="m-auto w-75"  enctype="multipart/form-data">
 		@csrf
 		@method('post')
 
@@ -14,40 +14,31 @@
 			<div class="col-md-6 me-2">
 				<div class="form-group mb-3">
 					<label for="username">Username</label>
-					<input type="text" name="username" placeholder="andy27" class="@error('username') is-invalid @enderror form-control" value="{{$admin->username}}">
-					@error('username')
-					    <div class="alert alert-danger">{{ $message }}</div>
-					@enderror
+					<input type="text" name="username" placeholder="@error('username') Username wajib diisi. @enderror" class="@error('username') is-invalid @enderror form-control" value="{{$admin->username}}">
+				</div>
+
+				<div class="form-group mb-3">
+					<label for="email">Email</label>
+					<input type="email" name="email" class="@error('email') is-invalid @enderror form-control" value="{{$admin->email}}">
 				</div>
 
 				<div class="form-group mb-3">
 					<label for="nama">Nama</label>
-					<input type="text" name="nama" placeholder="Andy" class="@error('nama') is-invalid @enderror form-control" value="{{$admin->nama}}">
-					@error('nama')
-					    <div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-				</div>
-
-				<div class="form-group mb-3">
-					<label for="password">Password</label>
-					<input type="password" name="password" placeholder="password" class="@error('password') is-invalid @enderror form-control">
-					@error('password')
-					    <div class="alert alert-danger">{{ $message }}</div>
-					@enderror
+					<input type="text" name="nama" placeholder="@error('nama') Nama wajib diisi. @enderror" class="@error('nama') is-invalid @enderror form-control" value="{{$admin->nama}}">
 				</div>
 			</div>
 
 			<div class="col-md-6">
-				<div class="form-group mb-4">
-					<label for="img">Image</label>
-					<input type="file" name="img" onchange="loadPreview(event)" class="@error('img') is-invalid @enderror form-control">
-					@error('img')
-					    <div class="alert alert-danger">{{ $message }}</div>
-					@enderror
+				<div class="form-group mb-3">
+					<label for="password">Password</label>
+					<input type="password" name="password" class="@error('password') is-invalid @enderror form-control">
 				</div>
-				<div>
-					<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto d-block mb-4" src="@if($admin->img){{ url('assets/admin/img/'. $admin->img) }} @endif">
+
+				<div class="form-group mb-3">
+					<label for="level">Level</label>
+					<input type="number" name="level" class="@error('level') is-invalid @enderror form-control" value="{{$admin->level}}">
 				</div>
+				
 			</div>
 		</div>
 
