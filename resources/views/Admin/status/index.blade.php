@@ -99,7 +99,7 @@
 			$.ajax({
 				url: "{{route('status.add')}}",
 				type: "POST",
-				data:$("#createForm").serialize(),
+				data: $("#createForm").serialize(),
 				success:function(response){
 					if (response) {
 						$("#table_id tbody").append('<tr id="sid'+response.id_status+'"><td id="text-id_status" class="text-center">'+response.id_status+'</td><td id="text-status" class="fw-bold text-center">'+response.status+'</td><td id="text-button"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editStatus('+response.id_status+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST" action="data-status/delete/'+response.id_status+'">@csrf @method("post")<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
@@ -115,17 +115,10 @@
 		$("#editForm").submit(function(e){
 	  		e.preventDefault();
 
-	  		let id = $("#id_status2").val();
-	  		let status=$("#status2").val();
-	  		let _token=$("input[name=_token]").val();
 			$.ajax({
 				url: "{{route('status.edit')}}",
 				type: "POST",
-				data:{
-					id:id,
-					status:status,
-					_token:_token,
-				},
+				data:  $("#editForm").serialize(),
 				success:function(response){
 					if (response) {
 						$("#sid"+response.id_status+" #text-id_status").text(response.id_status);

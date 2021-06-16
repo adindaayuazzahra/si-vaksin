@@ -95,7 +95,6 @@ class AdminController extends Controller
     public function editVaksin($id){
         $vaksin = Vaksin::find($id);
         return response()->json($vaksin);
-        // return view("Admin.vaksin.edit_vaksin", compact('vaksin'));
     }
 
     public function editVaksinAction(Request $request){
@@ -133,17 +132,6 @@ class AdminController extends Controller
 
         $vaksin=Vaksin::find($request->id_vaksin2);
         return response()->json($vaksin);
-            // if ($vaksin) {
-            //     return redirect("admin/data-vaksin");
-            // }
-            // else{
-            //     return redirect()->back()->with('success','Storing inputed data fail!');
-            // }
-            
-        // }
-        // else{
-        //     return redirect("admin/data-vaksin");
-        // }
     }
 
     public function delVaksin($id){
@@ -300,7 +288,6 @@ class AdminController extends Controller
     public function editAdmin($id){
         $admin=User::find($id);
         return response()->json($admin);
-        // return view("Admin.akun.edit_admin", compact('admin'));
     }
 
     public function editAdminAction(Request $request){
@@ -340,62 +327,30 @@ class AdminController extends Controller
     }
 
     public function addStatus(Request $request){
-        // if($request->submit=="submit"){
-            $request->validate([
-                'status'=>'required|string'
-            ]);
+        $request->validate([
+            'status'=>'required|string'
+        ]);
 
-            $status = Status::create([
-                'status'=>$request->status,
-            ]);
-            return response()->json($status);
-            // if(Status::create($attr)){
-            //     // return redirect("admin/data-status");
-                
-            // }
-            // else{
-            //     return redirect()->back()->with('success', 'Storing inputed data failed!');  
-            // }
-        // }
-        // else{
-        //     return redirect("admin/data-status");
-        // }
+        $status = Status::create([
+            'status'=>$request->status,
+        ]);
+        return response()->json($status);
     }
 
     public function editStatus($id){
         $status = Status::find($id);
         return response()->json($status);
-        // return view('Admin.status.edit_status',compact('status'));
     }
 
-    // public function editStatusAction(Request $request, $id){
-    //     if ($request->submit=="submit") {
-    //         $request->validate([
-    //             'status'=>'required|string'
-    //         ]);
-
-    //         $attr=Status::find($id)->update([
-    //             'status'=>$request->status,
-    //         ]);
-
-    //         if (!$attr) {
-    //             return redirect()->back()->with('success', 'Storing inputed data failed!');
-    //         }
-    //     }
-    //     return redirect("admin/data-status");
-
-    // }
-
     public function editStatusAction(Request $request){
-        // if ($request->submit=="submit") {
         $request->validate([
-            'status'=>'required|string'
+            'status2'=>'required|string'
         ]);
 
-        Status::find($request->id)->update([
-            'status'=>$request->status,
+        Status::find($request->id_status2)->update([
+            'status'=>$request->status2,
         ]);
-        $status=Status::find($request->id);
+        $status=Status::find($request->id_status2);
 
         return response()->json($status);
     }

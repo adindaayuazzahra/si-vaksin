@@ -37,43 +37,43 @@
 								  	<div class="modal-dialog modal-dialog-centered">
 								    	<div class="modal-content">
 									      	<div class="modal-header">
-									        	<h5 class="modal-title" id="modalLabel">Edit Status</h5>
+									        	<h5 class="modal-title" id="modalLabel">Edit Vaksin</h5>
 									        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									      	</div>
 								      
-									        <form class="w-100" id="editForm" enctype="multipart/form-data" method="POST">
+									        <form method="GET" class="w-100" id="editForm">
 									        	<div class="modal-body">
 													@csrf
-													@method('post')
-
+													@method('get')
 													<input type="hidden" id="id_vaksin2" name="id_vaksin2">
-
 													<div class="form-group mb-3">
 														<label for="nama_vaksin2">Vaksin</label>
-														<input id="nama_vaksin2" type="text" name="nama_vaksin2" placeholder="@error('nama_vaksin2') Vaksin wajib diisi. @enderror" class="@error('nama_vaksin2') is-invalid @enderror form-control">
+														<input id="nama_vaksin2" type="text" name="nama_vaksin2" placeholder="@error('nama_vaksin2') Status wajib diisi. @enderror" class="@error('nama_vaksin2') is-invalid @enderror form-control">
 													</div>
 
 													<div class="form-group mb-3">
 														<label for="deskripsi2">Deskripsi</label>
-														<input id="deskripsi2" type="text" name="deskripsi2" placeholder="@error('deskripsi2') Deskripsi wajib diisi. @enderror" class="@error('deskripsi2') is-invalid @enderror form-control">
+														<input id="deskripsi2" type="text" name="deskripsi2" placeholder="@error('deskripsi2') Status wajib diisi. @enderror" class="@error('deskripsi2') is-invalid @enderror form-control">
 													</div>
 
 													<div class="form-group mb-3">
 														<label for="harga2">Harga</label>
-														<input id="harga2" type="text" name="harga2" placeholder="@error('harga2') Harga wajib diisi. @enderror" class="@error('harga2') is-invalid @enderror form-control">
+														<input id="harga2" type="text" name="harga2" placeholder="@error('harga2') Status wajib diisi. @enderror" class="@error('harga2') is-invalid @enderror form-control">
 													</div>
 
 													<div class="form-group mb-3">
 														<label for="img2">Image</label>
-														<input id="img2" type="file" name="img2" onchange="loadPreviewModal(event)" class="@error('img2') is-invalid @enderror form-control">
+														<input id="img2" type="file" name="img2" class="form-control" >
 													</div>
 													<div>
 														<img id="imageUpload2" class="img-thumbnail shadow rounded mx-auto mb-3 d-block d-none">
 													</div>
 
+													
 												</div>
 												<div class="modal-footer">									        	
-										        	<button type="submit" class="btn btn-primary w-25" name="submit">Simpan</button>
+										        	<button type="submit" class="btn btn-primary w-25" name="submit" value="submit">Simpan
+										        	</button>
 										        	<button type="button" class="btn btn-secondary w-25"  data-bs-dismiss="modal" >Kembali</button>
 									      		</div>
 												 
@@ -84,10 +84,9 @@
 								  	</div>
 								</div>
 								
-								<form id="deleteForm" method="POST">
+								<form id="deleteForm" method="POST" action="{{url('admin/data-vaksin/delete/'.$vaksin->id_vaksin)}}">
 									@csrf
 									@method('post')
-									<input type="hidden" name="id_vaksin3" id="id_vaksin3" value="{{$vaksin->id_vaksin}}">
 									<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button>
 								</form>
 							</td>
@@ -100,7 +99,7 @@
 	</div>
 
 	<div class="col-md-3 mb-2 card">
-		<form action="{{ url('admin/data-vaksin/add') }}" id="createForm" method="POST" class="mt-2 mb-5 w-100" enctype="multipart/form-data">
+		<form id="createForm" method="POST" class="mt-2 mb-5 w-100" enctype="multipart/form-data">
 			@csrf
 			@method('post')
 
@@ -134,19 +133,14 @@
 
 	
 </div>
-	
 @endsection
-
 @section('script')
 <script>
 	$(document).ready(function(){
-
 		//create handler
 		$("#createForm").submit(function(e){
 	  		e.preventDefault();
-
 	  		let formData = new FormData(this);
-
 			$.ajax({
 				type: "POST",
 				url: "{{route('vaksin.add')}}",
@@ -155,7 +149,7 @@
 				processData: false,
 				success:function(response){
 					if (response) {
-						$("#table_id tbody").append('<tr id="vid'+response.id_vaksin+'"><td id="nama-vaksin">'+response.nama_vaksin+'</td><td id="img-vaksin">@if('+response.img+')<img id="imageContent'+response.id_vaksin+'" width="100" class="img-thumbnail rounded mx-auto d-block">@endif</td><td id="deskripsi-vaksin">'+response.deskripsi+'</td><td id="harga-vaksin" class="fw-bold">Rp. '+response.harga+'</td><td id="kontrol-vaksin"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editVaksin('+response.id_vaksin+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST">@csrf @method("post")<input type="hidden" name="id_vaksin3" id="id_vaksin3" value="'+response.id_vaksin+'"><button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
+						$("#table_id tbody").append('<tr id="vid'+response.id_vaksin+'"><td id="nama-vaksin">'+response.nama_vaksin+'</td><td id="img-vaksin">@if('+response.img+')<img id="imageContent'+response.id_vaksin+'" width="100" class="img-thumbnail rounded mx-auto d-block">@endif</td><td id="deskripsi-vaksin">'+response.deskripsi+'</td><td id="harga-vaksin" class="fw-bold">Rp. '+response.harga+'</td><td id="kontrol-vaksin"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editVaksin('+response.id_vaksin+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST" action="data-vaksin/delete/'+response.id_vaksin+'">@csrf @method("post")<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
 						
 						if (!(response.img==null)) {
 							var imageCreateUpload=document.getElementById('imageContent'+response.id_vaksin);
@@ -173,17 +167,14 @@
 			});
 		});
 		
-		
-
 		//edit handler
 		$("#editForm").submit(function(e){
 	  		e.preventDefault();
-
-	  		let formData = new FormData(this);
+	  		let editData = new FormData(this);
 			$.ajax({
 				url: "{{route('vaksin.edit')}}",
 				type: "POST",
-				data: formData,
+				data: editData,
 				contentType: false,
 				processData: false,
 				success:function(response){
@@ -191,7 +182,6 @@
 						console.log(response);
 						$("#vid"+response.id_vaksin+" #nama-vaksin").text(response.nama_vaksin);
 						$("#vid"+response.id_vaksin+" #deskripsi-vaksin").text(response.deskripsi);
-						$("#vid"+response.id_vaksin+" #img-vaksin").text(response.img);
 						$("#vid"+response.id_vaksin+" #harga-vaksin").text(response.harga);
 						if (!(response.img==null)) {
 							var imageEditUpload=document.getElementById('imageContent'+response.id_vaksin);
@@ -209,6 +199,7 @@
 				}
 			});
 		});
+		
 	});
 
 	function editVaksin(id){

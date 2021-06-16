@@ -41,11 +41,11 @@
 		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
 		        <li class="nav-item">
-		          <a class="nav-link text-white" aria-current="page" href="{{ url('admin') }}">Dashboard</a>
+		          <a class="nav-link text-white" aria-current="page" href="{{ route('index') }}">Dashboard</a>
 		        </li>
 
 		        <li class="nav-item">
-		          <a class="nav-link text-white" href="{{ url('admin/laporan') }}">Laporan Pendaftaran</a>
+		          <a class="nav-link text-white" href="{{ route('laporan.index') }}">Laporan Pendaftaran</a>
 		        </li>
 
 		        <li class="nav-item dropdown">
@@ -53,20 +53,20 @@
 		            Database
 		          </a>
 		          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          	<li><a class="dropdown-item font-weight-bold" href="{{ url('admin/data-vaksin') }}">Database Vaksinasi</a></li>
+		          	<li><a class="dropdown-item font-weight-bold" href="{{ route('vaksin.index') }}">Database Vaksinasi</a></li>
 
 		            <li><hr class="dropdown-divider"></li>
 
-		            <li><a class="dropdown-item font-weight-bold" href="{{ url('admin/data-rumah-sakit') }}">Database Rumah Sakit</a></li>
+		            <li><a class="dropdown-item font-weight-bold" href="{{ route('rs.index') }}">Database Rumah Sakit</a></li>
 
 		            <li><hr class="dropdown-divider"></li>
 
 		            @if(auth()->user()->level==1)
-		            <li><a class="dropdown-item font-weight-bold" href="{{ url('admin/data-admin') }}">Database Admin</a></li>
+		            <li><a class="dropdown-item font-weight-bold" href="{{ route('admin.index') }}">Database Admin</a></li>
 		            <li><hr class="dropdown-divider"></li>
 		            @endif
 
-		            <li><a class="dropdown-item font-weight-bold" href="{{ url('admin/data-status') }}">Database Status</a></li>
+		            <li><a class="dropdown-item font-weight-bold" href="{{ route('status.index') }}">Database Status</a></li>
 
 		          </ul>
 		        </li>
