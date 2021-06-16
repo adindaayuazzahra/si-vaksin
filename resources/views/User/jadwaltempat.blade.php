@@ -77,7 +77,7 @@
       @foreach($list_rs as $rs)
       <div class="col-md-5 m-auto d-block">
         <div class="card mb-5">
-          <img class="" src="{{asset('assets/rs/img/'.$rs->img)}}" alt="Card image cap">
+          <img class="w-100" src="{{asset('assets/rs/img/'.$rs->img)}}" alt="Card image cap" height="300">
           <div class="card-body">
             <h5 class="card-title"><i class="fas fa-hospital"></i> {{$rs->nama_rs}}</h5>
             <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{$rs->alamat}}</p>

@@ -24,6 +24,7 @@ Route::get('/', [Homecontroller::class, 'index']);
 
 Route::get('login', [Homecontroller::class, 'login']);
 Route::post('login',[Homecontroller::class, 'loginAction']);
+Route::post('logout',[Homecontroller::class], 'logout');
 
 Route::get('daftar', [Homecontroller::class, 'daftar']);
 Route::post('daftar', [Homecontroller::class, 'daftarAction']);
@@ -33,7 +34,6 @@ Route::get('jadwal', [Homecontroller::class, 'infoJadwal']);
 Route::get('syarat', [Homecontroller::class, 'syarat']);
 Route::get('harga', [Homecontroller::class, 'harga']);
 Route::get('homepageuser', [Homecontroller::class, 'homepageuser']);
-
 
 Route::get('login-admin',[Admincontroller::class, 'login'])->name('login.admin');
 Route::post('login-admin',[Admincontroller::class, 'loginAction']);
@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function(){
     //Admin
     Route::middleware(['authcheck:1,2'])->group(function(){
         Route::post('logout',[Admincontroller::class, 'logout']);
+        
         Route::group(['prefix'=>'admin'],function(){
             Route::get('/',[Admincontroller::class, 'index'])->name('index');
             Route::group(['prefix'=>'laporan'], function(){
