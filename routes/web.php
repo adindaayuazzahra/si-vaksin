@@ -33,6 +33,7 @@ Route::get('jadwal', [Homecontroller::class, 'infoJadwal']);
 Route::get('syarat', [Homecontroller::class, 'syarat']);
 Route::get('harga', [Homecontroller::class, 'harga']);
 Route::get('homepageuser', [Homecontroller::class, 'homepageuser']);
+Route::get('daftar-vaksin', [Homecontroller::class, 'form']);
 
 
 Route::get('login-admin',[Admincontroller::class, 'login'])->name('login.admin');

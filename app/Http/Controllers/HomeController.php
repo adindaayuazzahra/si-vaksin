@@ -25,6 +25,7 @@ class HomeController extends Controller
         return view("User.syarat");
     }
 
+    
     public function harga(){
         return view("User.harga");
     }
@@ -32,7 +33,11 @@ class HomeController extends Controller
     public function homepageuser(){
         return view("User.akun.index");
     }
-
+    
+    public function form(){
+        return view("User.akun.form");
+    }
+    
     //Akun
     public function login(){
         return view("User.akun.login");
