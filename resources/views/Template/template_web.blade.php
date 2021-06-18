@@ -46,8 +46,13 @@
           @endif
         </ul>
         @if(Auth::check())
+        <a href="#" type="submit" class="btn text-white">{{$akun->nama}}</a>
         <span class="navbar-text">
-          <a href="{{url('/logout')}}" type="submit" class="btn bg-danger">Logout <i class="fas fa-sign-out-alt"></i></a>
+          <form method="POST" action="{{ url('user/logout') }}">
+            @csrf
+            @method('post')
+            <button class="btn btn-danger rounded">Logout <i class="fas fa-sign-out-alt"></i></button>
+          </form>
         </span>
         @else
         <span class="navbar-text">

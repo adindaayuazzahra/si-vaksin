@@ -40,46 +40,40 @@
 									        	<h5 class="modal-title" id="modalLabel">Edit Vaksin</h5>
 									        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									      	</div>
-								      
-									        <form method="GET" class="w-100" id="editForm">
+								      		<form method="POST" class="w-100" id="editForm" enctype="multipart/form-data">
 									        	<div class="modal-body">
-													@csrf
-													@method('get')
-													<input type="hidden" id="id_vaksin2" name="id_vaksin2">
+									        		@csrf
+													@method('post')
+													<input type="hidden" id="id_vaksin2" name="id_vaksin">
 													<div class="form-group mb-3">
 														<label for="nama_vaksin2">Vaksin</label>
-														<input id="nama_vaksin2" type="text" name="nama_vaksin2" placeholder="@error('nama_vaksin2') Status wajib diisi. @enderror" class="@error('nama_vaksin2') is-invalid @enderror form-control">
+														<input id="nama_vaksin2" type="text" name="nama_vaksin" placeholder="@error('nama_vaksin') Vaksin wajib diisi. @enderror" class="@error('nama_vaksin') is-invalid @enderror form-control">
 													</div>
 
 													<div class="form-group mb-3">
 														<label for="deskripsi2">Deskripsi</label>
-														<input id="deskripsi2" type="text" name="deskripsi2" placeholder="@error('deskripsi2') Status wajib diisi. @enderror" class="@error('deskripsi2') is-invalid @enderror form-control">
+														<input id="deskripsi2" type="text" name="deskripsi" placeholder="@error('deskripsi') Deskripsi wajib diisi. @enderror" class="@error('deskripsi') is-invalid @enderror form-control">
 													</div>
 
 													<div class="form-group mb-3">
 														<label for="harga2">Harga</label>
-														<input id="harga2" type="text" name="harga2" placeholder="@error('harga2') Status wajib diisi. @enderror" class="@error('harga2') is-invalid @enderror form-control">
+														<input id="harga2" type="text" name="harga" placeholder="@error('harga') Harga wajib diisi. @enderror" class="@error('harga') is-invalid @enderror form-control">
 													</div>
 
 													<div class="form-group mb-3">
 														<label for="img2">Image</label>
-														<input id="img2" type="file" name="img2" class="form-control" >
+														<input id="img2" type="file" name="img" onchange="loadPreviewModal(event)" class="form-control" >
 													</div>
 													<div>
 														<img id="imageUpload2" class="img-thumbnail shadow rounded mx-auto mb-3 d-block d-none">
 													</div>
-
-													
 												</div>
 												<div class="modal-footer">									        	
-										        	<button type="submit" class="btn btn-primary w-25" name="submit" value="submit">Simpan
-										        	</button>
+										        	<button type="submit" class="btn btn-primary w-25" name="submit">Simpan</button>
 										        	<button type="button" class="btn btn-secondary w-25"  data-bs-dismiss="modal" >Kembali</button>
 									      		</div>
-												 
-											</form>
-								      
-									      	
+								      			
+								      		</form>
 								    	</div>
 								  	</div>
 								</div>
@@ -137,6 +131,7 @@
 @section('script')
 <script>
 	$(document).ready(function(){
+		
 		//create handler
 		$("#createForm").submit(function(e){
 	  		e.preventDefault();
@@ -162,24 +157,27 @@
 							$("#imageContent"+response.id_vaksin).addClass('d-none');
 						}
 						$("#createForm")[0].reset();
+						$("#imageUpload").addClass('d-none');
 					}
+				},
+				error:function(){
+					console.log(formData);
 				}
 			});
 		});
-		
-		//edit handler
+
+		//edit handler		
 		$("#editForm").submit(function(e){
-	  		e.preventDefault();
-	  		let editData = new FormData(this);
+			e.preventDefault();
+			let formData=new FormData(this);
 			$.ajax({
 				url: "{{route('vaksin.edit')}}",
-				type: "POST",
-				data: editData,
-				contentType: false,
-				processData: false,
+				type:"POST",
+				data:formData,
+				contentType:false,
+				processData:false,
 				success:function(response){
 					if (response) {
-						console.log(response);
 						$("#vid"+response.id_vaksin+" #nama-vaksin").text(response.nama_vaksin);
 						$("#vid"+response.id_vaksin+" #deskripsi-vaksin").text(response.deskripsi);
 						$("#vid"+response.id_vaksin+" #harga-vaksin").text(response.harga);
@@ -196,10 +194,13 @@
 						$("#editModal").modal('toggle');
 						$("#editForm")[0].reset();
 					}
+				},
+
+				error:function(){
+					console.log(formData);
 				}
 			});
 		});
-		
 	});
 
 	function editVaksin(id){
@@ -221,5 +222,7 @@
 			}
 		});
 	}
+
+
 </script>
 @endsection

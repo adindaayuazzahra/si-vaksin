@@ -20,35 +20,41 @@ Route::get('/', function () {
     return view('homepage');
 });
 
-Route::get('/', [Homecontroller::class, 'index']);
+Route::get('/', [Homecontroller::class, 'index'])->name('user.index');
+Route::get('login', [Homecontroller::class, 'login'])->name('login.get');
+Route::post('login',[Homecontroller::class, 'loginAction'])->name('login.user');
 
-Route::get('login', [Homecontroller::class, 'login']);
-Route::post('login',[Homecontroller::class, 'loginAction']);
-Route::post('logout',[Homecontroller::class], 'logout');
 
-Route::get('daftar', [Homecontroller::class, 'daftar']);
-Route::post('daftar', [Homecontroller::class, 'daftarAction']);
 
-Route::get('jadwal', [Homecontroller::class, 'infoJadwal']);
+Route::get('daftar', [Homecontroller::class, 'daftar'])->name('daftar.get');
+Route::post('daftar', [Homecontroller::class, 'daftarAction'])->name('daftar.user');
 
-Route::get('syarat', [Homecontroller::class, 'syarat']);
-Route::get('harga', [Homecontroller::class, 'harga']);
+Route::get('jadwal', [Homecontroller::class, 'infoJadwal'])->name('jadwal.user');
+
+Route::get('syarat', [Homecontroller::class, 'syarat'])->name('syarat.user');
+Route::get('harga', [Homecontroller::class, 'harga'])->name('harga.user');
+
 Route::get('homepageuser', [Homecontroller::class, 'homepageuser']);
 
 Route::get('login-admin',[Admincontroller::class, 'login'])->name('login.admin');
 Route::post('login-admin',[Admincontroller::class, 'loginAction']);
 
-Route::middleware(['pendaftarcheck'])->group(function(){
-
-});
 
 Route::middleware(['auth'])->group(function(){
-    //Admin
-    Route::middleware(['authcheck:1,2'])->group(function(){
-        Route::post('logout',[Admincontroller::class, 'logout']);
+    //User
+    Route::middleware(['usercheck:3'])->group(function(){
+        Route::group(['prefix'=>'user'], function(){
+            Route::post('logout',[Homecontroller::class, 'logout']);
+        });
         
+    });
+
+    //Admin
+    Route::middleware(['authcheck:1,2'])->group(function(){ 
         Route::group(['prefix'=>'admin'],function(){
+            Route::post('logout',[Admincontroller::class, 'logout'])->name('admin.logout');
             Route::get('/',[Admincontroller::class, 'index'])->name('index');
+
             Route::group(['prefix'=>'laporan'], function(){
                 Route::get('/',[Admincontroller::class, 'indexLaporan'])->name('laporan.index');
             });
@@ -65,9 +71,10 @@ Route::middleware(['auth'])->group(function(){
                 Route::get('/',[Admincontroller::class, 'indexRS'])->name('rs.index');
                 Route::post('add',[Admincontroller::class, 'addRS'])->name('rs.add');
                 Route::get('edit/{id}',[Admincontroller::class, 'editRS'])->name('rs.get');
-                Route::post('edit/{id}',[Admincontroller::class, 'editRSAction'])->name('rs.edit');
+                Route::post('edit',[Admincontroller::class, 'editRSAction'])->name('rs.edit');
                 Route::post('delete/{id}',[Admincontroller::class, 'delRS'])->name('rs.delete');
             });
+
             Route::group(['prefix'=>'data-status'], function(){
                 Route::get('/',[Admincontroller::class, 'indexStatus'])->name('status.index');
                 Route::post('add',[Admincontroller::class, 'addStatus'])->name('status.add');

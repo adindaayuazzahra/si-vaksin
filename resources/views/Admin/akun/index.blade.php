@@ -39,30 +39,35 @@
 								        	<div class="modal-body">
 												@csrf
 												@method('post')
-												<input type="hidden" id="id_user2" name="id_user2">
+												<input type="hidden" id="id_user2" name="id_user">
 												<div class="form-group mb-3">
 													<label for="username2">Username</label>
-													<input id="username2" type="text" name="username2" placeholder="@error('username2') Username wajib diisi. @enderror" class="@error('username2') is-invalid @enderror form-control">
+													<input id="username2" type="text" name="username" class="form-control">
+													<span class="text-danger" id="usernameError2"></span>
 												</div>
 
 												<div class="form-group mb-3">
 													<label for="email2">Email</label>
-													<input id="email2" type="email" name="email2" class="@error('email2') is-invalid @enderror form-control">
+													<input id="email2" type="email" name="email" class="form-control">
+													<span class="text-danger" id="emailError2"></span>
 												</div>
 
 												<div class="form-group mb-3">
 													<label for="nama2">Nama</label>
-													<input id="nama2" type="text" name="nama2" placeholder="@error('nama2') Nama wajib diisi. @enderror" class="@error('nama2') is-invalid @enderror form-control">
+													<input id="nama2" type="text" name="nama" class="form-control">
+													<span class="text-danger" id="namaError2"></span>
 												</div>
 
 												<div class="form-group mb-3">
 													<label for="password2">Password</label>
-													<input id="password2" type="password" name="password2" class="@error('password2') is-invalid @enderror form-control">
+													<input id="password2" type="password" name="password" class="form-control">
+													<span class="text-danger" id="passwordError2"></span>
 												</div>
 
 												<div class="form-group mb-3">
 													<label for="level2">Level</label>
-													<input id="level2" type="number" name="level2" class="@error('level2') is-invalid @enderror form-control">
+													<input id="level2" type="number" name="level" class="form-control">
+													<span class="text-danger" id="levelError2"></span>
 												</div>
 
 											</div>
@@ -94,27 +99,32 @@
 			@method('post')
 			<div class="form-group mb-3">
 				<label for="username">Username</label>
-				<input id="username" type="text" name="username" placeholder="@error('username') Username wajib diisi. @enderror" class="@error('username') is-invalid @enderror form-control">
+				<input id="username" type="text" name="username" class="form-control">
+				<span class="text-danger" id="usernameError"></span>
 			</div>
 
 			<div class="form-group mb-3">
 				<label for="email">Email</label>
-				<input id="email" type="email" name="email" class="@error('email') is-invalid @enderror form-control">
+				<input id="email" type="email" name="email" class="form-control">
+				<span class="text-danger" id="emailError"></span>
 			</div>
 
 			<div class="form-group mb-3">
 				<label for="nama">Nama</label>
-				<input id="nama" type="text" name="nama" placeholder="@error('nama') Nama wajib diisi. @enderror" class="@error('nama') is-invalid @enderror form-control">
+				<input id="nama" type="text" name="nama" class="form-control">
+				<span class="text-danger" id="namaError"></span>
 			</div>
 
 			<div class="form-group mb-3">
 				<label for="password">Password</label>
-				<input id="password" type="password" name="password" class="@error('password') is-invalid @enderror form-control">
+				<input id="password" type="password" name="password" class="form-control">
+				<span class="text-danger" id="passwordError"></span>
 			</div>
 
 			<div class="form-group mb-3">
 				<label for="level">Level</label>
-				<input id="level" type="number" name="level" class="@error('level') is-invalid @enderror form-control">
+				<input id="level" type="number" name="level" class="form-control">
+				<span class="text-danger" id="levelError"></span>
 			</div>
 
 			<button type="submit" class="btn btn-primary w-50" name="submit" value="submit">Simpan</button>
@@ -139,8 +149,61 @@
 					if (response) {
 						$("#table_id tbody").append('<tr id="aid'+response.id_user+'"><td id="text-username" class="text-center">'+response.username+'</td><td id="text-nama" class="text-center">'+response.nama+'</td><td id="text-email" class="text-center">'+response.email+'</td><td id="text-control" ><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editAdmin('+response.id_user+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST" action="data-admin/delete/'+response.id_user+'">@csrf @method("post")<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
 						
+						$('#usernameError').text('');
+						$('#username').removeClass('is-invalid');
+						$('#emailError').text('');
+			        	$('#email').removeClass('is-invalid');
+			        	$('#namaError').text('');
+			        	$('#nama').removeClass('is-invalid');
+			        	$('#passwordError').text('');
+			        	$('#password').removeClass('is-invalid');
+			        	$('#levelError').text('');
+			        	$('#level').removeClass('is-invalid');
+
 						$("#createForm")[0].reset();
 					}
+				},
+				error:function(response){
+					if(response.responseJSON.errors.username){
+						$('#usernameError').text(response.responseJSON.errors.username);
+						$('#username').addClass('is-invalid');
+					}
+					else{
+						$('#usernameError').text('');
+						$('#username').removeClass('is-invalid');
+					}
+			        if(response.responseJSON.errors.email){
+			        	$('#emailError').text(response.responseJSON.errors.email);
+			        	$('#email').addClass('is-invalid');
+			        }
+			        else{
+			        	$('#emailError').text('');
+			        	$('#email').removeClass('is-invalid');
+			        }
+			        if (response.responseJSON.errors.nama) {
+			        	$('#namaError').text(response.responseJSON.errors.nama);
+			        	$('#nama').addClass('is-invalid');
+			        }
+			        else{
+			        	$('#namaError').text('');
+			        	$('#nama').removeClass('is-invalid');
+			        }
+			        if (response.responseJSON.errors.password) {
+			        	$('#passwordError').text(response.responseJSON.errors.password);
+			        	$('#password').addClass('is-invalid');
+			        }
+			        else{
+			        	$('#passwordError').text('');
+			        	$('#password').removeClass('is-invalid');
+			        }
+			        if (response.responseJSON.errors.level) {
+			        	$('#levelError').text(response.responseJSON.errors.level);
+			        	$('level').addClass('is-invalid');
+			        }
+			        else{
+			        	$('#levelError').text('');
+			        	$('#level').removeClass('is-invalid');
+			        }
 				}
 			});
 		});
@@ -158,9 +221,61 @@
 						$("#aid"+response.id_user+" #text-username").text(response.username);
 						$("#aid"+response.id_user+" #text-nama").text(response.nama);
 						$("#aid"+response.id_user+" #text-email").text(response.email);
+						$('#usernameError2').text('');
+						$('#username2').removeClass('is-invalid');
+						$('#emailError2').text('');
+			        	$('#email2').removeClass('is-invalid');
+			        	$('#namaError2').text('');
+			        	$('#nama2').removeClass('is-invalid');
+			        	$('#passwordError2').text('');
+			        	$('#password2').removeClass('is-invalid');
+			        	$('#levelError2').text('');
+			        	$('#level2').removeClass('is-invalid');
 						$("#editModal").modal('toggle');
 						$("#editForm")[0].reset();
 					}
+				},
+				error:function(response){
+					if(response.responseJSON.errors.username){
+						$('#usernameError2').text(response.responseJSON.errors.username);
+						$('#username2').addClass('is-invalid');
+					}
+					else{
+						$('#usernameError2').text('');
+						$('#username2').removeClass('is-invalid');
+					}
+			        if(response.responseJSON.errors.email){
+			        	$('#emailError2').text(response.responseJSON.errors.email);
+			        	$('#email2').addClass('is-invalid');
+			        }
+			        else{
+			        	$('#emailError2').text('');
+			        	$('#email2').removeClass('is-invalid');
+			        }
+			        if (response.responseJSON.errors.nama) {
+			        	$('#namaError2').text(response.responseJSON.errors.nama);
+			        	$('#nama2').addClass('is-invalid');
+			        }
+			        else{
+			        	$('#namaError2').text('');
+			        	$('#nama2').removeClass('is-invalid');
+			        }
+			        if (response.responseJSON.errors.password) {
+			        	$('#passwordError2').text(response.responseJSON.errors.password);
+			        	$('#password2').addClass('is-invalid');
+			        }
+			        else{
+			        	$('#passwordError2').text('');
+			        	$('#password2').removeClass('is-invalid');
+			        }
+			        if (response.responseJSON.errors.level) {
+			        	$('#levelError2').text(response.responseJSON.errors.level);
+			        	$('level2').addClass('is-invalid');
+			        }
+			        else{
+			        	$('#levelError2').text('');
+			        	$('#level2').removeClass('is-invalid');
+			        }
 				}
 			});
 		});

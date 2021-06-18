@@ -51,26 +51,24 @@ class HomeController extends Controller
     }
 
     public function loginAction(Request $request){
-        if ($request->submit=="submit") {
+        if ($request->has('submit')) {
             $request->validate([
-                'email'=>'required|email',
+                'email'=> 'required|email',
                 'password'=>'required'
             ]);
 
-            $authen = $request->only('email','password');
-            $check=Auth::attempt($authen);
+            $check = Auth::attempt($request->only('email','password'));
             if ($check) {
-                $request->session()->regenerate();
+                $request->session()->put('pendaftar', $check);
                 return redirect("/");
-            }   
+            }
         }
     }
 
     public function logout(Request $request){
         if (Auth::check()) {
             Auth::logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
+            $request->session()->forget('pendaftar');
             return redirect("/");
         }
         return redirect("login");

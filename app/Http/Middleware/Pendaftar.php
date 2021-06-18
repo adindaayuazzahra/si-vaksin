@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Pendaftar
 {
@@ -14,9 +16,14 @@ class Pendaftar
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $level)
     {
+        if(!Session::get('pendaftar')){
+            return route('login.user');
+        }
+        else{
+            return $next($request);
+        }
         
-        return $next($request);
     }
 }

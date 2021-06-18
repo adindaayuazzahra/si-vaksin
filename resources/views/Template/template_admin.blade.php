@@ -79,7 +79,7 @@
 			      	</li>
 		      	</ul>
 
-		      	<form action="{{ url('logout') }}" method="POST">
+		      	<form action="{{ url('admin/logout') }}" method="POST">
 		      		@csrf
 		      		@method('post')
 			        <button type="submit" name="logout" value="logout" class="btn border-0 bg-transparent text-white">Logout</button>
