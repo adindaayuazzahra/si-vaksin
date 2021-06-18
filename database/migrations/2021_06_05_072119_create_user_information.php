@@ -14,13 +14,12 @@ class CreateUserInformation extends Migration
     public function up()
     {
         Schema::create('vaksin.informasi_user', function (Blueprint $table) {
+            $table->increments('id_informasi')
             $table->integer('id_user')->unsigned();
             $table->foreign('id_user')->references('id_user')->on('vaksin.user');
-            $table->string('img')->default('user.svg');
             $table->text('nik');
-            $table->text('name');
+            $table->text('nama');
             $table->text('alamat');
-            $table->text('provinsi');
             $table->timestamp('tgl_verifikasi')->useCurrent();
         });
     }

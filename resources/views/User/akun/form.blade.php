@@ -43,39 +43,38 @@
       <div class="col-md-12">
         <div class="card">
 
-          <form class="p-5" action="">
-
+          <form class="p-5" action="{{ url('/daftar-vaksin') }}" method="POST">
+            @csrf
+            @method('post')
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">NIK</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="NIK">
+                <input type="text" name="nik" class="form-control" placeholder="NIK">
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Nama</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Nama">
+                <input type="text" name="nama" class="form-control" value="{{$akun->nama}}">
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Alamat Lengkap</label>
               <div class="col-sm-10">
-                <textarea type="text" class="form-control" placeholder="Alamat" rows="3"></textarea>
+                <textarea type="text" name="alamat" class="form-control" placeholder="Alamat" rows="3"></textarea>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Vaksin</label>
               <div class="col-sm-10">
-                <select class="form-control" id="exampleFormControlSelect1">
+                <select class="form-control" name="vaksin" id="exampleFormControlSelect1">
                   <option>-- Pilih Jenis Vaksin --</option>
-                  <option>Astrazaneca</option>
-                  <option>Sinovac</option>
-                  <option>Pfizer</option>
-                  <option>Moderna</option>
-                  <option>Sinopharm</option>
+                  @foreach($list_vs as $vs)
+                    <option value="{{$vs->id_vaksin}}">{{$vs->nama_vaksin}} - Rp. {{$vs->harga}}</option>
+                  @endforeach
                 </select>
               </div>
             </div>
@@ -83,12 +82,11 @@
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Rumah Sakit</label>
               <div class="col-sm-10">
-                <select class="form-control" id="exampleFormControlSelect2">
+                <select class="form-control" name="rs" id="exampleFormControlSelect2" onchange="loadPreviewOption(event)">
                   <option>-- Pilih Rumah Sakit --</option>
-                  <option>RS Omni</option>
-                  <option>RS Persahabatan</option>
-                  <option>RS Islam</option>
-                  <option>RS Pondok Indah</option>
+                  @foreach($list_rs as $rs)
+                    <option value="{{$rs->id_rs}}">{{$rs->nama_rs}}  Jadwal: {{$rs->jadwal}}</option>
+                  @endforeach
                 </select>
               </div>
             </div>
@@ -96,14 +94,14 @@
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Tanggal</label>
               <div class="col-sm-10">
-                <input type="date" class="form-control">
+                <input type="date" name="tgl" class="form-control">
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Jam</label>
               <div class="col-sm-10">
-                <input type="time" class="form-control">
+                <input type="time" name="time" class="form-control">
               </div>
             </div>
 
@@ -144,4 +142,7 @@
     © 2021 Copyright: goVaksin.test
   </div>
 </footer>  
+<script>
+  
+</script>
 @endsection

@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class InformasiUser extends Model
 {
     use HasFactory;
+    public $timestamps=false;
     protected $table = 'informasi_user';
     protected $fillable = [
-        'img',
+        'id_user',
         'nik',
         'nama',
         'alamat',
-        'provinsi',
     ];
 }

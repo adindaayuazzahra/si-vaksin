@@ -59,14 +59,14 @@ class AdminController extends Controller
     public function indexLaporan(){
         $akun=Auth::user();
         $laporan = Registrasi::all();
-        return view("Admin.laporan.index", compact('laporan'),compact('akun'));
+        return view("Admin.laporan.index", ['laporan' => $laporan,'akun'=>$akun]);
     }
 
     //Data Vaccine
     public function indexVaksin(){
         $akun=Auth::user();
         $list_vaksin=Vaksin::all();
-        return view("Admin.vaksin.index", compact('list_vaksin'),compact('akun'));
+        return view("Admin.vaksin.index", ['list_vaksin' => $list_vaksin,'akun'=>$akun]);
     }
 
     public function addVaksin(Request $request){
@@ -145,7 +145,7 @@ class AdminController extends Controller
     public function indexRS(){
         $akun=Auth::user();
         $list_rs=RumahSakit::all();
-        return view("Admin.rumahsakit.index", compact('list_rs'), compact('akun'));
+        return view("Admin.rumahsakit.index", ['list_rs' => $list_rs,'akun'=>$akun]);
     }
 
     public function addRS(Request $request){
@@ -243,7 +243,7 @@ class AdminController extends Controller
     public function indexAdmin(){
         $akun=Auth::user();
         $list_admin=User::where('level',1)->orWhere('level',2)->get();
-        return view("Admin.akun.index", compact('list_admin'), compact('akun'));
+        return view("Admin.akun.index", ['list_admin' => $list_admin,'akun'=>$akun]);
     }
 
     public function addAdmin(Request $request){

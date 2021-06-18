@@ -20,14 +20,12 @@ class CreatePendaftaranVaksin extends Migration
 
             $table->integer('id_rs')->unsigned();
             $table->foreign('id_rs')->references('id_rs')->on('vaksin.rs');
-
             $table->integer('id_vaksin')->unsigned();
             $table->foreign('id_vaksin')->references('id_vaksin')->on('vaksin.vaksin');
-
+            $table->date('tanggal_vaksinasi')->nullable();
+            $table->time('jam_vaksinasi')->nullable();
             $table->text('keterangan')->nullable();
-
             $table->timestamp('tgl_pendaftaran')->useCurrent();
-
             $table->integer('id_status')->unsigned()->nullable();
             $table->foreign('id_status')->references('id_status')->on('vaksin.status');
         });

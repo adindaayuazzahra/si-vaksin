@@ -36,9 +36,8 @@ Route::get('harga', [Homecontroller::class, 'harga'])->name('harga.user');
 
 
 Route::get('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasi']);
+Route::post('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasiAction']);
 
-
-Route::get('homepageuser', [Homecontroller::class, 'homepageuser']);
 
 Route::get('login-admin',[Admincontroller::class, 'login'])->name('login.admin');
 Route::post('login-admin',[Admincontroller::class, 'loginAction']);
