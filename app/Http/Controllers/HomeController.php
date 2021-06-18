@@ -29,6 +29,7 @@ class HomeController extends Controller
         return view("User.syarat",compact('akun'));
     }
 
+    
     public function harga(){
         $akun=Auth::user();
         $list_vaksin=Vaksin::all();
@@ -39,7 +40,11 @@ class HomeController extends Controller
         $akun=Auth::user();
         return view("User.akun.index", compact('akun'));
     }
-
+    
+    public function form(){
+        return view("User.akun.form");
+    }
+    
     //Akun
     public function login(){
         if (Auth::check()) {

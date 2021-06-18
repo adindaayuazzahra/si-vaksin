@@ -41,7 +41,7 @@
           </li>
           @if(Auth::check())
           <li class="nav-item active">
-            <a class="nav-link" href="#">Daftar Vaksin</a>
+            <a class="nav-link" href="{{url('/daftar-vaksin')}}">Daftar Vaksin</a>
           </li> 
           @endif
         </ul>

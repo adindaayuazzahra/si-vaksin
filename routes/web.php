@@ -34,6 +34,10 @@ Route::get('jadwal', [Homecontroller::class, 'infoJadwal'])->name('jadwal.user')
 Route::get('syarat', [Homecontroller::class, 'syarat'])->name('syarat.user');
 Route::get('harga', [Homecontroller::class, 'harga'])->name('harga.user');
 
+
+Route::get('daftar-vaksin', [Homecontroller::class, 'form']);
+
+
 Route::get('homepageuser', [Homecontroller::class, 'homepageuser']);
 
 Route::get('login-admin',[Admincontroller::class, 'login'])->name('login.admin');
