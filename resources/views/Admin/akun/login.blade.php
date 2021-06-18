@@ -6,6 +6,11 @@
       <form action="{{ url('login-admin') }}" method="POST">
         @csrf
         @method('post')
+          @if(Session::get('msg'))
+            <div class="text-danger">
+              <h6>{{Session::get('msg')}}</h6>
+            </div>
+          @endif
           <div class="form-group">
               <input type="text" name="username" class="@error('username') is-invalid  @enderror form-control" placeholder="Username" autocomplete="off" autofocus>
               @error('username')

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 13, 2021 at 08:08 AM
+-- Generation Time: Jun 18, 2021 at 08:18 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.3
 
@@ -28,14 +28,20 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `informasi_user` (
+  `id_informasi` int(11) NOT NULL,
   `id_user` int(10) UNSIGNED NOT NULL,
-  `img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user.svg',
   `nik` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `provinsi` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `tgl_verifikasi` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `informasi_user`
+--
+
+INSERT INTO `informasi_user` (`id_informasi`, `id_user`, `nik`, `nama`, `alamat`, `tgl_verifikasi`) VALUES
+(3, 760429892, '23213123113', 'user', 'ksncanclmacjacmalcamc.', '2021-06-18 06:33:00');
 
 -- --------------------------------------------------------
 
@@ -86,10 +92,19 @@ CREATE TABLE `pendaftaran` (
   `id_user` int(10) UNSIGNED NOT NULL,
   `id_rs` int(10) UNSIGNED NOT NULL,
   `id_vaksin` int(10) UNSIGNED NOT NULL,
+  `tanggal_vaksinasi` date DEFAULT NULL,
+  `jam_vaksinasi` time DEFAULT NULL,
   `keterangan` text COLLATE utf8mb4_unicode_ci,
   `tgl_pendaftaran` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_status` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pendaftaran`
+--
+
+INSERT INTO `pendaftaran` (`id_pendaftaran`, `id_user`, `id_rs`, `id_vaksin`, `tanggal_vaksinasi`, `jam_vaksinasi`, `keterangan`, `tgl_pendaftaran`, `id_status`) VALUES
+(1, 760429892, 3, 2, '2021-06-18', '13:32:00', NULL, '2021-06-18 06:33:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -112,7 +127,8 @@ CREATE TABLE `rs` (
 --
 
 INSERT INTO `rs` (`id_rs`, `img`, `nama_rs`, `alamat`, `jadwal`, `keterangan`, `no_telephone`) VALUES
-(1, '1623570322-RS Cempaka Putih-jpg', 'RS Cempaka Putih', 'Jl. Setia Budi No 27 Jakarta Selatan', 'Senin - Jumat 08:00 - 16:00', NULL, '0856565657');
+(1, '1623570322-RS Cempaka Putih-jpg', 'RS Cempaka Putih', 'Jl. Setia Budi No 27 Jakarta Selatan', 'Senin - Jumat 08:00 - 16:00', NULL, '0856565657'),
+(3, '1623837401-RS Bunda Margonda.jpg', 'RS Bunda Margonda', 'Jl. Margonda Raya No.28, Pondok Cina, Kecamatan Beji, Kota Depok, Jawa Barat 16424', '24 hours', NULL, '1500799');
 
 -- --------------------------------------------------------
 
@@ -130,9 +146,9 @@ CREATE TABLE `status` (
 --
 
 INSERT INTO `status` (`id_status`, `status`) VALUES
-(1, 'Telah mendaftar dan membayar'),
-(2, 'Vaksinasi pertama'),
-(3, 'Vaksinasi kedua');
+(1, 'Vaksinasi pertama'),
+(2, 'Vaksinasi kedua'),
+(3, 'Menyelesaikan pendaftaran dan pembayaran');
 
 -- --------------------------------------------------------
 
@@ -157,7 +173,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `email`, `nama`, `password`, `level`, `created_at`, `updated_at`, `remember_token`) VALUES
-(1, 'admin', 'admin@example.com', 'admin', '$2y$10$rlF562xotqJoVkqHG8zr2e8VAqg8OK2shAl/iVaagrwvLQiq1bvMm', 1, '2021-06-13 00:42:08', '2021-06-13 00:42:08', NULL);
+(1, 'admin', 'admin@example.com', 'admin', '$2y$10$rlF562xotqJoVkqHG8zr2e8VAqg8OK2shAl/iVaagrwvLQiq1bvMm', 1, '2021-06-13 00:42:08', '2021-06-13 00:42:08', NULL),
+(721398505, 'admin2', 'admin2@example.com', 'admin2', '$2y$10$AllbpBU945vvSq5rDJmUruCnh9ERV6ScBxA2R9m6i.cPDLxVx4rf2', 2, '2021-06-14 02:59:14', '2021-06-17 05:33:05', NULL),
+(760429892, 'user', 'user@example.com', 'user', '$2y$10$ahyyt1Bb1/m3wA6rFl19bOiyBWgTHRHDzFrTwJoj0MPp5rH73UEsW', 3, '2021-06-17 05:55:09', '2021-06-17 05:55:09', NULL);
 
 -- --------------------------------------------------------
 
@@ -178,8 +196,10 @@ CREATE TABLE `vaksin` (
 --
 
 INSERT INTO `vaksin` (`id_vaksin`, `img`, `nama_vaksin`, `deskripsi`, `harga`) VALUES
-(1, '1623570356-Sinovac-png', 'Sinovac', 'Sinovac Vaccine', '20000'),
-(2, NULL, 'Pfizer', 'Pfizer Vaccine', '28000');
+(1, '1623757517-Sinovac.jpg', 'Sinovac', '<li>Nyeri, kemerahan, atau bengkak di tempat bekas suntikan</li><li>Demam badan terasa lelah</li><li>Nyeri otot sakit kepala mual muntah</li>', '20000'),
+(2, '1623757686-Pfizer.jpg', 'Pfizer', '<li>Nyeri, kemerahan, atau bengkak di tempat bekas suntikan.</li><li>Sakit kepala.</li><li>Nyeri otot atau nyeri sendi.</li><li>Menggigil.</li><li>Demam ringan.</li><li>Mual atau merasa tidak enak badan</li><li>Bengkak di kelenjar getah bening.</li>', '27000'),
+(3, '1623758464-AstraZeneca.jpg', 'AstraZeneca', '<li>Nyeri, kemerahan, atau bengkak di tempat bekas suntikan</li><li>Demam badan terasa lelah</li><li>Nyeri otot sakit kepala mual muntah</li>', '25000'),
+(6, '1623982551-Vaccine20.jpg', 'Vaccine20', 'Vaccine20', 'Vaccine20');
 
 --
 -- Indexes for dumped tables
@@ -189,6 +209,7 @@ INSERT INTO `vaksin` (`id_vaksin`, `img`, `nama_vaksin`, `deskripsi`, `harga`) V
 -- Indexes for table `informasi_user`
 --
 ALTER TABLE `informasi_user`
+  ADD PRIMARY KEY (`id_informasi`),
   ADD KEY `vaksin_informasi_user_id_user_foreign` (`id_user`);
 
 --
@@ -244,6 +265,12 @@ ALTER TABLE `vaksin`
 --
 
 --
+-- AUTO_INCREMENT for table `informasi_user`
+--
+ALTER TABLE `informasi_user`
+  MODIFY `id_informasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -259,13 +286,13 @@ ALTER TABLE `pembayaran`
 -- AUTO_INCREMENT for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
-  MODIFY `id_pendaftaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pendaftaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rs`
 --
 ALTER TABLE `rs`
-  MODIFY `id_rs` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_rs` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `status`
@@ -277,7 +304,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `vaksin`
 --
 ALTER TABLE `vaksin`
-  MODIFY `id_vaksin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_vaksin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
