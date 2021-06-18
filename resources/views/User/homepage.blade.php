@@ -28,6 +28,15 @@
   }
   .container .content h1 {
     font-weight:600; 
+    font-size: 45pt;
+    font-family: 'Prata', serif;
+    margin-bottom: 9px;
+    margin-top: 100px;
+    margin-right: -50px;
+  }
+
+  .container .content2 h1 {
+    font-weight:600; 
     font-size: 27pt;
     font-family: 'Prata', serif;
     margin-bottom: 9px;
@@ -108,7 +117,7 @@
         
       <div class="row">
         <div class="col-md-6">
-          <div class="content">
+          <div class="content2">
             <h1>Vaksin COVID-19 merupakan vaksin yang digunakan menangani penyakit koronavirus 2019 (COVID-19). Sekarang daftar vaksin untuk daerah Jakarta sudah bisa via website goVaksin!</h1>
             <h4>Sebelum daftar yuk baca syaratnya dan ketentuannya terlebih dahulu!</h4>
             <a class="btn btn-lg bg-info" href="{{url('/syarat')}}" role="button">Syarat dan Ketentuan</a> <br>
