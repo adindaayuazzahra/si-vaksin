@@ -95,22 +95,21 @@ class AdminController extends Controller
     public function editVaksin($id){
         $vaksin = Vaksin::find($id);
         return response()->json($vaksin);
-        // return view("Admin.vaksin.edit_vaksin", compact('vaksin'));
     }
 
     public function editVaksinAction(Request $request){
         $request->validate([
-            'id_vaksin2'=>'required',
-            'nama_vaksin2'=>'required|string',
-            'deskripsi2'=>'required|string',
-            'harga2'=>'required',
-            'img2'=>'image|mimes:png,jpeg,jpg,gif,svg',
+            'id_vaksin'=>'required',
+            'nama_vaksin'=>'required|string',
+            'deskripsi'=>'required|string',
+            'harga'=>'required',
+            'img'=>'image|mimes:png,jpeg,jpg,gif,svg',
         ]);
 
         $imageName=null;
         
-        $vaksinData = Vaksin::find($request->id_vaksin2);
-        if ($request->hasFile('img2')) {
+        $vaksinData = Vaksin::find($request->id_vaksin);
+        if ($request->hasFile('img')) {
             if ($vaksinData->img) {
                 File::delete(public_path('assets/vaksin/img/') . $vaksinData->img);
             }
@@ -124,26 +123,14 @@ class AdminController extends Controller
         }
 
         $vaksinData->update([
-            'id_vaksin'=>$request->id_vaksin2,
             'img'=>$imageName,
-            'nama_vaksin'=>$request->nama_vaksin2,
-            'deskripsi'=>$request->deskripsi2,
-            'harga'=>$request->harga2,           
+            'nama_vaksin'=>$request->nama_vaksin,
+            'deskripsi'=>$request->deskripsi,
+            'harga'=>$request->harga,           
         ]);
 
-        $vaksin=Vaksin::find($request->id_vaksin2);
+        $vaksin=Vaksin::find($request->id_vaksin);
         return response()->json($vaksin);
-            // if ($vaksin) {
-            //     return redirect("admin/data-vaksin");
-            // }
-            // else{
-            //     return redirect()->back()->with('success','Storing inputed data fail!');
-            // }
-            
-        // }
-        // else{
-        //     return redirect("admin/data-vaksin");
-        // }
     }
 
     public function delVaksin($id){
@@ -161,53 +148,43 @@ class AdminController extends Controller
         return view("Admin.rumahsakit.index", compact('list_rs'), compact('akun'));
     }
 
-
     public function addRS(Request $request){
-        if ($request->submit=="submit") {
-            $request->validate([
-                'nama_rs'=>'required|string',
-                'alamat'=>'required|string',
-                'no_telephone'=>'required',
-                'jadwal'=>'required|string',
-                'img'=>'image|mimes:jpeg,png,jpg,gif,svg',
-            ]);
+        $request->validate([
+            'nama_rs'=>'required|string',
+            'alamat'=>'required|string',
+            'no_telephone'=>'required',
+            'jadwal'=>'required|string',
+            'img'=>'image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
 
-            $imageName=null;
+        $imageName=null;
 
-            if ($request->hasFile('img')) {
-                $imageName=time() . "-" . $request->nama_rs . "." . $request->img->extension();
-                $request->img->move(public_path('assets/rs/img/'), $imageName);
-            }
-
-            $rs=RumahSakit::create([
-                'img'=>$imageName,
-                'nama_rs'=>$request->nama_rs,
-                'alamat'=>$request->alamat,
-                'jadwal'=>$request->jadwal,
-                'keterangan'=>$request->keterangan,
-                'no_telephone'=>$request->no_telephone,
-            ]);
-
-            if($rs){
-                return redirect("admin/data-rumah-sakit");
-            }
-            else{
-                return redirect()->back()->with('success', 'Storing inputed data failed!');   
-            }
+        if ($request->hasFile('img')) {
+            $imageName=time() . "-" . $request->nama_rs . "." . $request->img->extension();
+            $request->img->move(public_path('assets/rs/img/'), $imageName);
         }
-        else{
-            return redirect("admin/data-rumah-sakit");
-        }
+
+        $rs=RumahSakit::create([
+            'img'=>$imageName,
+            'nama_rs'=>$request->nama_rs,
+            'alamat'=>$request->alamat,
+            'jadwal'=>$request->jadwal,
+            'keterangan'=>$request->keterangan,
+            'no_telephone'=>$request->no_telephone,
+        ]);
+
+        return response()->json($rs);
     }
 
     public function editRS($id){
         $rs=RumahSakit::find($id);
-        return view("Admin.rumahsakit.edit_rs", compact('rs'));
+        return response()->json($rs);
     }
 
-    public function editRSAction(Request $request, $id){
-        if ($request->submit=="submit") {
+    public function editRSAction(Request $request){
+        if ($request->has('submit')) {
             $request->validate([
+                'id_rs'=>'required',
                 'nama_rs'=>'required|string',
                 'alamat'=>'required|string',
                 'no_telephone'=>'required',
@@ -217,7 +194,7 @@ class AdminController extends Controller
 
             $imageName=null;
 
-            $rsData=RumahSakit::find($id);
+            $rsData=RumahSakit::find($request->id_rs);
 
             if ($request->hasFile('img')) {
                 if ($rsData->img) {
@@ -300,29 +277,28 @@ class AdminController extends Controller
     public function editAdmin($id){
         $admin=User::find($id);
         return response()->json($admin);
-        // return view("Admin.akun.edit_admin", compact('admin'));
     }
 
     public function editAdminAction(Request $request){
         $request->validate([
-            'id_user2'=>'required',
-            'username2'=>'required|string',
-            'email2'=>'required|email',
-            'nama2'=>'required|string',
-            'password2'=>'required',
-            'level2'=>'required'
+            'id_user'=>'required',
+            'username'=>'required|string',
+            'email'=>'required|email',
+            'nama'=>'required|string',
+            'password'=>'required',
+            'level'=>'required'
         ]);
 
-        User::find($request->id_user2)->update([
-            'id_user'=>$request->id_user2,
-            'username'=>$request->username2,
-            'email'=>$request->email2,
-            'nama'=>$request->nama2,
-            'password'=>bcrypt($request->password2),
-            'level'=>$request->level2,
+        User::find($request->id_user)->update([
+            'id_user'=>$request->id_user,
+            'username'=>$request->username,
+            'email'=>$request->email,
+            'nama'=>$request->nama,
+            'password'=>bcrypt($request->password),
+            'level'=>$request->level,
         ]);
 
-        $inputAdmin=User::find($request->id_user2);
+        $inputAdmin=User::find($request->id_user);
         return response()->json($inputAdmin);
     }
 
@@ -340,62 +316,30 @@ class AdminController extends Controller
     }
 
     public function addStatus(Request $request){
-        // if($request->submit=="submit"){
-            $request->validate([
-                'status'=>'required|string'
-            ]);
+        $request->validate([
+            'status'=>'required|string'
+        ]);
 
-            $status = Status::create([
-                'status'=>$request->status,
-            ]);
-            return response()->json($status);
-            // if(Status::create($attr)){
-            //     // return redirect("admin/data-status");
-                
-            // }
-            // else{
-            //     return redirect()->back()->with('success', 'Storing inputed data failed!');  
-            // }
-        // }
-        // else{
-        //     return redirect("admin/data-status");
-        // }
+        $status = Status::create([
+            'status'=>$request->status,
+        ]);
+        return response()->json($status);
     }
 
     public function editStatus($id){
         $status = Status::find($id);
         return response()->json($status);
-        // return view('Admin.status.edit_status',compact('status'));
     }
 
-    // public function editStatusAction(Request $request, $id){
-    //     if ($request->submit=="submit") {
-    //         $request->validate([
-    //             'status'=>'required|string'
-    //         ]);
-
-    //         $attr=Status::find($id)->update([
-    //             'status'=>$request->status,
-    //         ]);
-
-    //         if (!$attr) {
-    //             return redirect()->back()->with('success', 'Storing inputed data failed!');
-    //         }
-    //     }
-    //     return redirect("admin/data-status");
-
-    // }
-
     public function editStatusAction(Request $request){
-        // if ($request->submit=="submit") {
         $request->validate([
             'status'=>'required|string'
         ]);
 
-        Status::find($request->id)->update([
+        Status::find($request->id_status)->update([
             'status'=>$request->status,
         ]);
-        $status=Status::find($request->id);
+        $status=Status::find($request->id_status);
 
         return response()->json($status);
     }

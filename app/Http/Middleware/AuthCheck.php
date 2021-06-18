@@ -28,7 +28,7 @@ class AuthCheck
                     return $next($request);
                 }
             }
-            abort(404);   
+            return route('login.admin');
         }
         
     }

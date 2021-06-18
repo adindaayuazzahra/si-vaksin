@@ -22,10 +22,7 @@
   .card {
       box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.5);
       border-radius: 20px;
-      margin-bottom: 50px;
       font-size: 18px;
-      border: 0;
-
   }
   .card .card-title {
       font-weight: 700;
@@ -50,66 +47,21 @@
   </div>
   <div class="row">
    
-    <div class="col-md-4">
-      <div class="card">
-        <img class="card-img-top" src="{{asset('assets/user/rs.jpeg')}}" alt="Card image cap">
+   @foreach($list_vaksin as $vaksin)
+    <div class="col-md-4 mb-5">
+      <div class="card border-0">
+        <img class="card-img-top w-100" src="{{asset('assets/vaksin/img/'.$vaksin->img)}}" alt="Card image cap" height="200">
         <div class="card-body">
-          <h5 class="card-title"><i class="fas fa-syringe"></i> Astra Zanecca<hr class="card-title"></h5>
+          <h5 class="card-title"><i class="fas fa-syringe"></i> {{$vaksin->nama_vaksin}}<hr class="card-title"></h5>
+          <strong>Efek Samping:</strong>
           <ul class="card-text">
-            <li> Berasal dari negara Inggris</li>
-            <li> >18 tahun sampai >55 tahun </li>
-            <li> Efek sampping : Menggigil hingga demam, kelelahan Sakit kepala dan mual, nyeri sendi dan otot.  </li>
+            {!!$vaksin->deskripsi!!}
           </ul>
-          <h3><span class="badge badge-pill badge-info">Rp 250.000</span></h3>
+          <h3><span class="badge badge-pill badge-info">Rp {{$vaksin->harga}}</span></h3>
         </div>
       </div>
     </div>
-
-    <div class="col-md-4">
-      <div class="card">
-        <img class="card-img-top" src="{{asset('assets/user/rs.jpeg')}}" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title"><i class="fas fa-syringe"></i> Astra Zanecca<hr class="card-title"></h5>
-          <ul class="card-text">
-            <li> Berasal dari negara Inggris</li>
-            <li> >18 tahun sampai >55 tahun </li>
-            <li> Efek sampping : Menggigil hingga demam, kelelahan Sakit kepala dan mual, nyeri sendi dan otot.  </li>
-          </ul>
-          <h3><span class="badge badge-pill badge-info">Rp 250.000</span></h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card">
-        <img class="card-img-top" src="{{asset('assets/user/rs.jpeg')}}" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title"><i class="fas fa-syringe"></i> Astra Zanecca<hr class="card-title"></h5>
-          <ul class="card-text">
-            <li> Berasal dari negara Inggris</li>
-            <li> >18 tahun sampai >55 tahun </li>
-            <li> Efek sampping : Menggigil hingga demam, kelelahan Sakit kepala dan mual, nyeri sendi dan otot.  </li>
-          </ul>
-          <h3><span class="badge badge-pill badge-info">Rp 250.000</span></h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card">
-        <img class="card-img-top" src="{{asset('assets/user/rs.jpeg')}}" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title"><i class="fas fa-syringe"></i> Astra Zanecca<hr class="card-title"></h5>
-          <ul class="card-text">
-            <li> Berasal dari negara Inggris</li>
-            <li> >18 tahun sampai >55 tahun </li>
-            <li> Efek sampping : Menggigil hingga demam, kelelahan Sakit kepala dan mual, nyeri sendi dan otot.  </li>
-          </ul>
-          <h3><span class="badge badge-pill badge-info">Rp 250.000</span></h3>
-        </div>
-      </div>
-    </div>
-
+  @endforeach
   </div>
 </div>
 @endsection

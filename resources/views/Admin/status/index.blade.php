@@ -39,21 +39,19 @@
 									        	<div class="modal-body">
 													@csrf
 													@method('post')
-													<input type="hidden" id="id_status2" name="id_status2">
+													<input type="hidden" id="id_status2" name="id_status">
 													<div class="form-group mb-3">
 														<label for="status2">Status</label>
-														<input id="status2" type="text" name="status2" placeholder="@error('status2') Status wajib diisi. @enderror" class="@error('status2') is-invalid @enderror form-control">
+														<input id="status2" type="text" name="status" class="form-control">
+														<span class="text-danger" id="statusError2"></span>
 													</div>
 												</div>
 												<div class="modal-footer">									        	
-										        	<button type="submit" class="btn btn-primary w-25" name="submit">Simpan
-										        	</button>
+										        	<button type="submit" class="btn btn-primary w-25" name="submit">Simpan</button>
 										        	<button type="button" class="btn btn-secondary w-25"  data-bs-dismiss="modal" >Kembali</button>
 									      		</div>
 												 
 											</form>
-								      
-									      	
 								    	</div>
 								  	</div>
 								</div>
@@ -79,7 +77,8 @@
 
 			<div class="form-group mb-3">
 				<label for="status">Status</label>
-				<input id="status" type="text" name="status" placeholder="@error('status') Vaksin wajib diisi. @enderror" class="@error('status') is-invalid @enderror form-control">
+				<input id="status" type="text" name="status" class=" form-control">
+				<span class="text-danger" id="statusError"></span>
 			</div>
 
 		  	<button type="submit" class="btn btn-primary w-50" name="submit" value="submit">Simpan</button>
@@ -99,12 +98,24 @@
 			$.ajax({
 				url: "{{route('status.add')}}",
 				type: "POST",
-				data:$("#createForm").serialize(),
+				data: $("#createForm").serialize(),
 				success:function(response){
 					if (response) {
 						$("#table_id tbody").append('<tr id="sid'+response.id_status+'"><td id="text-id_status" class="text-center">'+response.id_status+'</td><td id="text-status" class="fw-bold text-center">'+response.status+'</td><td id="text-button"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editStatus('+response.id_status+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST" action="data-status/delete/'+response.id_status+'">@csrf @method("post")<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
 						$("#table_id dataTables_empty").addClass('d-none');
+						$("#statusError").text('');
+						$("#status").removeClass('is-invalid');
 						$("#createForm")[0].reset();
+					}
+				},
+				error:function(response){
+					if(response.responseJSON.errors.status){
+						$("#statusError").text(response.responseJSON.errors.status);
+						$("#status").addClass('is-invalid');
+					}
+					else{
+						$("#statusError").text('');
+						$("#status").removeClass('is-invalid');
 					}
 				}
 			});
@@ -115,23 +126,26 @@
 		$("#editForm").submit(function(e){
 	  		e.preventDefault();
 
-	  		let id = $("#id_status2").val();
-	  		let status=$("#status2").val();
-	  		let _token=$("input[name=_token]").val();
 			$.ajax({
 				url: "{{route('status.edit')}}",
 				type: "POST",
-				data:{
-					id:id,
-					status:status,
-					_token:_token,
-				},
+				data:  $("#editForm").serialize(),
 				success:function(response){
 					if (response) {
 						$("#sid"+response.id_status+" #text-id_status").text(response.id_status);
 						$("#sid"+response.id_status+" #text-status").text(response.status);
 						$("#editModal").modal('toggle');
 						$("#editForm")[0].reset();
+					}
+				},
+				error:function(response){
+					if(response.responseJSON.errors.status){
+						$("#statusError2").text(response.responseJSON.errors.status);
+						$("#status2").addClass('is-invalid');
+					}
+					else{
+						$("#statusError2").text('');
+						$("#status2").removeClass('is-invalid');
 					}
 				}
 			});
