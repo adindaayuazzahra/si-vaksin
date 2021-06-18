@@ -41,8 +41,9 @@ class HomeController extends Controller
         return view("User.akun.index", compact('akun'));
     }
     
-    public function form(){
-        return view("User.akun.form");
+    public function registrasiVaksinasi(){
+        $akun=Auth::user();
+        return view("User.akun.form",compact('akun'));
     }
     
     //Akun
