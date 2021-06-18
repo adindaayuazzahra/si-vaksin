@@ -46,7 +46,7 @@ class AdminController extends Controller
                 return redirect("admin");
             }
         }
-    }
+        return redirect()->back()->with('msg','Username atau password salah');    }
 
     public function logout(Request $request){
         Auth::logout();
