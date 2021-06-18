@@ -21,7 +21,7 @@ class HomeController extends Controller
     public function infoJadwal(){
         $akun=Auth::user();
         $list_rs=RumahSakit::all();
-        return view("User.jadwaltempat", compact('list_rs'),compact('akun'));
+        return view("User.jadwaltempat", ['list_rs' => $list_rs,'akun'=>$akun]);
     }
     
     public function syarat(){
@@ -33,16 +33,51 @@ class HomeController extends Controller
     public function harga(){
         $akun=Auth::user();
         $list_vaksin=Vaksin::all();
-        return view("User.harga",compact('list_vaksin'),compact('akun'));
+        return view("User.harga",['list_vaksin' => $list_vaksin,'akun'=>$akun]);
     }
-    // ganti aja ini cuman nyoba buat ngeliat hasil doang
-    public function homepageuser(){
-        $akun=Auth::user();
-        return view("User.akun.index", compact('akun'));
-    }
+
     
-    public function form(){
-        return view("User.akun.form");
+    public function registrasiVaksinasi(){
+        $akun=Auth::user();
+        $list_vs=Vaksin::all();
+        $list_rs=RumahSakit::all();
+        return view("User.akun.form",['list_rs' => $list_rs,'akun'=>$akun,'list_vs'=>$list_vs]);
+    }
+
+    public function registrasiVaksinasiAction(Request $request){
+        // dd($request->all());
+        $akun=Auth::user();
+        $request->validate([
+            'nik'=>'required',
+            'nama'=>'required|string',
+            'alamat'=>'required|string',
+            'vaksin'=>'required',
+            'rs'=>'required',
+            'tgl'=>'required',
+            'time'=>'required',
+            'keterangan'=>'string',
+        ]);
+        $IU=InformasiUser::create([
+            'id_user'=>$akun->id_user,
+            'nik'=>$request->nik,
+            'nama'=>$request->nama,
+            'alamat'=>$request->alamat,
+        ]);
+
+        $PVS=Registrasi::create([
+            'id_user'=>$akun->id_user,
+            'id_rs'=>$request->rs,
+            'id_vaksin'=>$request->vaksin,
+            'tanggal_vaksinasi'=>$request->tgl,
+            'jam_vaksinasi'=>$request->time,
+            'keterangan'=>$request->keterangan,
+        ]);
+        if ($IU) {
+            if ($PVS) {
+                return redirect("/");
+            }
+        }
+        return redirect()->back();
     }
     
     //Akun

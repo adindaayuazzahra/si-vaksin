@@ -15,10 +15,8 @@ class CreatePembayaran extends Migration
     {
         Schema::create('vaksin.pembayaran', function (Blueprint $table) {
             $table->increments('id_pembayaran');
-
             $table->integer('id_pendaftaran')->unsigned();
             $table->foreign('id_pendaftaran')->references('id_pendaftaran')->on('vaksin.pendaftaran');
-
             $table->timestamp('tgl_pembayaran')->useCurrent();
             $table->text('total_harga');
         });
