@@ -124,7 +124,7 @@
           <h6 class="text-uppercase fw-bold mb-4">
             <i class="fas fa-hospital-alt"></i> goVkasin
           </h6>
-          <p>goVaksin adalah sebuah aplikasi berbasis web yang bergerak di bidang kesehatan serta berkerja sama dengan beberapa pihak rumah sakit untuk memudahkan masyarakat dalam mendapatkan vaksinnasi Covid-19.</p>
+          <p>goVaksin adalah sebuah aplikasi berbasis web yang bergerak di bidang kesehatan serta berkerja sama dengan beberapa pihak rumah sakit untuk memudahkan masyarakat dalam mendapatkan vaksinasi Covid-19.</p>
         </div>
         <div class="col-md-5 col-sm-12 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <h6 class="text-uppercase fw-bold mb-4">
