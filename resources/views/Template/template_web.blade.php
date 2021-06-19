@@ -39,26 +39,34 @@
           <li class="nav-item active">
             <a class="nav-link" href="{{url('/syarat')}}">Syarat Vaksinasi</a>
           </li>
-          @if(Auth::check() && Auth::user()->level==3)
-          <li class="nav-item active">
-            <a class="nav-link" href="{{url('/daftar-vaksin')}}">Daftar Vaksin</a>
-          </li> 
-          @endif
-        </ul>
-        @if(Auth::check() && Auth::user()->level==3)
-        <a href="#" type="submit" class="btn text-white">{{$akun->nama}}</a>
-        <span class="navbar-text">
-          <form method="POST" action="{{ url('logout') }}">
-            @csrf
-            @method('post')
-            <button class="btn btn-danger rounded">Logout <i class="fas fa-sign-out-alt"></i></button>
-          </form>
-        </span>
-        @else
-        <span class="navbar-text">
-          <a href="{{url('/login')}}" type="submit" class="btn text-white">MASUK</a>
-          <a href="{{url('/daftar')}}" type="submit" class="btn btn-info text-white">DAFTAR</a>
-        </span>
+          @if(Auth::check())
+            @if(Auth::user()->level==3)
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{url('/daftar-vaksin')}}">Daftar Vaksin</a>
+                </li> 
+                
+              </ul>
+              
+              <a href="#" type="submit" class="btn text-white">{{$akun->nama}}</a>
+              <span class="navbar-text">
+                <form method="POST" action="{{ url('logout') }}">
+                  @csrf
+                  @method('post')
+                  <button class="btn btn-danger rounded">Logout <i class="fas fa-sign-out-alt"></i></button>
+                </form>
+              </span>
+            @elseif(Auth::user()->level!=3)
+            </ul>
+            <span class="navbar-text">
+              <a class="nav-link text-white" href="{{url('admin')}}">Admin Panel</a>
+            </span>
+            @endif
+          @else
+          </ul>
+          <span class="navbar-text">
+            <a href="{{url('/login')}}" type="submit" class="btn text-white">MASUK</a>
+            <a href="{{url('/daftar')}}" type="submit" class="btn btn-info text-white">DAFTAR</a>
+          </span>
         @endif
       </div>
     </nav>

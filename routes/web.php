@@ -34,7 +34,6 @@ Route::middleware(['auth'])->group(function(){
     //User
     Route::middleware(['usercheck:3'])->group(function(){
         Route::post('logout',[Homecontroller::class, 'logout']);
-        
         Route::get('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasi']);
         Route::post('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasiAction']);      
     });
