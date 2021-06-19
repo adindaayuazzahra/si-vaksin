@@ -28,33 +28,19 @@ Route::get('/rincian', [Homecontroller::class, 'rincian']);
 Route::get('/', [Homecontroller::class, 'index'])->name('user.index');
 Route::get('login', [Homecontroller::class, 'login'])->name('login.get');
 Route::post('login',[Homecontroller::class, 'loginAction'])->name('login.user');
-
-
-
 Route::get('daftar', [Homecontroller::class, 'daftar'])->name('daftar.get');
 Route::post('daftar', [Homecontroller::class, 'daftarAction'])->name('daftar.user');
-
 Route::get('jadwal', [Homecontroller::class, 'infoJadwal'])->name('jadwal.user');
-
 Route::get('syarat', [Homecontroller::class, 'syarat'])->name('syarat.user');
 Route::get('harga', [Homecontroller::class, 'harga'])->name('harga.user');
-
-
-Route::get('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasi']);
-Route::post('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasiAction']);
-
-
 Route::get('login-admin',[Admincontroller::class, 'login'])->name('login.admin');
 Route::post('login-admin',[Admincontroller::class, 'loginAction']);
-
-
 Route::middleware(['auth'])->group(function(){
     //User
     Route::middleware(['usercheck:3'])->group(function(){
-        Route::group(['prefix'=>'user'], function(){
-            Route::post('logout',[Homecontroller::class, 'logout']);
-        });
-        
+        Route::post('logout',[Homecontroller::class, 'logout']);
+        Route::get('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasi']);
+        Route::post('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasiAction']);      
     });
 
     //Admin

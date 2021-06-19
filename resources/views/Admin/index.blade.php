@@ -7,7 +7,9 @@
 
 		</div>
 		<div class="row card shadow">
-			<h3 class="text-center">Welcome {{$akun->nama}} to admin panel</h3>
+			@if($akun)
+				<h3 class="text-center">Welcome {{$akun->nama}} to admin panel</h3>
+			@endif
 		</div>
 	</div>
 @endsection

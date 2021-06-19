@@ -56,7 +56,6 @@ class HomeController extends Controller
     }
 
     public function registrasiVaksinasiAction(Request $request){
-        // dd($request->all());
         $akun=Auth::user();
         $request->validate([
             'nik'=>'required',
@@ -108,13 +107,17 @@ class HomeController extends Controller
                 'password'=>'required'
             ]);
 
+            // $authen=User::where('email',$request->email)->get();
+            // if ($authen->level==3) {
+                
+            // }
             $check = Auth::attempt($request->only('email','password'));
             if ($check) {
                 $request->session()->put('pendaftar', $check);
                 return redirect("/");
             }
         }
-        return redirect()->back()->with('msg','Username atau password salah');
+        return redirect()->back()->with('msg','Email atau password salah');
     }
 
     public function logout(Request $request){

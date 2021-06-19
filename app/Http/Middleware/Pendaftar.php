@@ -18,12 +18,10 @@ class Pendaftar
      */
     public function handle(Request $request, Closure $next, $level)
     {
-        if(!Session::get('pendaftar')){
-            return route('login.user');
+        if(!(Auth::check()) && Auth::user()->level!=3){
+            // return redirect("login");
+            abort(404);
         }
-        else{
-            return $next($request);
-        }
-        
+        return $next($request);
     }
 }

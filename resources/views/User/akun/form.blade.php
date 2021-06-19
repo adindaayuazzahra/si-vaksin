@@ -56,7 +56,7 @@
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Nama</label>
               <div class="col-sm-10">
-                <input type="text" name="nama" class="form-control" value="{{$akun->nama}}">
+                <input type="text" name="nama" class="form-control" value="@if($akun){{$akun->nama}}@endif">
               </div>
             </div>
 

@@ -40,7 +40,7 @@
 									        	<h5 class="modal-title" id="modalLabel">Edit Vaksin</h5>
 									        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									      	</div>
-								      		<form method="POST" class="w-100" id="editForm" enctype="multipart/form-data">
+								      		<form method="POST" class="w-100" id="editForm" enctype="multipart/form-data" action="{{url('admin/data-vaksin/edit')}}">
 									        	<div class="modal-body">
 									        		@csrf
 													@method('post')
@@ -164,43 +164,7 @@
 					console.log(formData);
 				}
 			});
-		});
-
-		//edit handler		
-		$("#editForm").submit(function(e){
-			e.preventDefault();
-			let formData=new FormData(this);
-			$.ajax({
-				url: "{{route('vaksin.edit')}}",
-				type:"POST",
-				data:formData,
-				contentType:false,
-				processData:false,
-				success:function(response){
-					if (response) {
-						$("#vid"+response.id_vaksin+" #nama-vaksin").text(response.nama_vaksin);
-						$("#vid"+response.id_vaksin+" #deskripsi-vaksin").text(response.deskripsi);
-						$("#vid"+response.id_vaksin+" #harga-vaksin").text(response.harga);
-						if (!(response.img==null)) {
-							var imageEditUpload=document.getElementById('imageContent'+response.id_vaksin);
-							imageEditUpload.src=`{{url('assets/vaksin/img/${response.img}')}}`;
-							imageEditUpload.onload = function() {
-						      URL.revokeObjectURL(imageEditUpload.src) // free memory
-							}
-						}
-						else{
-							$("#imageContent"+response.id_vaksin).addClass('d-none');
-						}
-						$("#editModal").modal('toggle');
-						$("#editForm")[0].reset();
-					}
-				},
-
-				error:function(){
-					console.log(formData);
-				}
-			});
-		});
+		});		
 	});
 
 	function editVaksin(id){

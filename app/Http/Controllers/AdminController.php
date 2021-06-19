@@ -39,7 +39,6 @@ class AdminController extends Controller
             ]);
 
             $authen = $request->only('username','password');
-            
             $check = Auth::attempt($authen);
             if ($check) {
                 $request->session()->regenerate();
@@ -129,8 +128,7 @@ class AdminController extends Controller
             'harga'=>$request->harga,           
         ]);
 
-        $vaksin=Vaksin::find($request->id_vaksin);
-        return response()->json($vaksin);
+        return redirect("admin/data-vaksin");
     }
 
     public function delVaksin($id){
