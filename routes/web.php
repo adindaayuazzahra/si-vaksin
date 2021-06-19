@@ -20,6 +20,11 @@ Route::get('/', function () {
     return view('homepage');
 });
 
+// cuman buat nyoba
+Route::get('/konfirmasi', [Homecontroller::class, 'konfirmasi']);
+Route::get('/rincian', [Homecontroller::class, 'rincian']);
+
+
 Route::get('/', [Homecontroller::class, 'index'])->name('user.index');
 Route::get('login', [Homecontroller::class, 'login'])->name('login.get');
 Route::post('login',[Homecontroller::class, 'loginAction'])->name('login.user');
