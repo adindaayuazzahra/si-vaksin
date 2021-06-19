@@ -128,8 +128,7 @@ class AdminController extends Controller
             'harga'=>$request->harga,           
         ]);
 
-        $vaksin=Vaksin::find($request->id_vaksin);
-        return response()->json($vaksin);
+        return redirect("admin/data-vaksin");
     }
 
     public function delVaksin($id){
