@@ -46,8 +46,6 @@
                 </li> 
                 
               </ul>
-              
-              <a href="#" type="submit" class="btn text-white">{{$akun->nama}}</a>
               <span class="navbar-text">
                 <form method="POST" action="{{ url('logout') }}">
                   @csrf

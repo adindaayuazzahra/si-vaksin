@@ -45,9 +45,14 @@
 				<h3 class="text-center" style="font-size: 4vw;">Not Found</h3>
 			</div>
 		</div>
-
-		<div class="row mt-5 p-0">
-			<a href="{{ url('/') }}" class="border-0 bg-transparent shadow-none text-decoration-none m-auto">Kembali ke halaman utama</a>	
-		</div>
+		@if(Auth::check() && (Auth::user()->level!=3))
+			<div class="row mt-5 p-0">
+				<a href="{{ url('admin') }}" class="border-0 bg-transparent shadow-none text-decoration-none m-auto">Kembali ke halaman utama</a>	
+			</div>
+		@else
+			<div class="row mt-5 p-0">
+				<a href="{{ url('/') }}" class="border-0 bg-transparent shadow-none text-decoration-none m-auto">Kembali ke halaman utama</a>	
+			</div>
+		@endif
 	</div>
 @endsection

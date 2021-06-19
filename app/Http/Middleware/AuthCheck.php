@@ -18,7 +18,7 @@ class AuthCheck
     public function handle(Request $request, Closure $next)
     {
         $level=array_slice(func_get_args(), 2);
-        if (!(Auth::check()) && Auth::user()->level==3) {
+        if (!Auth::check()) {
             return route('login.admin')->with('msg','Username atau password salah!');
         }
         else{
@@ -29,8 +29,9 @@ class AuthCheck
                 }
             }
         }
-        Auth::logout();
-        return redirect('login-admin')->with('msg','Akun tidak memiliki izin akses!');
+        abort(404);
+        // Auth::logout();
+        // return redirect('login-admin')->with('msg','Akun tidak memiliki izin akses!');
         
     }
 }

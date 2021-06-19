@@ -19,7 +19,8 @@ class Pendaftar
     public function handle(Request $request, Closure $next, $level)
     {
         if(!(Auth::check()) && Auth::user()->level!=3){
-            return redirect("login");
+            // return redirect("login");
+            abort(404);
         }
         return $next($request);
     }
