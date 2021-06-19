@@ -23,6 +23,7 @@ Route::get('/', function () {
 // cuman buat nyoba
 Route::get('/konfirmasi', [Homecontroller::class, 'konfirmasi']);
 Route::get('/rincian', [Homecontroller::class, 'rincian']);
+Route::get('/status', [Homecontroller::class, 'status']);
 
 
 Route::get('/', [Homecontroller::class, 'index'])->name('user.index');

@@ -14,6 +14,11 @@ use App\Models\Pembayaran;
 class HomeController extends Controller
 {
     // cuman buat ngeiat hasil tampilan nya aja
+
+    public function status() {
+        $akun=Auth::user();
+        return view("User.akun.status",compact('akun'));
+    }
     public function konfirmasi() {
         $akun=Auth::user();
         return view("User.akun.konfirmasi",compact('akun'));

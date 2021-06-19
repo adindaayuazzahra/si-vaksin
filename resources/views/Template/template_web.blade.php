@@ -44,6 +44,9 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="{{url('/daftar-vaksin')}}">Daftar Vaksin</a>
                 </li> 
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{url('/status')}}">Riwayat Vaksinasi</a>
+                </li> 
                 
               </ul>
               <span class="navbar-text">
