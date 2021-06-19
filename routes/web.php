@@ -46,6 +46,8 @@ Route::middleware(['auth'])->group(function(){
 
             Route::group(['prefix'=>'laporan'], function(){
                 Route::get('/',[Admincontroller::class, 'indexLaporan'])->name('laporan.index');
+                Route::get('edit/{id}',[Admincontroller::class, 'editLaporan']);
+                Route::post('edit',[Admincontroller::class, 'editLaporanAction'])->name('laporan.edit');
             });
 
             Route::group(['prefix'=>'data-vaksin'], function(){
