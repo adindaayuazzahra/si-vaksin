@@ -46,6 +46,7 @@
                 </li> 
                 
               </ul>
+              <a class="nav-link">{{Auth::user()->nama}}</a>
               <span class="navbar-text">
                 <form method="POST" action="{{ url('logout') }}">
                   @csrf
