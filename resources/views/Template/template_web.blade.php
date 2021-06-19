@@ -39,16 +39,16 @@
           <li class="nav-item active">
             <a class="nav-link" href="{{url('/syarat')}}">Syarat Vaksinasi</a>
           </li>
-          @if(Auth::check())
+          @if(Auth::check() && Auth::user()->level==3)
           <li class="nav-item active">
             <a class="nav-link" href="{{url('/daftar-vaksin')}}">Daftar Vaksin</a>
           </li> 
           @endif
         </ul>
-        @if(Auth::check())
+        @if(Auth::check() && Auth::user()->level==3)
         <a href="#" type="submit" class="btn text-white">{{$akun->nama}}</a>
         <span class="navbar-text">
-          <form method="POST" action="{{ url('user/logout') }}">
+          <form method="POST" action="{{ url('logout') }}">
             @csrf
             @method('post')
             <button class="btn btn-danger rounded">Logout <i class="fas fa-sign-out-alt"></i></button>

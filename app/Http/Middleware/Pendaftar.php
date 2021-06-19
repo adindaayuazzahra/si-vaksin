@@ -21,9 +21,7 @@ class Pendaftar
         if(!Session::get('pendaftar')){
             return route('login.user');
         }
-        else{
-            return $next($request);
-        }
         
+        return $next($request);
     }
 }

@@ -39,7 +39,6 @@ class AdminController extends Controller
             ]);
 
             $authen = $request->only('username','password');
-            
             $check = Auth::attempt($authen);
             if ($check) {
                 $request->session()->regenerate();
