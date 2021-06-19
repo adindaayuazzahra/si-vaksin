@@ -58,7 +58,31 @@ class AdminController extends Controller
     public function indexLaporan(){
         $akun=Auth::user();
         $laporan = Registrasi::all();
-        return view("Admin.laporan.index", ['laporan' => $laporan,'akun'=>$akun]);
+        $status=Status::all();
+        return view("Admin.laporan.index", ['laporan' => $laporan,'akun' => $akun, 'list_status' => $status]);
+    }
+
+    public function editLaporan(Request $request, $id){
+        $registrasi=Registrasi::find($id);
+        return response()->json($registrasi);
+    }
+
+    public function editLaporanAction(Request $request){
+        $request->validate([
+            'id_pendaftaran'=>'required',
+            'id_status'=>'required',
+        ]);
+        
+        Registrasi::find($request->id_pendaftaran)->update([
+            'id_status'=>$request->id_status,
+        ]);
+        
+        $laporan=Registrasi::find($request->id_pendaftaran);
+        return response()->json($laporan);
+    }
+
+    public function deleteLaporan(Request $request){
+
     }
 
     //Data Vaccine

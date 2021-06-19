@@ -82,7 +82,7 @@
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Rumah Sakit</label>
               <div class="col-sm-10">
-                <select class="form-control" name="rs" id="exampleFormControlSelect2" onchange="loadPreviewOption(event)">
+                <select class="form-control" name="rs" id="exampleFormControlSelect2">
                   <option>-- Pilih Rumah Sakit --</option>
                   @foreach($list_rs as $rs)
                     <option value="{{$rs->id_rs}}">{{$rs->nama_rs}}  Jadwal: {{$rs->jadwal}}</option>
