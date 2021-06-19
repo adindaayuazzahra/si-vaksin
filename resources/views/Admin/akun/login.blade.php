@@ -34,8 +34,8 @@
 
           <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">LOGIN</button>
       </form>
-      <div class="back-home">
-        <span class="text-center"><a href="{{url('/')}}">Kembali Ke Halaman Utama</a></span>
+      <div class="back-home text-center mt-5">
+        <span><a href="{{url('/')}}">Kembali Ke Halaman Utama</a></span>
       </div>
   </div>
 @endsection

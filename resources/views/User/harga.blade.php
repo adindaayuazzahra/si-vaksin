@@ -23,6 +23,7 @@
       box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.5);
       border-radius: 20px;
       font-size: 18px;
+      height: 36rem;
   }
   .card .card-title {
       font-weight: 700;
@@ -48,7 +49,7 @@
   <div class="row">
    
    @foreach($list_vaksin as $vaksin)
-    <div class="col-md-4 mb-5">
+    <div class="col-md-6 col-xl-4 mb-5">
       <div class="card border-0">
         <img class="card-img-top w-100" src="{{asset('assets/vaksin/img/'.$vaksin->img)}}" alt="Card image cap" height="200">
         <div class="card-body">

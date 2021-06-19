@@ -8,7 +8,43 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="icon" type="image/png" sizes="96x96" href="img/logo.png">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/loginuser.css')}}">
+
+    <style>
+      body {
+        background-image: linear-gradient(45deg,#0575E6,#7e21ff);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        font-family: 'Lato', sans-serif;
+      }
+      .card-login {
+        border: 0;
+        border-radius: 1rem;
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.6);
+        overflow: hidden;
+        height: 30rem;
+      }
+      .card-login .card-title {
+        margin-bottom: 2rem;
+        font-weight: 400;
+        font-size: 30px;
+      }
+      .container {
+        margin-top: 135px;
+      }
+      .card-login .card-img {
+        width: 45%;
+        background: scroll center url('https://source.unsplash.com/mAGZNECMcUg/414x512');
+        background-size: cover;
+      }
+      .card-login .card-body {
+        padding: 2rem;
+      }
+      .form-control {
+        border-radius: 5rem;
+        height: 50px;
+      }
+    </style>
 
     {{-- font --}}
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic" rel="stylesheet" />

@@ -8,17 +8,49 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="icon" type="image/png" sizes="96x96" href="img/logo.png">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/daftaruser.css')}}">
 
     {{-- font --}}
     <link href="https://fonts.googleapis.com/css?family=Lato:300,700|Prata" rel="stylesheet">
 
+    <style>
+      body {
+        background-image: linear-gradient(45deg,#0575E6,#7e21ff);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        font-family: 'Lato', sans-serif;
+      }
+      .card-login {
+        border: 0;
+        border-radius: 1rem;
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.6);
+        overflow: hidden;
+      }
+      .card-login .card-title {
+        margin-bottom: 2rem;
+        font-weight: 400;
+        font-size: 30px;
+      }
+      .card-login .card-img {
+        width: 45%;
+        background: scroll center url('https://source.unsplash.com/mAGZNECMcUg/414x512');
+        background-size: cover;
+      }
+      .card-login .card-body {
+        padding: 2rem;
+      }
+      .form-control {
+        border-radius: 5rem;
+        height: 50px;
+      }
+    </style>
+
     <title>goVaksin | Daftar</title>
   </head>
   <body>
-    <div class="container mb-5">
+    <div class="container my-5">
       <div class="row">
-          <div class="mx-auto">
+          <div class="col-md-12 col-xl-12 mx-auto">
               <div class="card card-login flex-row">
                   <div class="card-img d-none d-md-flex">
                       <!-- bacground ada di css -->

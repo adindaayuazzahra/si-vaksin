@@ -38,8 +38,8 @@
         <span>Belum Punya akun ?</span>
       </div>
       <a href="{{url('/daftar')}}" class="btn btn-lg btn-danger btn-block mt-2" type="submit" name="submit">REGISTER</a>
-      <div class="back-home">
-        <span class="text-center"><a href="{{url('/')}}">Kembali Ke Halaman Utama</a></span>
+      <div class="back-home text-center pt-3">
+        <span><a href="{{url('/')}}">Kembali Ke Halaman Utama</a></span>
       </div>
   </div>
 @endsection

@@ -31,7 +31,7 @@
     font-size: 45pt;
     font-family: 'Prata', serif;
     margin-bottom: 9px;
-    margin-top: 100px;
+    margin-top: 140px;
     margin-right: -50px;
   }
 
@@ -95,7 +95,7 @@
 @section('content')
 
   @if(!Auth::check())
-  <div class="container w-65 h-65">
+  <div class="container w-65">
     <div class="row">
       
       <div class="col-md-6 col-sm-12">
