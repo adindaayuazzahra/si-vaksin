@@ -50,53 +50,59 @@
           <h2>STATUS VAKSINASI</h2>
           <hr>
         </div>
-
+        <?php $count=1; ?>
+        @foreach($registrasi as $registrasi)
         <div class="card kartu2 mx-5 p-4 font-weight-bold">
           
           <div class="form-group row mb-0 ">
-            <label class="col-sm-3 col-form-label">#1</label>
+            <label class="col-sm-3 col-form-label">#<?php echo ($count++); ?></label>
           </div>
 
           <div class="form-group row mb-0">
             <label class="col-sm-3 col-form-label">ID Pendaftaran</label>
             <div class="col-sm-9">
-              <p>: 001</p>
+              <p>: {{$registrasi->id_pendaftaran}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <label class="col-sm-3 col-form-label">Nama</label>
             <div class="col-sm-9">
-              <p>: Adinda Ayu Azzhra</p>
+              <p>: {{$akun->nama}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-2">
             <label class="col-sm-3 col-form-label">Vaksin</label>
             <div class="col-sm-9">
-              <p>: Astrazenecca</p>
+              <p>: {{$registrasi->vaksin->nama_vaksin}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-2">
             <label class="col-sm-3 col-form-label">Rumah Sakit</label>
             <div class="col-sm-9">
-              <p>: RS. Cipto Mangunkusumo</p>
+              <p>: {{$registrasi->rs->nama_rs}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <label class="col-sm-3 col-form-label">Tanggal Pendaftaran</label>
             <div class="col-sm-9">
-              <p>: 21/05/2021</p>
+              <p>: {{$registrasi->tgl_pendaftaran}}</p>
             </div>
           </div>
 
           <div class="mx-auto mt-2">
-            <h3><span class="badge badge-pill badge-info">Sudah Melakukan Pendaftaran dan Pembayaran</span></h3>
+            @if(!empty($registrasi->status->status))
+              <h3><span class="badge badge-pill badge-info">{{$registrasi->status->status}}</span></h3>
+            @else
+              <h3><span class="badge badge-pill badge-info"></span></h3>
+            @endif
           </div>
           
         </div>
+        @endforeach
       </div>
     </div>
   </div>
