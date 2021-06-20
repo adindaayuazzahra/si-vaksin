@@ -32,6 +32,7 @@
   }
   footer {
     background: #7e21ff;
+    color: white;
   }
 </style>
 @endsection

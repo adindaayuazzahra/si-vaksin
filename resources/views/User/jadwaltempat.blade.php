@@ -20,6 +20,7 @@
   }
   .card img{
       border-radius: 20px 20px 0px 0px;
+      height:   300px;
   }
   .card .card-title {
       font-weight: 700;
@@ -69,14 +70,14 @@
     <p class="judul">Jadwal Dan Tempat Vaksinasi COVID-19</p>
     <div class="row mt-4">
       @foreach($list_rs as $rs)
-      <div class="col-md-5 mx-auto">
+      <div class="col-md-6 col-lg-5 mx-auto">
         <div class="card mb-5">
-          <img class="w-100" src="{{asset('assets/rs/img/'.$rs->img)}}" alt="Card image cap" height="300">
+          <img class="w-100" src="{{asset('assets/rs/img/'.$rs->img)}}" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title"><i class="fas fa-hospital"></i> {{$rs->nama_rs}}</h5>
-            <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{$rs->alamat}}</p>
-            <p class="card-text"><i class="fas fa-phone"></i> Telephone : {{$rs->no_telephone}}</p>
-            <h5 class="card-text"><i class="fas fa-clock"></i> 
+            <h5 class="card-title mb-2"><i class="fas fa-hospital"></i> {{$rs->nama_rs}}</h5>
+            <p class="card-text mb-2"><i class="fas fa-map-marker-alt"></i> {{$rs->alamat}}</p>
+            <p class="card-text mb-2"><i class="fas fa-phone"></i> Telephone : {{$rs->no_telephone}}</p>
+            <h5 class="card-text mb-2"><i class="fas fa-clock"></i> 
               <span class="badge badge-pill badge-dark">{{$rs->jadwal}}</span>
             </h5>
           </div>

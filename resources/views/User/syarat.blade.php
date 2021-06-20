@@ -30,6 +30,7 @@
   }
   footer {
     background: #7e21ff;
+    color: white;
   }
   @media (max-width: 580px) {
     .judul {
