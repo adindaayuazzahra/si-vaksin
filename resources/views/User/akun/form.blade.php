@@ -66,7 +66,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">NIK</label>
                 <div class="col-sm-10">
-                  <input id="nik" type="text" name="nik" class="form-control" placeholder="NIK">
+                  <input id="nik" type="text" name="nik" class="form-control" placeholder="NIK" value="@if($informasiuser){{$informasiuser->nik}}@endif">
                   <span id="nikError" class="text-danger"></span>
                 </div>
               </div>
@@ -82,7 +82,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Alamat Lengkap</label>
                 <div class="col-sm-10">
-                  <textarea id="alamat" type="text" name="alamat" class="form-control" placeholder="Alamat" rows="3"></textarea>
+                  <textarea id="alamat" type="text" name="alamat" class="form-control" placeholder="Alamat" rows="3">@if($informasiuser){{$informasiuser->alamat}}@endif</textarea>
                   <span id="alamatError" class="text-danger"></span>
                 </div>
               </div>

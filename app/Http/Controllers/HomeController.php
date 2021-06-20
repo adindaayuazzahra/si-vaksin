@@ -42,61 +42,74 @@ class HomeController extends Controller
         return view("User.harga",['list_vaksin' => $list_vaksin,'akun'=>$akun]);
     }
 
+
     //Registrasi Vaksinasi
     public function registrasiVaksinasi(){
         $akun=Auth::user();
+        $informasiuser=InformasiUser::where('id_user',$akun->id_user)->first();
         $list_vs=Vaksin::all();
         $list_rs=RumahSakit::all();
-        return view("User.akun.form",['list_rs' => $list_rs,'akun'=>$akun,'list_vs'=>$list_vs]);
+        return view("User.akun.form",['list_rs' => $list_rs,'akun'=>$akun,'list_vs'=>$list_vs,'informasiuser'=>$informasiuser]);
     }
 
     public function registrasiVaksinasiAction(Request $request){
-        // dd($request->all()); Delete aja untuk lihat hasil
-        $akun=Auth::user();
-        $request->validate([
-            'nik'=>'required',
-            'nama'=>'required|string',
-            'alamat'=>'required|string',
-            'vaksin'=>'required',
-            'rs'=>'required',
-            'tgl'=>'required',
-            'time'=>'required',
-            'keterangan'=>'string',
-        ]);
-        if (!(InformasiUser::where('id_user',$akun->id_user))) {
-            $IU=InformasiUser::create([
-                'id_user'=>$akun->id_user,
-                'nik'=>$request->nik,
-                'nama'=>$request->nama,
-                'alamat'=>$request->alamat,
+        if ($request->has('submit')) {
+            $akun=Auth::user();
+            $request->validate([
+                'nik'=>'required',
+                'nama'=>'required|string',
+                'alamat'=>'required|string',
+                'vaksin'=>'required',
+                'rs'=>'required',
+                'tgl'=>'required',
+                'time'=>'required',
             ]);
-        }
-        $pendaftaranid=mt_rand(100000000, 999999999);
-        $count=0;
-        while (Registrasi::find($pendaftaranid) && $count < 899999999) {
-            $count++;
-            $pendaftaranid=mt_rand(100000000, 999999999);
-        }
 
-        $PVS=Registrasi::create([
-            'id_pendaftaran'=>$pendaftaranid,
-            'id_user'=>$akun->id_user,
-            'id_rs'=>$request->rs,
-            'id_vaksin'=>$request->vaksin,
-            'tanggal_vaksinasi'=>$request->tgl,
-            'jam_vaksinasi'=>$request->time,
-            'keterangan'=>$request->keterangan,
-        ]);
-        if ($PVS) {
-            return redirect("rincian/".$pendaftaranid);
+            $informasi=empty(InformasiUser::where('id_user',$akun->id_user)->first());
+            if ($informasi) {
+                InformasiUser::create([
+                    'id_user'=>$akun->id_user,
+                    'nik'=>$request->nik,
+                    'nama'=>$request->nama,
+                    'alamat'=>$request->alamat,
+                ]);
+            }
+            else{
+                InformasiUser::where('id_user',$akun->id_user)->update([
+                    'id_user'=>$akun->id_user,
+                    'nik'=>$request->nik,
+                    'nama'=>$request->nama,
+                    'alamat'=>$request->alamat,
+                ]);
+            }
+
+            $pendaftaranid=mt_rand(100000000, 999999999);
+            $count=0;
+            while (Registrasi::find($pendaftaranid) && $count < 899999999) {
+                $count++;
+                $pendaftaranid=mt_rand(100000000, 999999999);
+            }
+
+            $PVS=Registrasi::create([
+                'id_pendaftaran'=>$pendaftaranid,
+                'id_user'=>$akun->id_user,
+                'id_rs'=>$request->rs,
+                'id_vaksin'=>$request->vaksin,
+                'tanggal_vaksinasi'=>$request->tgl,
+                'jam_vaksinasi'=>$request->time,
+                'keterangan'=>$request->keterangan,
+            ]);
+            if ($PVS) {
+                return redirect("rincian/".$pendaftaranid);
+            }
         }
         return redirect()->back();
     }
     
     public function rincian($id) {
+        $registrasi=Registrasi::with(['vaksin'])->find($id);
         $pembayaran=null;
         if (!empty($id)) {
-
             $pembayaranid=mt_rand(100000000, 999999999);
             $count=0;
             while (Registrasi::find($pembayaranid) && $count < 899999999) {
@@ -106,7 +119,7 @@ class HomeController extends Controller
             Pembayaran::create([
                 'id_pembayaran'=>$pembayaranid,
                 'id_pendaftaran'=>$id,
-                'total_harga'=>"10000",
+                'total_harga'=>$registrasi->vaksin->harga,
             ]);
             return redirect("pembayaran/".$id);
         }
@@ -137,10 +150,6 @@ class HomeController extends Controller
                 'password'=>'required'
             ]);
 
-            // $authen=User::where('email',$request->email)->get();
-            // if ($authen->level==3) {
-                
-            // }
             $check = Auth::attempt($request->only('email','password'));
             if ($check) {
                 $request->session()->put('pendaftar', $check);
