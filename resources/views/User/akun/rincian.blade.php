@@ -135,7 +135,7 @@
           </div>
 
           <div class="col-md-12 text-md-right my-5">
-            <h4 class="font-weight-bold">Total Pembayaran : {{$registrasi->pembayaran->harga}}</h4>
+            <h4 class="font-weight-bold">Total Pembayaran : Rp. {{$registrasi->pembayaran->total_harga}}</h4>
           </div>
 
         </div>

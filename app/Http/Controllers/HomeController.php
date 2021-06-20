@@ -16,7 +16,8 @@ class HomeController extends Controller
     // cuman buat ngeiat hasil tampilan nya aja
     public function status() {
         $akun=Auth::user();
-        return view("User.akun.status",compact('akun'));
+        $registrasi=Registrasi::with(['vaksin','rs','status'])->get();
+        return view("User.akun.status",['akun'=>$akun,'registrasi'=>$registrasi]);
     }
 
     public function index(){

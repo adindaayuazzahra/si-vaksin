@@ -15,15 +15,6 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-
-Route::get('/', function () {
-    return view('homepage');
-});
-
-// cuman buat nyoba
-Route::get('/status', [Homecontroller::class, 'status']);
-
-
 Route::get('/', [Homecontroller::class, 'index'])->name('user.index');
 Route::get('login', [Homecontroller::class, 'login'])->name('login.get');
 Route::post('login',[Homecontroller::class, 'loginAction'])->name('login.user');
@@ -37,11 +28,12 @@ Route::post('login-admin',[Admincontroller::class, 'loginAction']);
 Route::middleware(['auth'])->group(function(){
     //User
     Route::middleware(['usercheck:3'])->group(function(){
-        Route::post('logout',[Homecontroller::class, 'logout']);
-        Route::get('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasi']);
-        Route::post('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasiAction']);   
+        Route::post('logout',[Homecontroller::class, 'logout'])->name('user.logout');
+        Route::get('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasi'])->name('user.get.registrasi');
+        Route::post('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasiAction'])->name('user.registrasi');   
         Route::get('rincian/{id}', [Homecontroller::class, 'rincian']);   
         Route::get('pembayaran/{id}', [Homecontroller::class, 'rincianAction']);
+        Route::get('status', [Homecontroller::class, 'status'])->name('user.status');
     });
 
     //Admin
