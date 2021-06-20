@@ -15,18 +15,10 @@ class HomeController extends Controller
 {
     // cuman buat ngeiat hasil tampilan nya aja
 
+
     public function status() {
         $akun=Auth::user();
         return view("User.akun.status",compact('akun'));
-    }
-    public function konfirmasi() {
-        $akun=Auth::user();
-        return view("User.akun.konfirmasi",compact('akun'));
-    }
-    
-    public function rincian() {
-        $akun=Auth::user();
-        return view("User.akun.rincian",compact('akun'));
     }
 
     public function index(){
@@ -52,7 +44,7 @@ class HomeController extends Controller
         return view("User.harga",['list_vaksin' => $list_vaksin,'akun'=>$akun]);
     }
 
-    
+    //Registrasi Vaksinasi
     public function registrasiVaksinasi(){
         $akun=Auth::user();
         $list_vs=Vaksin::all();
@@ -61,6 +53,7 @@ class HomeController extends Controller
     }
 
     public function registrasiVaksinasiAction(Request $request){
+        // dd($request->all()); Delete aja untuk lihat hasil
         $akun=Auth::user();
         $request->validate([
             'nik'=>'required',
@@ -72,14 +65,23 @@ class HomeController extends Controller
             'time'=>'required',
             'keterangan'=>'string',
         ]);
-        $IU=InformasiUser::create([
-            'id_user'=>$akun->id_user,
-            'nik'=>$request->nik,
-            'nama'=>$request->nama,
-            'alamat'=>$request->alamat,
-        ]);
+        if (!(InformasiUser::where('id_user',$akun->id_user))) {
+            $IU=InformasiUser::create([
+                'id_user'=>$akun->id_user,
+                'nik'=>$request->nik,
+                'nama'=>$request->nama,
+                'alamat'=>$request->alamat,
+            ]);
+        }
+        $pendaftaranid=mt_rand(100000000, 999999999);
+        $count=0;
+        while (Registrasi::find($pendaftaranid) && $count < 899999999) {
+            $count++;
+            $pendaftaranid=mt_rand(100000000, 999999999);
+        }
 
         $PVS=Registrasi::create([
+            'id_pendaftaran'=>$pendaftaranid,
             'id_user'=>$akun->id_user,
             'id_rs'=>$request->rs,
             'id_vaksin'=>$request->vaksin,
@@ -87,15 +89,42 @@ class HomeController extends Controller
             'jam_vaksinasi'=>$request->time,
             'keterangan'=>$request->keterangan,
         ]);
-        if ($IU) {
-            if ($PVS) {
-                return redirect("/");
-            }
+        if ($PVS) {
+            return redirect("rincian/".$pendaftaranid);
         }
         return redirect()->back();
     }
+
+    public function konfirmasi() {
+        $akun=Auth::user();
+        return view("User.akun.konfirmasi",compact('akun'));
+    }
     
-    //Akun
+    public function rincian($id) {
+        $akun=Auth::user();
+        $registrasi=Registrasi::find($id)
+        $vaksin=Vaksin::where('id_vaksin',$registrasi->id_vaksin)->get();
+        $rs=RumahSakit::where('id_rs',$registrasi->id_rs)->get();
+        $pembayaran=null;
+        if ($id) {
+            $pembayaranid=mt_rand(100000000, 999999999);
+            $count=0;
+            while (Registrasi::find($pembayaranid) && $count < 899999999) {
+                $count++;
+                $pembayaranid=mt_rand(100000000, 999999999);
+            }
+            Pembayaran::create([
+                'id_pembayaran'=>$pembayaranid,
+                'id_pendaftaran'=>$id,
+                'total_harga'=>$vaksin->harga,
+            ]);
+        }
+        
+        return view("User.akun.rincian",['akun'=>$akun,'registrasi'=>$registrasi,'vaksin'=>$vaksin,'rs'=>$rs,'pembayaran'=>$pembayaran];
+    }
+    
+
+    //Fungsi untuk akun
     public function login(){
         if (Auth::check()) {
             return redirect("/");
@@ -170,24 +199,6 @@ class HomeController extends Controller
         else{
             return redirect("/");
         }
-
-    }
-
-
-    //Registrasi Vaksinasi
-    public function registerVaksinasi(){
-        $list_vaksin=Vaksin::all();
-        $list_rs=RumahSakit::all();
-        // return view();
-    }
-
-    public function registerVaksinasiAction(Request $request){
-        if ($request->submit=="submit") {
-            // code...
-        }
-    }
-
-    public function infoRegistrasiVaksinasi(Request $request, $id){
 
     }
 }

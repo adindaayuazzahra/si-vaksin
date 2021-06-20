@@ -32,6 +32,22 @@
   footer {
     background: #7e21ff;
   }
+
+  .form-section{
+    display: none;
+  }
+  .form-section.current{
+    display: inherit;
+  }
+
+  .parsley-errors-list{
+    margin: 2px;
+    padding: 0;
+    list-style-type: none;
+    color: red;
+  }
+
+
 </style>
 @endsection
 
@@ -43,70 +59,137 @@
       <div class="col-md-12">
         <div class="card">
 
-          <form class="p-5" action="{{ url('/daftar-vaksin') }}" method="POST">
+          <form id="registrasiForm" class="p-5" action="{{ url('/daftar-vaksin') }}" method="POST">
             @csrf
             @method('post')
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">NIK</label>
-              <div class="col-sm-10">
-                <input type="text" name="nik" class="form-control" placeholder="NIK">
+            <div class="form-section">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">NIK</label>
+                <div class="col-sm-10">
+                  <input id="nik" type="text" name="nik" class="form-control" placeholder="NIK">
+                  <span id="nikError" class="text-danger"></span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Nama</label>
+                <div class="col-sm-10">
+                  <input id="nama" type="text" name="nama" class="form-control" value="@if($akun){{$akun->nama}}@endif">
+                  <span id="namaError" class="text-danger"></span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Alamat Lengkap</label>
+                <div class="col-sm-10">
+                  <textarea id="alamat" type="text" name="alamat" class="form-control" placeholder="Alamat" rows="3"></textarea>
+                  <span id="alamatError" class="text-danger"></span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Vaksin</label>
+                <div class="col-sm-10">
+                  <select class="form-control" name="vaksin" id="vaksin">
+                    <option>-- Pilih Jenis Vaksin --</option>
+                    @foreach($list_vs as $vs)
+                      <option value="{{$vs->id_vaksin}}">{{$vs->nama_vaksin}} - Rp. {{$vs->harga}}</option>
+                    @endforeach
+                  </select>
+                  <span id="vaksinError" class="text-danger"></span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Rumah Sakit</label>
+                <div class="col-sm-10">
+                  <select class="form-control" name="rs" id="rs">
+                    <option>-- Pilih Rumah Sakit --</option>
+                    @foreach($list_rs as $rs)
+                      <option value="{{$rs->id_rs}}">{{$rs->nama_rs}}  Jadwal: {{$rs->jadwal}}</option>
+                    @endforeach
+                  </select>
+                  <span id="rsError" class="text-danger"></span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Tanggal</label>
+                <div class="col-sm-10">
+                  <input id="tgl" type="date" name="tgl" class="form-control">
+                  <span id="tglError" class="text-danger"></span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Jam</label>
+                <div class="col-sm-10">
+                  <input id="time" type="time" name="time" class="form-control">
+                  <span id="timeError" class="text-danger"></span>
+                </div>
               </div>
             </div>
 
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Nama</label>
-              <div class="col-sm-10">
-                <input type="text" name="nama" class="form-control" value="@if($akun){{$akun->nama}}@endif">
+            <div class="form-section">
+              <div class="card-title text-center">
+                <h2 class="p-3">KONFIRMASI PENDAFTARAN</h2>
+                <hr>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">NIK</label>
+                <div class="col-sm-10">
+                  <input id="nik2" type="text" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Nama</label>
+                <div class="col-sm-10">
+                  <input id="nama2" type="text" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Alamat Lengkap</label>
+                <div class="col-sm-10">
+                  <textarea type="text" id="alamat2" class="form-control" placeholder="Alamat" rows="3"></textarea>
+                  <p></p>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Vaksin</label>
+                <div class="col-sm-10">
+                  <input id="vaksin2" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Rumah Sakit</label>
+                <div class="col-sm-10">
+                  <input class="form-control" id="rs2">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Tanggal</label>
+                <div class="col-sm-10">
+                  <input type="date" id="tgl2" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Jam</label>
+                <div class="col-sm-10">
+                  <input type="time" id="time2" class="form-control">
+                </div>
               </div>
             </div>
-
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Alamat Lengkap</label>
-              <div class="col-sm-10">
-                <textarea type="text" name="alamat" class="form-control" placeholder="Alamat" rows="3"></textarea>
-              </div>
+            <div class="form-navigation">
+              <button type="button" class="next btn btn-lg btn-primary float-right mt-2" onclick="registrasi()">Konfirmasi</button>
+              <button type="button" class="previous btn btn-info float-left mt-2">Masih Ada Data yang Salah</button>
+              <button type="submit" name="submit" value="submit" class="btn btn-success float-right mt-2">Daftar dan Bayar</button>
             </div>
-
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Vaksin</label>
-              <div class="col-sm-10">
-                <select class="form-control" name="vaksin" id="exampleFormControlSelect1">
-                  <option>-- Pilih Jenis Vaksin --</option>
-                  @foreach($list_vs as $vs)
-                    <option value="{{$vs->id_vaksin}}">{{$vs->nama_vaksin}} - Rp. {{$vs->harga}}</option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Rumah Sakit</label>
-              <div class="col-sm-10">
-                <select class="form-control" name="rs" id="exampleFormControlSelect2">
-                  <option>-- Pilih Rumah Sakit --</option>
-                  @foreach($list_rs as $rs)
-                    <option value="{{$rs->id_rs}}">{{$rs->nama_rs}}  Jadwal: {{$rs->jadwal}}</option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Tanggal</label>
-              <div class="col-sm-10">
-                <input type="date" name="tgl" class="form-control">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Jam</label>
-              <div class="col-sm-10">
-                <input type="time" name="time" class="form-control">
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-lg btn-primary float-right mt-2 ">Konfirmasi</button>
-
           </form>
         </div>
       </div>
@@ -144,5 +227,53 @@
 </footer>  
 <script>
   
+</script>
+@endsection
+@section('script')
+<script>
+  $(function(){
+      var $sections=$('.form-section');
+
+      function navigateTo(index){
+        $sections.removeClass('current').eq(index).addClass('current');
+        $('.form-navigation .previous').toggle(index);
+        var atTheEnd = index >= $sections.length-1;
+        $('.form-navigation .next').toggle(!atTheEnd);
+        $('.form-navigation [type=submit]').toggle(atTheEnd);
+      }
+
+      function curIndex(){
+        return $sections.index($sections.filter('.current'));
+      }
+
+      $('.form-navigation .previous').click(function(){
+        navigateTo(curIndex()-1);
+      });
+
+      $('.form-navigation .next').click(function(){
+          $("#registrasiForm").parsley().whenValidate({
+            group: 'block-'+curIndex()
+          }).done(function(){
+            navigateTo(curIndex()+1);
+          });
+      });
+
+      $sections.each(function(index,section){
+        $(section).find(':input').attr('data-parsley-group','block-'+index);
+      });
+
+      navigateTo(0);
+
+  });
+
+  function registrasi(){
+    $("#nik2").val($("#nik").val());
+    $("#nama2").val($("#nama").val());
+    $("#alamat2").val($("#alamat").val());
+    $("#vaksin2").val($("#vaksin").val());
+    $("#rs2").val($("#rs").val());
+    $("#tgl2").val($("#tgl").val());
+    $("#time2").val($("#time").val());
+  }
 </script>
 @endsection

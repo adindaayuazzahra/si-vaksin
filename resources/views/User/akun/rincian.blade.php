@@ -18,13 +18,6 @@
       margin-bottom: 60px;
       font-size: 18px;
   }
-  .cetak a {
-    background-color: #ff7d63;
-    color: white;
-    font-weight: 600;
-    border-radius: 10px;
-    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.5);
-  }
   .card-title {
       font-weight: bolder;
       font-family: 'Prata', serif;
@@ -47,7 +40,7 @@
 <div class="container">
   <div class="row mt-3">
     <div class="col-md-10 mx-auto">
-      <div class="card">
+      <div id="printInvoice" class="card">
         <div class="card-title px-5 pt-5 text-center">
           <h2>INVOICE PEMBAYARAN</h2>
           <hr>
@@ -149,7 +142,7 @@
       </div>
 
       <div class="col-md-12 mx-auto text-md-center mb-5 cetak">
-        <a href="" class="btn btn-lg">CETAK BUKTI BAYAR</a>
+        <button onclick="printDiv()" class="btn btn-secondary text-white">CETAK BUKTI BAYAR</button>
       </div>
 
     </div>
@@ -184,4 +177,29 @@
     © 2021 Copyright: goVaksin.test
   </div>
 </footer>  
+@endsection
+
+@section('script')
+<script>
+  function printDiv() {
+     var printContents = document.getElementById("printInvoice").innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+  }
+  // function codespeedy(){
+  //   var print_div = document.getElementById("printInvoice");
+  //   var print_area = window.open();
+  //   print_area.document.write(print_div.innerHTML);
+  //   print_area.document.close();
+  //   print_area.focus();
+  //   print_area.print();
+  //   print_area.close();
+  // }
+
+</script>
 @endsection

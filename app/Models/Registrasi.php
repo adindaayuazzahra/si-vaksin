@@ -12,6 +12,7 @@ class Registrasi extends Model
     protected $table = 'pendaftaran';
     protected $primaryKey='id_pendaftaran';
     protected $fillable=[
+        'id_pendaftaran',
         'id_user',
         'id_rs',
         'id_vaksin',
