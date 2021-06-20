@@ -20,7 +20,8 @@ class CreateUserInformation extends Migration
             $table->text('nik');
             $table->text('nama');
             $table->text('alamat');
-            $table->timestamp('tgl_verifikasi')->useCurrent();
+            $table->timestamp('tgl_verifikasi')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('tgl_update')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 

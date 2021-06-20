@@ -19,4 +19,8 @@ class RumahSakit extends Model
         'keterangan',
         'no_telephone'
     ];
+
+    public function registrasi(){
+        return $this->hasMany(Registrasi::class, 'id_rs');
+    }
 }

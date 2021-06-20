@@ -14,7 +14,8 @@ class CreatePendaftaranVaksin extends Migration
     public function up()
     {
         Schema::create('vaksin.pendaftaran', function (Blueprint $table) {
-            $table->increments('id_pendaftaran');
+            $table->integer('id_pendaftaran')->unsigned();
+            $table->primary('id_pendaftaran');
             $table->integer('id_user')->unsigned();
             $table->foreign('id_user')->references('id_user')->on('vaksin.user');
 

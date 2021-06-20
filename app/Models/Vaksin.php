@@ -17,4 +17,8 @@ class Vaksin extends Model
         'deskripsi',
         'harga'
     ];
+    
+    public function registrasi(){
+        return $this->hasMany(Registrasi::class, 'id_vaksin');
+    }
 }

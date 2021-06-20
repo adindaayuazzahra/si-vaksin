@@ -21,8 +21,6 @@ Route::get('/', function () {
 });
 
 // cuman buat nyoba
-Route::get('/konfirmasi', [Homecontroller::class, 'konfirmasi']);
-Route::get('/rincian', [Homecontroller::class, 'rincian']);
 Route::get('/status', [Homecontroller::class, 'status']);
 
 
@@ -41,7 +39,9 @@ Route::middleware(['auth'])->group(function(){
     Route::middleware(['usercheck:3'])->group(function(){
         Route::post('logout',[Homecontroller::class, 'logout']);
         Route::get('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasi']);
-        Route::post('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasiAction']);      
+        Route::post('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasiAction']);   
+        Route::get('rincian/{id}', [Homecontroller::class, 'rincian']);   
+        Route::get('pembayaran/{id}', [Homecontroller::class, 'rincianAction']);
     });
 
     //Admin

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 18, 2021 at 08:18 AM
+-- Generation Time: Jun 20, 2021 at 12:02 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.3
 
@@ -33,15 +33,16 @@ CREATE TABLE `informasi_user` (
   `nik` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tgl_verifikasi` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `tgl_verifikasi` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `informasi_user`
 --
 
-INSERT INTO `informasi_user` (`id_informasi`, `id_user`, `nik`, `nama`, `alamat`, `tgl_verifikasi`) VALUES
-(3, 760429892, '23213123113', 'user', 'ksncanclmacjacmalcamc.', '2021-06-18 06:33:00');
+INSERT INTO `informasi_user` (`id_informasi`, `id_user`, `nik`, `nama`, `alamat`, `tgl_verifikasi`, `tgl_update`) VALUES
+(6, 760429892, '12345678910', 'user', 'Jl. Setia Budi', '2021-06-20 11:45:57', '2021-06-20 11:53:21');
 
 -- --------------------------------------------------------
 
@@ -81,6 +82,13 @@ CREATE TABLE `pembayaran` (
   `total_harga` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`id_pembayaran`, `id_pendaftaran`, `tgl_pembayaran`, `total_harga`) VALUES
+(878610776, 658548810, '2021-06-20 11:54:53', '25000');
+
 -- --------------------------------------------------------
 
 --
@@ -104,7 +112,7 @@ CREATE TABLE `pendaftaran` (
 --
 
 INSERT INTO `pendaftaran` (`id_pendaftaran`, `id_user`, `id_rs`, `id_vaksin`, `tanggal_vaksinasi`, `jam_vaksinasi`, `keterangan`, `tgl_pendaftaran`, `id_status`) VALUES
-(1, 760429892, 3, 2, '2021-06-18', '13:32:00', NULL, '2021-06-18 06:33:00', NULL);
+(658548810, 760429892, 1, 3, '2021-06-20', '19:52:00', NULL, '2021-06-20 11:54:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -198,8 +206,7 @@ CREATE TABLE `vaksin` (
 INSERT INTO `vaksin` (`id_vaksin`, `img`, `nama_vaksin`, `deskripsi`, `harga`) VALUES
 (1, '1623757517-Sinovac.jpg', 'Sinovac', '<li>Nyeri, kemerahan, atau bengkak di tempat bekas suntikan</li><li>Demam badan terasa lelah</li><li>Nyeri otot sakit kepala mual muntah</li>', '20000'),
 (2, '1623757686-Pfizer.jpg', 'Pfizer', '<li>Nyeri, kemerahan, atau bengkak di tempat bekas suntikan.</li><li>Sakit kepala.</li><li>Nyeri otot atau nyeri sendi.</li><li>Menggigil.</li><li>Demam ringan.</li><li>Mual atau merasa tidak enak badan</li><li>Bengkak di kelenjar getah bening.</li>', '27000'),
-(3, '1623758464-AstraZeneca.jpg', 'AstraZeneca', '<li>Nyeri, kemerahan, atau bengkak di tempat bekas suntikan</li><li>Demam badan terasa lelah</li><li>Nyeri otot sakit kepala mual muntah</li>', '25000'),
-(6, '1623982551-Vaccine20.jpg', 'Vaccine20', 'Vaccine20', 'Vaccine20');
+(3, '1623758464-AstraZeneca.jpg', 'AstraZeneca', '<li>Nyeri, kemerahan, atau bengkak di tempat bekas suntikan</li><li>Demam badan terasa lelah</li><li>Nyeri otot sakit kepala mual muntah</li>', '25000');
 
 --
 -- Indexes for dumped tables
@@ -268,7 +275,7 @@ ALTER TABLE `vaksin`
 -- AUTO_INCREMENT for table `informasi_user`
 --
 ALTER TABLE `informasi_user`
-  MODIFY `id_informasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_informasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -277,16 +284,10 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `pembayaran`
---
-ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
-  MODIFY `id_pendaftaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pendaftaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=658548811;
 
 --
 -- AUTO_INCREMENT for table `rs`
@@ -304,7 +305,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `vaksin`
 --
 ALTER TABLE `vaksin`
-  MODIFY `id_vaksin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_vaksin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

@@ -13,4 +13,8 @@ class Status extends Model
     protected $primaryKey='id_status';
     protected $fillable=['status'];
 
+    public function registrasi(){
+        return $this->hasMany(Registrasi::class, 'id_status');
+    }
+
 }
