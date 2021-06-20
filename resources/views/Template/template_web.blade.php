@@ -43,13 +43,14 @@
             @if(Auth::user()->level==3)
                 <li class="nav-item active">
                   <a class="nav-link" href="{{url('/daftar-vaksin')}}">Daftar Vaksin</a>
-                </li> 
-                <li class="nav-item active">
-                  <a class="nav-link" href="{{url('/status')}}">Riwayat Vaksinasi</a>
-                </li> 
-                
+                </li>  
               </ul>
-              <a class="nav-link">{{Auth::user()->nama}}</a>
+              <div class="dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> {{Auth::user()->nama}} </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="{{url('/status')}}">Riwayat Vaksinasi</a>
+                </div>
+              </div>
               <span class="navbar-text">
                 <form method="POST" action="{{ url('logout') }}">
                   @csrf

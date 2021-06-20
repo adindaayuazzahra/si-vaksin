@@ -13,7 +13,6 @@
       margin-top: 50px;
   }
   .card {
-      width: 18rem;
       box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.5);
       border-radius: 20px;
       border: 0;
@@ -43,9 +42,6 @@
 
   /* respondsive */
   @media (min-width: 770px) {
-    .card {
-        width: 28rem;
-    } 
     .card .card-title {
         font-size: 18pt;
     }
@@ -57,9 +53,6 @@
     }
   }
   @media (min-width: 771px) and (max-width: 1025px) {
-    .card {
-        width: 24rem;
-    }
     .card .card-title {
         font-size: 16pt;
     }
@@ -76,7 +69,7 @@
     <p class="judul">Jadwal Dan Tempat Vaksinasi COVID-19</p>
     <div class="row mt-4">
       @foreach($list_rs as $rs)
-      <div class="col-md-5 m-auto d-block">
+      <div class="col-md-5 mx-auto">
         <div class="card mb-5">
           <img class="w-100" src="{{asset('assets/rs/img/'.$rs->img)}}" alt="Card image cap" height="300">
           <div class="card-body">
