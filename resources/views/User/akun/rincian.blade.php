@@ -50,21 +50,21 @@
           <div class="form-group row mb-0">
             <label class="col-sm-3 col-form-label">ID Pembayaran</label>
             <div class="col-sm-9">
-              <p>: 1938293529845832</p>
+              <p>: {{$registrasi->pembayaran->id_pembayaran}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <label class="col-sm-3 col-form-label">ID Pendaftaran</label>
             <div class="col-sm-9">
-              <p>: 1212121</p>
+              <p>: {{$registrasi->id_pendaftaran}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <label class="col-sm-3 col-form-label">Tanggal Pembayaran</label>
             <div class="col-sm-9">
-              <p>: 21/05/2021</p>
+              <p>: {{$registrasi->pembayaran->tgl_pembayaran}}</p>
             </div>
           </div>
         
@@ -73,35 +73,35 @@
           <div class="form-group row mb-0 font-weight-bold">
             <label class="col-sm-3 col-form-label">Bill to</label>
             <div class="col-sm-9">
-              <p>:</p>
+              <p>: </p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <label class="col-sm-3 col-form-label">NIK</label>
             <div class="col-sm-9">
-              <p>: 102382394348</p>
+              <p>: {{$user->informasiuser->nik}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <label class="col-sm-3 col-form-label">Nama</label>
             <div class="col-sm-9">
-              <p>: Adinda Ayu Azzahra</p>
+              <p>: {{$user->informasiuser->nama}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
             <label class="col-sm-3 col-form-label">Alamat Lengkap</label>
             <div class="col-sm-9">
-              <p>: Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus recusandae dicta commodi quas quo qui doloremque odio dolor ea, deleniti, atque at sit consequatur</p>
+              <p>: {{$user->informasiuser->alamat}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-2">
             <label class="col-sm-3 col-form-label">Rumah Sakit</label>
             <div class="col-sm-9">
-              <p>: RS. Cipto Mangunkusumo</p>
+              <p>: {{$registrasi->rs->nama_rs}}</p>
             </div>
           </div>
 
@@ -123,19 +123,19 @@
             
             <div class="col-md-6">
               <div class="pt-2">
-                <p>Astrazenecca</p>
+                <p>{{$registrasi->vaksin->nama_vaksin}}</p>
               </div>
             </div>
 
             <div class="col-md-6 text-md-right">
               <div class="pt-2">
-                <p >Rp. 58.000</p>
+                <p>Rp. {{$registrasi->vaksin->harga}}</p>
               </div>
             </div>
           </div>
 
           <div class="col-md-12 text-md-right my-5">
-            <h4 class="font-weight-bold">Total Pembayaran : Rp. 58.000</h4>
+            <h4 class="font-weight-bold">Total Pembayaran : {{$registrasi->pembayaran->harga}}</h4>
           </div>
 
         </div>

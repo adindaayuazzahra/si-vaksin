@@ -40,8 +40,8 @@ Route::middleware(['auth'])->group(function(){
         Route::post('logout',[Homecontroller::class, 'logout']);
         Route::get('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasi']);
         Route::post('daftar-vaksin', [Homecontroller::class, 'registrasiVaksinasiAction']);   
-        Route::get('konfirmasi', [Homecontroller::class, 'konfirmasi']);
         Route::get('rincian/{id}', [Homecontroller::class, 'rincian']);   
+        Route::get('pembayaran/{id}', [Homecontroller::class, 'rincianAction']);
     });
 
     //Admin

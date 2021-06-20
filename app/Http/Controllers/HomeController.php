@@ -4,18 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Pendaftar;
 use App\Models\Registrasi;
 use App\Models\InformasiUser;
 use App\Models\RumahSakit;
 use App\Models\Vaksin;
 use App\Models\Pembayaran;
+use App\Models\User;
 
 class HomeController extends Controller
 {
     // cuman buat ngeiat hasil tampilan nya aja
-
-
     public function status() {
         $akun=Auth::user();
         return view("User.akun.status",compact('akun'));
@@ -94,19 +92,11 @@ class HomeController extends Controller
         }
         return redirect()->back();
     }
-
-    public function konfirmasi() {
-        $akun=Auth::user();
-        return view("User.akun.konfirmasi",compact('akun'));
-    }
     
     public function rincian($id) {
-        $akun=Auth::user();
-        $registrasi=Registrasi::find($id)
-        $vaksin=Vaksin::where('id_vaksin',$registrasi->id_vaksin)->get();
-        $rs=RumahSakit::where('id_rs',$registrasi->id_rs)->get();
         $pembayaran=null;
-        if ($id) {
+        if (!empty($id)) {
+
             $pembayaranid=mt_rand(100000000, 999999999);
             $count=0;
             while (Registrasi::find($pembayaranid) && $count < 899999999) {
@@ -116,14 +106,20 @@ class HomeController extends Controller
             Pembayaran::create([
                 'id_pembayaran'=>$pembayaranid,
                 'id_pendaftaran'=>$id,
-                'total_harga'=>$vaksin->harga,
+                'total_harga'=>"10000",
             ]);
+            return redirect("pembayaran/".$id);
         }
-        
-        return view("User.akun.rincian",['akun'=>$akun,'registrasi'=>$registrasi,'vaksin'=>$vaksin,'rs'=>$rs,'pembayaran'=>$pembayaran];
+        return redirect()->back();
+    }
+
+    public function rincianAction($id){
+        $akun=Auth::user();
+        $registrasi=Registrasi::with(['pembayaran','vaksin','rs'])->find($id); 
+        $user=User::with(['informasiuser'])->find($registrasi->id_user);
+        return view("User.akun.rincian",['akun'=>$akun,'registrasi'=>$registrasi,'user'=>$user]);
     }
     
-
     //Fungsi untuk akun
     public function login(){
         if (Auth::check()) {
@@ -181,12 +177,12 @@ class HomeController extends Controller
             ]);
             $userid=mt_rand(100000000, 999999999);
             $count=0;
-            while (Pendaftar::find($userid) && $count < 899999999) {
+            while (User::find($userid) && $count < 899999999) {
                 $count++;
                 $userid=mt_rand(100000000, 999999999);
             }
 
-            Pendaftar::create([
+            User::create([
                 'id_user'=>$userid,
                 'username' => $request->username,
                 'nama' => $request->nama,

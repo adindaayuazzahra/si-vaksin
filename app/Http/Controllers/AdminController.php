@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
-use App\Models\Pendaftar;
 use App\Models\Registrasi;
 use App\Models\InformasiUser;
 use App\Models\RumahSakit;
@@ -279,7 +278,7 @@ class AdminController extends Controller
         
         $userid=mt_rand(100000000, 999999999);
         $count=0;
-        while (Pendaftar::find($userid) && $count < 899999999) {
+        while (User::find($userid) && $count < 899999999) {
             $count++;
             $userid=mt_rand(100000000, 999999999);
         }
