@@ -99,22 +99,26 @@
 
 			<div class="form-group mb-3">
 				<label for="nama_vaksin">Vaksin</label>
-				<input id="nama_vaksin" type="text" name="nama_vaksin" placeholder="@error('nama_vaksin') Vaksin wajib diisi. @enderror" class="@error('nama_vaksin') is-invalid @enderror form-control">
+				<input id="nama_vaksin" type="text" name="nama_vaksin" class="form-control">
+				<span class="text-danger" id="vaksinError"></span>
 			</div>
 
 			<div class="form-group mb-3">
 				<label for="deskripsi">Deskripsi</label>
-				<input id="deskripsi" type="text" name="deskripsi" placeholder="@error('deskripsi') Deskripsi wajib diisi. @enderror" class="@error('deskripsi') is-invalid @enderror form-control">
+				<input id="deskripsi" type="text" name="deskripsi" class="form-control">
+				<span class="text-danger" id="deskripsiError"></span>
 			</div>
 
 			<div class="form-group mb-3">
 				<label for="harga">Harga</label>
-				<input id="harga" type="text" name="harga" placeholder="@error('harga') Harga wajib diisi. @enderror" class="@error('harga') is-invalid @enderror form-control">
+				<input id="harga" type="text" name="harga" class="form-control">
+				<span class="text-danger" id="hargaError"></span>
 			</div>
 
 			<div class="form-group mb-3">
 				<label for="img">Image</label>
-				<input id="img" type="file" name="img" onchange="loadPreview(event)" class="@error('img') is-invalid @enderror form-control">
+				<input id="img" type="file" name="img" onchange="loadPreview(event)" class="form-control">
+				<span class="text-danger" id="imageError"></span>
 			</div>
 			<div>
 				<img id="imageUpload" class="img-thumbnail shadow rounded mx-auto mb-3 d-block d-none">
@@ -156,12 +160,52 @@
 						else{
 							$("#imageContent"+response.id_vaksin).addClass('d-none');
 						}
+
+						$("#vaksinError").text('');
+						$("#nama_vaksin").removeClass('is-invalid');
+						$("#deskripsiError").text('');
+						$("#deskripsi").removeClass('is-invalid');
+						$("#hargaError").text('');
+						$("#harga").removeClass('is-invalid');
+						$("#imgError").text('');
+						$("#img").removeClass('is-invalid');
 						$("#createForm")[0].reset();
 						$("#imageUpload").addClass('d-none');
 					}
 				},
-				error:function(){
-					console.log(formData);
+				error:function(response){
+					if(response.responseJSON.errors.nama_vaksin){
+						$("#vaksinError").text(response.responseJSON.errors.nama_vaksin);
+						$("#nama_vaksin").addClass('is-invalid');
+					}
+					else{
+						$("#vaksinError").text('');
+						$("#nama_vaksin").removeClass('is-invalid');
+					}
+					if(response.responseJSON.errors.deskripsi){
+						$("#deskripsiError").text(response.responseJSON.errors.deskripsi);
+						$("#deskripsi").addClass('is-invalid');
+					}
+					else{
+						$("#deskripsiError").text('');
+						$("#deskripsi").removeClass('is-invalid');
+					}
+					if(response.responseJSON.errors.harga){
+						$("#hargaError").text(response.responseJSON.errors.harga);
+						$("#harga").addClass('is-invalid');
+					}
+					else{
+						$("#hargaError").text('');
+						$("#harga").removeClass('is-invalid');
+					}
+					if(response.responseJSON.errors.img){
+						$("#imgError").text(response.responseJSON.errors.img);
+						$("#img").addClass('is-invalid');
+					}
+					else{
+						$("#imgError").text('');
+						$("#img").removeClass('is-invalid');
+					}
 				}
 			});
 		});		

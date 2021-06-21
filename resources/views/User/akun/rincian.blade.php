@@ -133,7 +133,7 @@
 
             <div class="col-md-6 text-md-right">
               <div class="pt-2">
-                <p>Rp. {{$registrasi->vaksin->harga}}</p>
+                <p> @currency($registrasi->vaksin->harga)</p>
               </div>
             </div>
           </div>
