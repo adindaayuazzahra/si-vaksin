@@ -61,7 +61,7 @@
 						  	</div>
 						</div>
 						@if($akun->level==1)
-							<form id="deleteForm" method="POST" action="{{url('admin/lapo/delete/'.$laporan->id_pendaftaran)}}">
+							<form id="deleteForm" method="POST" action="{{url('admin/laporan/delete/'.$laporan->id_pendaftaran)}}">
 								@csrf
 								@method('post')
 								<button type="submit" class="btn btn-danger text-white  w-100" name="submit" value="submit">Delete</button>
