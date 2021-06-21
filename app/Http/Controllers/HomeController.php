@@ -25,11 +25,6 @@ class HomeController extends Controller
         return view("User.akun.status",['akun'=>$akun,'registrasi'=>$registrasi]);
     }
 
-    public function editAkun(){
-        $akun=Auth::user();
-        return view("User.akun.editakun",compact('akun'));
-    }
-
     public function index(){
         $akun=Auth::user();
         return view("User.homepage",compact('akun'));
@@ -216,6 +211,44 @@ class HomeController extends Controller
         else{
             return redirect("/");
         }
+    }
 
+    public function editAkun(){
+        $akun=Auth::user();
+        return view("User.akun.editakun",compact('akun'));
+    }
+
+    public function editAkunAction(Request $request){
+        if($request->submit=="submit"){
+            $request->validate([
+                'id_user'=>'required',
+                'nama'=>'required|string',
+                'username'=>'required|string',
+                'email'=>'required|email',
+                'password'=>'required',
+            ]);
+
+            if (!empty($request->password2)) {
+                User::find($request->id_user)->update([
+                    'nama'=>$request->nama,
+                    'username'=>$request->username,
+                    'email'=>$request->email,
+                    'password'=>bcrypt($request->password2),
+                ]);
+            }
+            else{
+                User::find($request->id_user)->update([
+                    'nama'=>$request->nama,
+                    'username'=>$request->username,
+                    'email'=>$request->email,
+                    'password'=>bcrypt($request->password),
+                ]);
+            }
+            return redirect("/");
+        }
+        else{
+            return redirect("/");
+        }
+        return redirect()->back(); 
     }
 }

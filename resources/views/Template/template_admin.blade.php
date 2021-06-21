@@ -74,10 +74,17 @@
 		      </ul>
 
 		      	<ul class="navbar-nav mb-2 mb-lg-0">
-			      	<li class="nav-item">
-			          <a class="nav-link text-white">{{$akun->nama}}</a>
-			      	</li>
+		      		<li class="nav-item dropdown">
+				        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				            {{Auth::user()->nama}}
+				        </a>
+				        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+				          	<li><a class="dropdown-item" href="{{url('admin/edit-akun')}}">Edit Profile</a></li>
+				        </ul>
+				    </li>
 		      	</ul>
+
+
 
 		      	<form action="{{ url('admin/logout') }}" method="POST">
 		      		@csrf

@@ -108,7 +108,6 @@
         //   });
         // },1000); 
       }
-      notifikasi("{{Auth::user()->id_user}}");
     </script>
     @yield('script')
   </body>
