@@ -94,7 +94,7 @@
                   <select class="form-control" name="vaksin" id="vaksin">
                     <option>-- Pilih Jenis Vaksin --</option>
                     @foreach($list_vs as $vs)
-                      <option value="{{$vs->id_vaksin}}">{{$vs->nama_vaksin}} - Rp. {{$vs->harga}}</option>
+                      <option value="{{$vs->id_vaksin}}">{{$vs->nama_vaksin}} - @currency($vs->harga)</option>
                     @endforeach
                   </select>
                   <span id="vaksinError" class="text-danger"></span>

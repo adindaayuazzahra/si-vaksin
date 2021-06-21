@@ -28,7 +28,7 @@
 								@endif
 							</td>
 							<td id="deskripsi-vaksin" class="text-justify">{!!$vaksin->deskripsi!!}</td>
-							<td id="harga-vaksin" class="fw-bold">Rp. {{$vaksin->harga}}</td>
+							<td id="harga-vaksin" class="fw-bold">@currency($vaksin->harga)</td>
 							<td id="kontrol-vaksin">
 								<button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editVaksin({{$vaksin->id_vaksin}})" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
 
@@ -144,7 +144,7 @@
 				processData: false,
 				success:function(response){
 					if (response) {
-						$("#table_id tbody").append('<tr id="vid'+response.id_vaksin+'"><td id="nama-vaksin">'+response.nama_vaksin+'</td><td id="img-vaksin">@if('+response.img+')<img id="imageContent'+response.id_vaksin+'" width="100" class="img-thumbnail rounded mx-auto d-block">@endif</td><td id="deskripsi-vaksin">'+response.deskripsi+'</td><td id="harga-vaksin" class="fw-bold">Rp. '+response.harga+'</td><td id="kontrol-vaksin"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editVaksin('+response.id_vaksin+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST" action="data-vaksin/delete/'+response.id_vaksin+'">@csrf @method("post")<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
+						$("#table_id tbody").append('<tr id="vid'+response.id_vaksin+'"><td id="nama-vaksin">'+response.nama_vaksin+'</td><td id="img-vaksin">@if('+response.img+')<img id="imageContent'+response.id_vaksin+'" width="100" class="img-thumbnail rounded mx-auto d-block">@endif</td><td id="deskripsi-vaksin">'+response.deskripsi+'</td><td id="harga-vaksin" class="fw-bold">Rp '+response.harga+'</td><td id="kontrol-vaksin"><button type="button" class="btn btn-warning text-dark w-100 mb-1" onclick="editVaksin('+response.id_vaksin+')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button><form id="deleteForm" method="POST" action="data-vaksin/delete/'+response.id_vaksin+'">@csrf @method("post")<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button></form></td></tr>');
 						
 						if (!(response.img==null)) {
 							var imageCreateUpload=document.getElementById('imageContent'+response.id_vaksin);

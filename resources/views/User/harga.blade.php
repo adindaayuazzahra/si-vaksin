@@ -58,7 +58,7 @@
           <ul class="card-text">
             {!!$vaksin->deskripsi!!}
           </ul>
-          <h3><span class="badge badge-pill badge-info">Rp {{$vaksin->harga}}</span></h3>
+          <h3><span class="badge badge-pill badge-info">@currency($vaksin->harga)</span></h3>
         </div>
       </div>
     </div>
