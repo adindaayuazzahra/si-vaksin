@@ -13,6 +13,11 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
+    public function notifikasi($id){
+        $registrasi=Registrasi::where('id_user',$id)->where('id_status','<','4')->get();
+        $count=$registrasi->count();
+        return response()->json($count);
+    }
     // cuman buat ngeiat hasil tampilan nya aja
     public function status() {
         $akun=Auth::user();
@@ -99,6 +104,7 @@ class HomeController extends Controller
                 'tanggal_vaksinasi'=>$request->tgl,
                 'jam_vaksinasi'=>$request->time,
                 'keterangan'=>$request->keterangan,
+                'id_status'=>3,
             ]);
             if ($PVS) {
                 return redirect("rincian/".$pendaftaranid);
