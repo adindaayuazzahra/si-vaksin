@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/edit-akun', [Homecontroller::class, 'editAkun']);
 
 Route::get('/', [Homecontroller::class, 'index'])->name('user.index');
 Route::get('login', [Homecontroller::class, 'login'])->name('login.get');

@@ -25,6 +25,11 @@ class HomeController extends Controller
         return view("User.akun.status",['akun'=>$akun,'registrasi'=>$registrasi]);
     }
 
+    public function editAkun(){
+        $akun=Auth::user();
+        return view("User.akun.editakun",compact('akun'));
+    }
+
     public function index(){
         $akun=Auth::user();
         return view("User.homepage",compact('akun'));

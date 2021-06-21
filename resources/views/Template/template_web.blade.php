@@ -54,6 +54,7 @@
                 <span id="notifikasi" class="position-absolute" style="top: 0;"></span>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <a class="dropdown-item" href="{{url('/status')}}">Riwayat Vaksinasi</a>
+                  <a class="dropdown-item" href="{{url('/edit-akun')}}">Edit Profile</a>
                 </div>
               </div>
               <span class="navbar-text">
