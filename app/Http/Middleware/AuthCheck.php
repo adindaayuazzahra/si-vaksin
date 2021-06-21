@@ -19,7 +19,7 @@ class AuthCheck
     {
         $level=array_slice(func_get_args(), 2);
         if (!Auth::check()) {
-            return route('login.admin')->with('msg','Username atau password salah!');
+            return route('login')->with('msg','Username atau password salah!');
         }
         else{
             $authen=Auth::user();

@@ -17,7 +17,7 @@ class CreatePembayaran extends Migration
             $table->integer('id_pembayaran')->unsigned();
             $table->primary('id_pembayaran');
             $table->integer('id_pendaftaran')->unsigned();
-            $table->foreign('id_pendaftaran')->references('id_pendaftaran')->on('vaksin.pendaftaran');
+            $table->foreign('id_pendaftaran')->references('id_pendaftaran')->on('vaksin.pendaftaran')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamp('tgl_pembayaran')->useCurrent();
             $table->text('total_harga');
         });
