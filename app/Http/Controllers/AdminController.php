@@ -27,17 +27,17 @@ class AdminController extends Controller
             $akun=Auth::user();
             return redirect("admin");
         }
-        return view("Admin.akun.login");
+        return view("User.akun.login");
     }
 
     public function loginAction(Request $request){
         if ($request->has('submit')) {
             $request->validate([
-                'username'=> 'required|string',
+                'email'=> 'required|email',
                 'password'=>'required'
             ]);
 
-            $authen = $request->only('username','password');
+            $authen = $request->only('email','password');
             $check = Auth::attempt($authen);
             if ($check) {
                 $request->session()->regenerate();
@@ -50,13 +50,13 @@ class AdminController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect("login-admin");
+        return redirect("login");
     }
 
     //Data Laporan
     public function indexLaporan(){
         $akun=Auth::user();
-        $laporan = Registrasi::all();
+        $laporan = Registrasi::with(['status'])->get();
         $status=Status::all();
         return view("Admin.laporan.index", ['laporan' => $laporan,'akun' => $akun, 'list_status' => $status]);
     }
@@ -76,12 +76,13 @@ class AdminController extends Controller
             'id_status'=>$request->id_status,
         ]);
         
-        $laporan=Registrasi::find($request->id_pendaftaran);
+        $laporan=Registrasi::with(['status'])->find($request->id_pendaftaran);
         return response()->json($laporan);
     }
 
-    public function deleteLaporan(Request $request){
-
+    public function delLaporan($id){
+        Registrasi::destroy($id);
+        return redirect("admin/laporan");
     }
 
     //Data Vaccine

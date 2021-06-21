@@ -16,13 +16,16 @@ class CreatePendaftaranVaksin extends Migration
         Schema::create('vaksin.pendaftaran', function (Blueprint $table) {
             $table->integer('id_pendaftaran')->unsigned();
             $table->primary('id_pendaftaran');
+
             $table->integer('id_user')->unsigned();
             $table->foreign('id_user')->references('id_user')->on('vaksin.user');
 
             $table->integer('id_rs')->unsigned();
             $table->foreign('id_rs')->references('id_rs')->on('vaksin.rs');
+
             $table->integer('id_vaksin')->unsigned();
             $table->foreign('id_vaksin')->references('id_vaksin')->on('vaksin.vaksin');
+            
             $table->date('tanggal_vaksinasi')->nullable();
             $table->time('jam_vaksinasi')->nullable();
             $table->text('keterangan')->nullable();

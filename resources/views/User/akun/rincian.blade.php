@@ -33,6 +33,9 @@
   footer {
     background: #7e21ff;
   }
+  #home{
+    font-size: 15pt!important;
+  }
 </style>
 @endsection
 
@@ -142,7 +145,8 @@
       </div>
 
       <div class="col-md-12 mx-auto text-md-center mb-5 cetak">
-        <button onclick="printDiv()" class="btn btn-secondary text-white">CETAK BUKTI BAYAR</button>
+        <button onclick="printDiv()" class="btn btn-secondary text-white mb-5">CETAK BUKTI BAYAR</button>
+        <a id="home" class="nav-link text-white" href="{{url('/')}}">Kembali ke halaman utama</a>
       </div>
 
     </div>

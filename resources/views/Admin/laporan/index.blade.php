@@ -22,7 +22,7 @@
 					<td id="text-pendaftaran" class="text-center">{{$laporan->id_pendaftaran}}</td>
 					<td id="text-user" class="text-center">{{$laporan->id_user}}</td>
 					<td id="text-tgl" class="text-center">{{$laporan->tgl_pendaftaran}}</td>
-					<td id="text-status" class="text-center">{{$laporan->id_status}}</td>
+					<td id="text-status" class="text-center">{{$laporan->status->status}}</td>
 					<td id="kontrol-laporan">
 						<button type="button" class="btn btn-primary text-white w-100 mb-1" onclick="editLap({{$laporan->id_pendaftaran}})" data-bs-toggle="modal" data-bs-target="#editModal">Status</button>
 
@@ -61,10 +61,10 @@
 						  	</div>
 						</div>
 						@if($akun->level==1)
-							<form id="deleteForm" method="POST" action="">
+							<form id="deleteForm" method="POST" action="{{url('admin/lapo/delete/'.$laporan->id_pendaftaran)}}">
 								@csrf
 								@method('post')
-								<button type="submit" class="btn btn-danger text-white  w-100" name="submit">Delete</button>
+								<button type="submit" class="btn btn-danger text-white  w-100" name="submit" value="submit">Delete</button>
 							</form>
 						@endif
 					</td>
@@ -89,7 +89,7 @@
 				success:function(response){
 					console.log(response.id_pendaftaran);
 					if (response) {
-						$("#lid"+response.id_pendaftaran+" #text-status").text(response.id_status);
+						$("#lid"+response.id_pendaftaran+" #text-status").text(response.status.status);
 						$("#editModal").modal('toggle');
 						$("#editForm")[0].reset();
 					}

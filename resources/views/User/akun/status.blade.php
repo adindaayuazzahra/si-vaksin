@@ -86,10 +86,17 @@
             </div>
           </div>
 
-          <div class="form-group row mb-0">
+          <div class="form-group row mb-2">
             <label class="col-sm-3 col-form-label">Tanggal Pendaftaran</label>
             <div class="col-sm-9">
               <p>: {{$registrasi->tgl_pendaftaran}}</p>
+            </div>
+          </div>
+
+          <div class="form-group row mb-0">
+            <label class="col-sm-3 col-form-label">Invoice</label>
+            <div class="col-sm-9">
+              <a class="nav-link p-0" href="{{url('pembayaran/'.$registrasi->id_pendaftaran)}}">: Nota Pembayaran</a>
             </div>
           </div>
 
