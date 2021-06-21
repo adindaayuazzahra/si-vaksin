@@ -29,6 +29,7 @@
   }
   footer {
     background: #7e21ff;
+    color: white;
   }
   .form-control {
     border:#ffff;

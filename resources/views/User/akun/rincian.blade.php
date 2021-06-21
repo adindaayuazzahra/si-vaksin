@@ -32,6 +32,7 @@
   }
   footer {
     background: #7e21ff;
+    color: white;
   }
   #home{
     font-size: 15pt!important;

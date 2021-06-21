@@ -31,6 +31,7 @@
   }
   footer {
     background: #7e21ff;
+    color: white;
   }
 
   .form-section{
