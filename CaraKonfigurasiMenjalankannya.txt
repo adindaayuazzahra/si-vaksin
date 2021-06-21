@@ -1,0 +1,43 @@
+cara clone dan transfer DB dan branch
+
+*Clone
+1. copy http:PemilkSource
+2. klik masuk folder www (laragon)
+2. klik kanan buat folder/pilih folder yang ingin di masukkan file clone nya
+3. kkik git bash here
+4. git clone (http:PemilikSource)
+
+*transfer DB
+1. klik kanan pada file clone tadi
+2. klik terminal/CMD
+
+*jika belum ada composer maka install jika sudah lewati bagian ini
+3. composer install
+4. update composer
+
+*lalu setelah ada composer
+5. copy .envy.example .env (windows)
+6. cp .env.example .env (Linux/Git Bash)
+7. php artisan key:generate
+
+
+*cara running 
+1. buka laragon
+2. klik kanan www
+3. pilih folder clone tadi
+4. pilih public
+
+cara buat branch
+1. klik kanan pada folder clone
+2. klik git bash here
+
+3. 
+git checkout -b namabranch
+
+
+4. git commit -m namacommit
+
+
+5. git push origin namabranch
+6. login
+7. git pull origin namabranch

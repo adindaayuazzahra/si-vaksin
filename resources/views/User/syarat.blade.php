@@ -20,10 +20,12 @@
       font-family: 'Prata', serif;
   }
   .card {
-      box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.5);
       border-radius: 20px;
       margin-bottom: 60px;
       font-size: 18px;
+  }
+  .card:hover {
+     box-shadow: 0 1rem 1rem 0 rgba(0, 0, 0, 0.5);
   }
   .a {
     list-style-type: lower-roman;
@@ -35,12 +37,6 @@
   @media (max-width: 580px) {
     .judul {
       font-size: 18pt;
-    }
-    .card {
-      box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.5);
-      border-radius: 20px;
-      margin-bottom: 60px;
-      font-size: 12pt;
     }
     .card-title h4 {
       font-size: 14pt;
