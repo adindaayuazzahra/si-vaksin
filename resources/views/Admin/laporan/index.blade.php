@@ -22,7 +22,11 @@
 					<td id="text-pendaftaran" class="text-center">{{$laporan->id_pendaftaran}}</td>
 					<td id="text-user" class="text-center">{{$laporan->id_user}}</td>
 					<td id="text-tgl" class="text-center">{{$laporan->tgl_pendaftaran}}</td>
+					@if(!empty($laporan->status))
 					<td id="text-status" class="text-center">{{$laporan->status->status}}</td>
+					@else
+					<td id="text-status" class="text-center"></td>
+					@endif
 					<td id="kontrol-laporan">
 						<button type="button" class="btn btn-primary text-white w-100 mb-1" onclick="editLap({{$laporan->id_pendaftaran}})" data-bs-toggle="modal" data-bs-target="#editModal">Status</button>
 

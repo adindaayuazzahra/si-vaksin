@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('rincian/{id}', [Homecontroller::class, 'rincian']);   
         Route::get('pembayaran/{id}', [Homecontroller::class, 'rincianAction']);
         Route::get('status', [Homecontroller::class, 'status'])->name('user.status');
+        Route::get('notifikasi/{id}',[Homecontroller::class,'notifikasi'])->name('user.notifikasi');
     });
 
     //Admin
