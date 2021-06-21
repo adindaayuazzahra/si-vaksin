@@ -24,6 +24,7 @@
       border-radius: 20px;
       font-size: 18px;
       height: 36rem;
+      color: black;
   }
   .card .card-title {
       font-weight: 700;
