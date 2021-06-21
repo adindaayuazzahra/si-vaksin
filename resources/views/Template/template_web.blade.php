@@ -95,9 +95,19 @@
     <script>
       function notifikasi(id){
         $.get('notifikasi/'+id,function(notifikasi){
-          document.getElementById("notifikasi").textContent=notifikasi;
+          if (notifikasi!="0") {
+            document.getElementById("notifikasi").textContent=notifikasi;
+          }
         });
+        // setInterval(function(){
+        //   $.get('notifikasi/'+id,function(notifikasi){
+        //     if (notifikasi!="0") {
+        //       document.getElementById("notifikasi").textContent=notifikasi;
+        //     }
+        //   });
+        // },1000); 
       }
+      notifikasi("{{Auth::user()->id_user}}");
     </script>
     @yield('script')
   </body>
