@@ -18,7 +18,7 @@
 
   </head>
   @if(Auth::check())
-  <body>
+  <body onload="notifikasi({{Auth::user()->id_user}})" style="color:white;">
   @else
   <body>
   @endif

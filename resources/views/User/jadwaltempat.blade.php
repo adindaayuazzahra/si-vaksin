@@ -17,6 +17,7 @@
       border-radius: 20px;
       border: 0;
       height: 30rem;
+      color: black;
   }
   .card img{
       border-radius: 20px 20px 0px 0px;
