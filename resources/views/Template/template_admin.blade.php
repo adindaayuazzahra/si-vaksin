@@ -44,8 +44,18 @@
 		          <a class="nav-link text-white" aria-current="page" href="{{ route('index') }}">Dashboard</a>
 		        </li>
 
-		        <li class="nav-item">
-		          <a class="nav-link text-white" href="{{ route('laporan.index') }}">Laporan Pendaftaran</a>
+		        <li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		            Laporan
+		          </a>
+		          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+		          	<li><a class="dropdown-item font-weight-bold" href="{{ route('pendaftaran.index') }}">Pendaftaran</a></li>
+
+		            <li><hr class="dropdown-divider"></li>
+
+		            <li><a class="dropdown-item font-weight-bold" href="{{ route('pembayaran.index') }}">Pembayaran</a></li>
+
+		          </ul>
 		        </li>
 
 		        <li class="nav-item dropdown">

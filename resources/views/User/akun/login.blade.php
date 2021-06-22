@@ -26,7 +26,7 @@
           </div>
 
           <div class="form-check my-3 ml-1">
-              <input class="form-check-input" type="checkbox" name="remember">
+              <input class="form-check-input" type="checkbox" name="remember" value="remember">
               <label class="form-check-label" data-toggle="tooltip" data-placement="bottom" title="Indonesia Bebas Corona">
               Remember me
               </label>

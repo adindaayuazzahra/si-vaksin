@@ -54,19 +54,20 @@ class AdminController extends Controller
     }
 
     //Data Laporan
-    public function indexLaporan(){
+    //Laporan pendaftaran
+    public function indexPendaftaran(){
         $akun=Auth::user();
         $laporan = Registrasi::with(['status'])->get();
         $status=Status::all();
-        return view("Admin.laporan.index", ['laporan' => $laporan,'akun' => $akun, 'list_status' => $status]);
+        return view("Admin.laporan.pendaftaran.index", ['laporan' => $laporan,'akun' => $akun, 'list_status' => $status]);
     }
 
-    public function editLaporan(Request $request, $id){
+    public function editPendaftaran(Request $request, $id){
         $registrasi=Registrasi::find($id);
         return response()->json($registrasi);
     }
 
-    public function editLaporanAction(Request $request){
+    public function editPendaftaranAction(Request $request){
         $request->validate([
             'id_pendaftaran'=>'required',
             'id_status'=>'required',
@@ -80,9 +81,16 @@ class AdminController extends Controller
         return response()->json($laporan);
     }
 
-    public function delLaporan($id){
+    public function delPendaftaran($id){
         Registrasi::destroy($id);
-        return redirect("admin/laporan");
+        return redirect("admin/laporan/pendaftaran");
+    }
+
+    //Laporan Pembayaran
+    public function indexPembayaran(){
+        $akun=Auth::user();
+        $laporan=Pembayaran::all();
+        return view("Admin.laporan.pembayaran.index",['akun'=>$akun,'laporan'=>$laporan]);
     }
 
     //Data Vaccine

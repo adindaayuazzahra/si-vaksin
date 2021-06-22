@@ -10,7 +10,7 @@ use App\Models\RumahSakit;
 use App\Models\Vaksin;
 use App\Models\Pembayaran;
 use App\Models\User;
-
+use Cookie;
 class HomeController extends Controller
 {
     public function notifikasi($id){
@@ -156,9 +156,12 @@ class HomeController extends Controller
                 'email'=> 'required|email',
                 'password'=>'required'
             ]);
-
+            
             $check = Auth::attempt($request->only('email','password'));
             if ($check) {
+                if ($request->remember=="remember") {
+                    Cookie::queue("User", Auth::user()->nama, 13000);
+                }
                 $request->session()->put('pendaftar', $check);
                 return redirect("/");
             }
@@ -168,6 +171,7 @@ class HomeController extends Controller
 
     public function logout(Request $request){
         if (Auth::check()) {
+            Cookie::queue(Cookie::forget('User'));
             Auth::logout();
             $request->session()->forget('pendaftar');
             return redirect("/");
