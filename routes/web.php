@@ -14,7 +14,6 @@ use App\Http\Controllers\AdminController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', [Homecontroller::class, 'index'])->name('user.index');
 Route::get('login', [Homecontroller::class, 'login'])->name('login.get');
 Route::post('login',[Homecontroller::class, 'loginAction'])->name('login');
@@ -33,6 +32,8 @@ Route::middleware(['auth'])->group(function(){
         Route::get('pembayaran/{id}', [Homecontroller::class, 'rincianAction']);
         Route::get('status', [Homecontroller::class, 'status'])->name('user.status');
         Route::get('notifikasi/{id}',[Homecontroller::class,'notifikasi'])->name('user.notifikasi');
+        Route::get('edit-akun', [Homecontroller::class, 'editAkun']);
+        Route::post('edit-akun-post',[Homecontroller::class, 'editAkunAction']);
     });
 
     //Admin
@@ -40,6 +41,8 @@ Route::middleware(['auth'])->group(function(){
         Route::group(['prefix'=>'admin'],function(){
             Route::post('logout',[Admincontroller::class, 'logout'])->name('admin.logout');
             Route::get('/',[Admincontroller::class, 'index'])->name('index');
+            Route::get('edit-akun', [Homecontroller::class, 'editAkun']);
+            Route::post('edit-akun-post',[Homecontroller::class, 'editAkunAction']);
 
             Route::group(['prefix'=>'laporan'], function(){
                 Route::get('/',[Admincontroller::class, 'indexLaporan'])->name('laporan.index');

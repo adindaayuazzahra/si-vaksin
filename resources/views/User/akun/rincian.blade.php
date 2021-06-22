@@ -46,66 +46,66 @@
     <div class="col-md-10 mx-auto">
       <div id="printInvoice" class="card">
         <div class="card-title px-5 pt-5 text-center">
-          <h2>INVOICE PEMBAYARAN</h2>
+          <h2 class="text-dark">INVOICE PEMBAYARAN</h2>
           <hr>
         </div>
         <div class="px-5 pb-5">
           
           <div class="form-group row mb-0">
-            <label class="col-sm-3 col-form-label">ID Pembayaran</label>
+            <label class="col-sm-3 col-form-label text-dark">ID Pembayaran</label>
             <div class="col-sm-9">
-              <p>: {{$registrasi->pembayaran->id_pembayaran}}</p>
+              <p class="text-dark">: {{$registrasi->pembayaran->id_pembayaran}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
-            <label class="col-sm-3 col-form-label">ID Pendaftaran</label>
+            <label class="col-sm-3 col-form-label text-dark">ID Pendaftaran</label>
             <div class="col-sm-9">
-              <p>: {{$registrasi->id_pendaftaran}}</p>
+              <p class="text-dark">: {{$registrasi->id_pendaftaran}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
-            <label class="col-sm-3 col-form-label">Tanggal Pembayaran</label>
+            <label class="col-sm-3 col-form-label text-dark">Tanggal Pembayaran</label>
             <div class="col-sm-9">
-              <p>: {{$registrasi->pembayaran->tgl_pembayaran}}</p>
+              <p class="text-dark">: {{$registrasi->pembayaran->tgl_pembayaran}}</p>
             </div>
           </div>
         
           <hr>
 
           <div class="form-group row mb-0 font-weight-bold">
-            <label class="col-sm-3 col-form-label">Bill to</label>
+            <label class="col-sm-3 col-form-label text-dark">Bill to</label>
             <div class="col-sm-9">
-              <p>: </p>
+              <p class="text-dark">: </p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
-            <label class="col-sm-3 col-form-label">NIK</label>
+            <label class="col-sm-3 col-form-label text-dark">NIK</label>
             <div class="col-sm-9">
-              <p>: {{$user->informasiuser->nik}}</p>
+              <p class="text-dark">: {{$user->informasiuser->nik}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
-            <label class="col-sm-3 col-form-label">Nama</label>
+            <label class="col-sm-3 col-form-label text-dark">Nama</label>
             <div class="col-sm-9">
-              <p>: {{$user->informasiuser->nama}}</p>
+              <p class="text-dark">: {{$user->informasiuser->nama}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
-            <label class="col-sm-3 col-form-label">Alamat Lengkap</label>
+            <label class="col-sm-3 col-form-label text-dark">Alamat Lengkap</label>
             <div class="col-sm-9">
-              <p>: {{$user->informasiuser->alamat}}</p>
+              <p class="text-dark">: {{$user->informasiuser->alamat}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-2">
-            <label class="col-sm-3 col-form-label">Rumah Sakit</label>
+            <label class="col-sm-3 col-form-label text-dark">Rumah Sakit</label>
             <div class="col-sm-9">
-              <p>: {{$registrasi->rs->nama_rs}}</p>
+              <p class="text-dark">: {{$registrasi->rs->nama_rs}}</p>
             </div>
           </div>
 
@@ -115,11 +115,11 @@
           
           <div class="row px-4 font-weight-bold">
             <div class="col-md-6">
-              <p>Vaksin</p>
+              <p class="text-dark">Vaksin</p>
             </div>
 
             <div class="col-md-6 text-md-right">
-              <p>Harga</p>
+              <p class="text-dark">Harga</p>
             </div>
           </div>
 
@@ -127,19 +127,19 @@
             
             <div class="col-md-6">
               <div class="pt-2">
-                <p>{{$registrasi->vaksin->nama_vaksin}}</p>
+                <p class="text-dark">{{$registrasi->vaksin->nama_vaksin}}</p>
               </div>
             </div>
 
             <div class="col-md-6 text-md-right">
               <div class="pt-2">
-                <p>Rp. {{$registrasi->vaksin->harga}}</p>
+                <p class="text-dark"> @currency($registrasi->vaksin->harga)</p>
               </div>
             </div>
           </div>
 
           <div class="col-md-12 text-md-right my-5">
-            <h4 class="font-weight-bold">Total Pembayaran : Rp. {{$registrasi->pembayaran->total_harga}}</h4>
+            <h4 class="font-weight-bold text-dark">Total Pembayaran : @currency($registrasi->pembayaran->total_harga)</h4>
           </div>
 
         </div>
