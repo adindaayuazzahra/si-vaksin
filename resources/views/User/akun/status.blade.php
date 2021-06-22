@@ -48,7 +48,7 @@
     <div class="col-md-10 mx-auto">
       <div class="card kartu1">
         <div class="card-title px-5 pt-5 mb-0 text-center">
-          <h2>STATUS VAKSINASI</h2>
+          <h2 class="text-dark">STATUS VAKSINASI</h2>
           <hr>
         </div>
         <?php $count=1; ?>
@@ -56,46 +56,52 @@
         <div class="card kartu2 mx-5 p-4 font-weight-bold">
           
           <div class="form-group row mb-0 ">
-            <label class="col-sm-3 col-form-label">#<?php echo ($count++); ?></label>
+            <label class="col-sm-1 col-form-label text-dark">#<?php echo ($count++); ?></label>
+            @if($registrasi->id_status<4)
+              <button class="btn col-sm-3 btn-success rounded">Aktif</button>
+            @else
+              <button class="btn col-sm-3 btn-primary rounded">Tidak aktif</button>
+            @endif
           </div>
+          
 
           <div class="form-group row mb-0">
-            <label class="col-sm-3 col-form-label">ID Pendaftaran</label>
+            <label class="col-sm-3 col-form-label text-dark pt-0">ID Pendaftaran</label>
             <div class="col-sm-9">
-              <p>: {{$registrasi->id_pendaftaran}}</p>
-            </div>
-          </div>
-
-          <div class="form-group row mb-0">
-            <label class="col-sm-3 col-form-label">Nama</label>
-            <div class="col-sm-9">
-              <p>: {{$akun->nama}}</p>
-            </div>
-          </div>
-
-          <div class="form-group row mb-2">
-            <label class="col-sm-3 col-form-label">Vaksin</label>
-            <div class="col-sm-9">
-              <p>: {{$registrasi->vaksin->nama_vaksin}}</p>
-            </div>
-          </div>
-
-          <div class="form-group row mb-2">
-            <label class="col-sm-3 col-form-label">Rumah Sakit</label>
-            <div class="col-sm-9">
-              <p>: {{$registrasi->rs->nama_rs}}</p>
-            </div>
-          </div>
-
-          <div class="form-group row mb-2">
-            <label class="col-sm-3 col-form-label">Tanggal Pendaftaran</label>
-            <div class="col-sm-9">
-              <p>: {{$registrasi->tgl_pendaftaran}}</p>
+              <p class="text-dark">: {{$registrasi->id_pendaftaran}}</p>
             </div>
           </div>
 
           <div class="form-group row mb-0">
-            <label class="col-sm-3 col-form-label">Invoice</label>
+            <label class="col-sm-3 col-form-label text-dark pt-0">Nama</label>
+            <div class="col-sm-9">
+              <p class="text-dark">: {{$akun->nama}}</p>
+            </div>
+          </div>
+
+          <div class="form-group row mb-2">
+            <label class="col-sm-3 col-form-label text-dark pt-0">Vaksin</label>
+            <div class="col-sm-9">
+              <p class="text-dark">: {{$registrasi->vaksin->nama_vaksin}}</p>
+            </div>
+          </div>
+
+          <div class="form-group row mb-2">
+            <label class="col-sm-3 col-form-label text-dark pt-0">Rumah Sakit</label>
+            <div class="col-sm-9">
+              <p class="text-dark">: {{$registrasi->rs->nama_rs}}</p>
+            </div>
+          </div>
+
+          <div class="form-group row mb-2">
+            <label class="col-sm-3 col-form-label text-dark pt-0">Tanggal Pendaftaran</label>
+            <div class="col-sm-9">
+              <p class="text-dark">: {{$registrasi->tgl_pendaftaran}}</p>
+            </div>
+          </div>
+
+          <div class="form-group row mb-0">
+            <label class="col-sm-3 col-form-label text-dark pt-0">Invoice</label>
             <div class="col-sm-9">
               <a class="nav-link p-0" href="{{url('pembayaran/'.$registrasi->id_pendaftaran)}}">: Nota Pembayaran</a>
             </div>
@@ -103,9 +109,9 @@
 
           <div class="mx-auto mt-2">
             @if(!empty($registrasi->status->status))
-              <h3><span class="badge badge-pill badge-info">{{$registrasi->status->status}}</span></h3>
+              <h3><span class="badge badge-pill badge-info text-white">{{$registrasi->status->status}}</span></h3>
             @else
-              <h3><span class="badge badge-pill badge-info"></span></h3>
+              <h3><span class="badge badge-pill badge-info text-dark"></span></h3>
             @endif
           </div>
           

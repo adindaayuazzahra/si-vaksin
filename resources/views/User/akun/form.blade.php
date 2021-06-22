@@ -67,66 +67,59 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">NIK</label>
                 <div class="col-sm-10">
-                  <input id="nik" type="text" name="nik" class="form-control" placeholder="NIK" value="@if($informasiuser){{$informasiuser->nik}}@endif">
-                  <span id="nikError" class="text-danger"></span>
+                  <input id="nik" type="text" name="nik" class="form-control" placeholder="NIK" value="@if($informasiuser){{$informasiuser->nik}}@endif" required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Nama</label>
                 <div class="col-sm-10">
-                  <input id="nama" type="text" name="nama" class="form-control" value="@if($akun){{$akun->nama}}@endif">
-                  <span id="namaError" class="text-danger"></span>
+                  <input id="nama" type="text" name="nama" class="form-control" value="@if($akun){{$akun->nama}}@endif" required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Alamat Lengkap</label>
                 <div class="col-sm-10">
-                  <textarea id="alamat" type="text" name="alamat" class="form-control" placeholder="Alamat" rows="3">@if($informasiuser){{$informasiuser->alamat}}@endif</textarea>
-                  <span id="alamatError" class="text-danger"></span>
+                  <textarea id="alamat" type="text" name="alamat" class="form-control" placeholder="Alamat" rows="3" required>@if($informasiuser){{$informasiuser->alamat}}@endif</textarea>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Vaksin</label>
                 <div class="col-sm-10">
-                  <select class="form-control" name="vaksin" id="vaksin">
-                    <option>-- Pilih Jenis Vaksin --</option>
+                  <select id="vaksinOption" class="form-control" name="vaksin" id="vaksin" required>
+                    <option value="">-- Pilih Jenis Vaksin --</option>
                     @foreach($list_vs as $vs)
                       <option value="{{$vs->id_vaksin}}">{{$vs->nama_vaksin}} - @currency($vs->harga)</option>
                     @endforeach
                   </select>
-                  <span id="vaksinError" class="text-danger"></span>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Rumah Sakit</label>
                 <div class="col-sm-10">
-                  <select class="form-control" name="rs" id="rs">
-                    <option>-- Pilih Rumah Sakit --</option>
+                  <select  id="rsOption" class="form-control" name="rs" id="rs" required>
+                    <option value="">-- Pilih Rumah Sakit --</option>
                     @foreach($list_rs as $rs)
                       <option value="{{$rs->id_rs}}">{{$rs->nama_rs}}  Jadwal: {{$rs->jadwal}}</option>
                     @endforeach
                   </select>
-                  <span id="rsError" class="text-danger"></span>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tanggal</label>
                 <div class="col-sm-10">
-                  <input id="tgl" type="date" name="tgl" class="form-control">
-                  <span id="tglError" class="text-danger"></span>
+                  <input id="tgl" type="date" name="tgl" class="form-control" required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Jam</label>
                 <div class="col-sm-10">
-                  <input id="time" type="time" name="time" class="form-control">
-                  <span id="timeError" class="text-danger"></span>
+                  <input id="time" type="time" name="time" class="form-control" required>
                 </div>
               </div>
             </div>
@@ -271,8 +264,8 @@
     $("#nik2").val($("#nik").val());
     $("#nama2").val($("#nama").val());
     $("#alamat2").val($("#alamat").val());
-    $("#vaksin2").val($("#vaksin").val());
-    $("#rs2").val($("#rs").val());
+    $("#vaksin2").val($("#vaksinOption option:selected").text());
+    $("#rs2").val($("#rsOption option:selected").text());
     $("#tgl2").val($("#tgl").val());
     $("#time2").val($("#time").val());
   }

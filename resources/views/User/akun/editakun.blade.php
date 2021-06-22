@@ -59,36 +59,52 @@
     <div class="row mt-3">
       <div class="col-md-12">
         <div class="card">
-          <form id="" class="p-5" action="" method="POST">
-            {{-- <div class="form-section"> --}}
+
+          <form class="p-5" action="{{url('edit-akun-post')}}" method="POST">
+            @csrf
+            @method('post')
+            <input type="hidden" name="id_user" value="@if($akun){{$akun->id_user}}@endif">
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Nama</label>
                 <div class="col-sm-10">
-                  <input id="nama" type="text" name="nama" class="form-control" value="@if($akun){{$akun->nama}}@endif">
-                  <span id="namaError" class="text-danger"></span>
+                  <input id="nama" type="text" name="nama" class="@error('nama')is-invalid @enderror form-control" value="@if($akun){{$akun->nama}}@endif">
                 </div>
               </div>
               
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Username</label>
                 <div class="col-sm-10">
-                  <input id="username" type="text" name="username" class="form-control" placeholder="Username" value="@if($akun){{$akun->username}}@endif">
+                  <input id="username" type="text" name="username" class="@error('username')is-invalid @enderror form-control" placeholder="Username" value="@if($akun){{$akun->username}}@endif">
                   <span id="usernameError" class="text-danger"></span>
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Password</label>
+                <label class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                  <input id="password" type="text" name="password" class="form-control" placeholder="password" value="@if($akun){{$akun->password}}@endif">
-                  <span id="passwordError" class="text-danger"></span>
+                  <input id="email" type="text" name="email" class="@error('email')is-invalid @enderror form-control" value="@if($akun){{$akun->email}}@endif">
                 </div>
               </div>
-            {{-- </div> --}}
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">New Password</label>
+                <div class="col-sm-10">
+                  <input id="password2" type="text" name="password2" class="form-control" placeholder="New password">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Current Password</label>
+                <div class="col-sm-10">
+                  <input id="password" type="text" name="password" class="@error('password') is-invalid @enderror form-control" placeholder="Current password">
+                </div>
+              </div>
             <div class="form-navigation">
-              <button type="button" class="btn btn-lg btn-primary float-right mt-2" onclick="">Simpan Perubahan</button>
+              <button type="submit" name="submit" value="submit" class="btn btn-lg btn-primary">Ubah</button>
+              <button type="submit" name="submit" value="cancel" class="btn btn-lg btn-success">Kembali</button>
             </div>
           </form>
+
         </div>
       </div>
     </div>

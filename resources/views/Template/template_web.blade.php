@@ -51,9 +51,12 @@
               </ul>
               <div class="dropdown">
                 <a class="nav-link dropdown-toggle text-white" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> {{Auth::user()->nama}} </a>
-                <span id="notifikasi" class="position-absolute" style="top: 0;"></span>
+                <span id="notifikasi" class="position-absolute d-none" style="top: 0;"></span>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="{{url('/status')}}">Riwayat Vaksinasi</a>
+                  <a class="dropdown-item" href="{{url('/status')}}">Riwayat Vaksinasi 
+                    <span id="notifikasi2" class="position-absolute btn-danger rounded-circle pl-3 pr-3 pt-1 pb-1 d-none" style="top:0;"></span>
+                  </a>
+
                   <a class="dropdown-item" href="{{url('/edit-akun')}}">Edit Profile</a>
                 </div>
               </div>
@@ -95,20 +98,27 @@
     <!-- Optional JavaScript -->
     <script>
       function notifikasi(id){
-        $.get('notifikasi/'+id,function(notifikasi){
-          if (notifikasi!="0") {
-            document.getElementById("notifikasi").textContent=notifikasi;
-          }
-        });
-        // setInterval(function(){
-        //   $.get('notifikasi/'+id,function(notifikasi){
-        //     if (notifikasi!="0") {
-        //       document.getElementById("notifikasi").textContent=notifikasi;
-        //     }
-        //   });
-        // },1000); 
+        // $.get('notifikasi/'+id,function(notifikasi){
+        //   if (notifikasi!="0") {
+        //     document.getElementById("notifikasi").textContent=notifikasi;
+        //     document.getElementById("notifikasi2").textContent=notifikasi;
+        //   }
+        // });
+        setInterval(function(){
+          $.get('notifikasi/'+id,function(notifikasi){
+            if (notifikasi!="0") {
+              $("#notifikasi").removeClass('d-none');
+              $("#notifikasi2").removeClass('d-none');
+              document.getElementById("notifikasi").textContent=notifikasi;
+              document.getElementById("notifikasi2").textContent=notifikasi;
+            }
+            else{
+              $("#notifikasi").addClass('d-none');
+              $("#notifikasi2").addClass('d-none');
+            }
+          });
+        },1000); 
       }
-      notifikasi("{{Auth::user()->id_user}}");
     </script>
     @yield('script')
   </body>
