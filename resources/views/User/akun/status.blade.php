@@ -1,5 +1,5 @@
 @extends('Template.template_web')
-@section('title','goVaksin | Syarat dan Ketentuan')
+@section('title','goVaksin | Status')
 @section('css')
 <style>
   body{
@@ -101,7 +101,7 @@
           </div>
 
           <div class="form-group row mb-2">
-            <label class="col-sm-3 col-form-label text-dark pt-0">Tanggal Pendaftaran</label>
+            <label class="col-sm-3 col-form-label text-dark pt-0">Tanggal Vaksinasi</label>
             <div class="col-sm-9">
               <p class="text-dark">: {{ \Carbon\Carbon::parse($registrasi->tanggal_vaksinasi)->format('d/m/Y')}}     {{\Carbon\Carbon::createFromFormat('H:i:s',$registrasi->jam_vaksinasi)->format('h:i')}}</p>
             </div>
