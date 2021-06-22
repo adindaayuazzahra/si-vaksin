@@ -37,6 +37,17 @@
   #home{
     font-size: 15pt!important;
   }
+  .container button {
+    margin-top: 5px;
+    font-weight: 600;
+    color: white;
+    background-color: #ff7d63;
+    border-radius: 10px;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 1);
+  }
+  .container button:hover {
+    box-shadow: 0 1.5rem 2rem 0 rgba(0, 0, 0, 8.5);
+  }
 </style>
 @endsection
 
@@ -146,8 +157,7 @@
       </div>
 
       <div class="col-md-12 mx-auto text-md-center mb-5 cetak">
-        <button onclick="printDiv()" class="btn btn-secondary text-white mb-5">CETAK BUKTI BAYAR</button>
-        <a id="home" class="nav-link text-white" href="{{url('/')}}">Kembali ke halaman utama</a>
+        <button onclick="printDiv()" class="btn btn-lg btn-secondary text-white mb-2">CETAK BUKTI BAYAR</button>
       </div>
 
     </div>
