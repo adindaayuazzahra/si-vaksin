@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function(){
                     Route::get('edit/{id}',[Admincontroller::class, 'editLaporan']);
                     Route::post('edit',[Admincontroller::class, 'editLaporanAction'])->name('laporan.edit');
                     Route::post('delete/{id}',[Admincontroller::class, 'delLaporan'])->name('laporan.delete');
+                    Route::post('konfirmasi/{id}',[Admincontroller::class, 'valPembayaran'])->name('laporan.validasi');
                 });
             });
 

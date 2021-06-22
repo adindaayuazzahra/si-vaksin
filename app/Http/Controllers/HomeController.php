@@ -14,7 +14,7 @@ use Cookie;
 class HomeController extends Controller
 {
     public function notifikasi($id){
-        $registrasi=Registrasi::where('id_user',$id)->where('id_status','<','4')->get();
+        $registrasi=Registrasi::where('id_user',$id)->where('id_status','!=','5')->get();
         $count=$registrasi->count();
         return response()->json($count);
     }
@@ -104,7 +104,7 @@ class HomeController extends Controller
                 'tanggal_vaksinasi'=>$request->tgl,
                 'jam_vaksinasi'=>$request->time,
                 'keterangan'=>$request->keterangan,
-                'id_status'=>3,
+                'id_status'=>1,
             ]);
             if ($PVS) {
                 return redirect("rincian/".$pendaftaranid);
@@ -248,10 +248,13 @@ class HomeController extends Controller
                     'password'=>bcrypt($request->password),
                 ]);
             }
-            return redirect("/");
+            return redirect("edit-akun");
         }
         else{
-            return redirect("/");
+            if (Auth::user()->level==3) {
+                return redirect("/");
+            }
+            return redirect("admin");
         }
         return redirect()->back(); 
     }
