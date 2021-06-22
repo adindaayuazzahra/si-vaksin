@@ -1,5 +1,5 @@
 @extends('Template.template_web')
-@section('title','goVaksin | Pendaftaran Vaksin')
+@section('title','goVaksin | Edit Akun')
 @section('css')
 <style>
   body{

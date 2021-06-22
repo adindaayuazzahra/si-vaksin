@@ -97,6 +97,11 @@ Route::middleware(['auth'])->group(function(){
                 Route::post('edit',[Admincontroller::class, 'editAdminAction'])->name('admin.edit');
                 Route::post('delete/{id}',[Admincontroller::class, 'delAdmin'])->name('admin.delete');
             });
+
+            Route::group(['prefix'=>'data-user'],function(){
+                Route::get('/',[Admincontroller::class, 'indexAkunUser'])->name('admin.user.index');
+                Route::get('informasi/{id}',[Admincontroller::class, 'getInformasi'])->name('admin.user.informasi');
+            });
         });
     });
 });

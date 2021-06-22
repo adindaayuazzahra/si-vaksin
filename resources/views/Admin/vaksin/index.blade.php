@@ -1,5 +1,5 @@
 @extends('Template.template_admin')
-@section('title','Data Vaksin')
+@section('title','goVaksin | Data Vaksin')
 @section('content')
 <div class="row">
 	<h2 class="text-dark justify-content-center">Data Vaksin</h2>

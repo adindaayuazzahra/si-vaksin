@@ -1,5 +1,5 @@
 @extends('Template.template_admin')
-@section('title', 'goVaksin | Laporan')
+@section('title', 'goVaksin | Laporan Pembayaran')
 @section('content')
 <div class="row">
 	<h2 class="text-dark justify-content-center">Data Pembayaran Vaksin</h2>
@@ -27,7 +27,7 @@
 					<td id="harga" class="text-center harga">@currency($laporan->total_harga)</td>
 					<td class="text-center">
 						@if(empty($laporan->tgl_pembayaran))
-							Telah membayar
+							Belum membayar
 							<?php $count+=$laporan->total_harga; ?>
 							</td>
 							<td id="kontrol">
@@ -38,7 +38,7 @@
 								</form>
 							</td>
 						@else
-							Belum membayar
+							Telah membayar
 							<?php $countNon+=$laporan->total_harga; ?>
 							<td id="kontrol">
 								<form method="POST" action="{{url('admin/laporan/pembayaran/konfirmasi/'.$laporan->id_pembayaran)}}">
@@ -48,15 +48,13 @@
 								</form>
 							</td>
 						@endif
-
-					
 				</tr>
 			@endforeach
 		</tbody>
 	</table>
 	<div class="mt-4">
-		<h6>Total Pembayaran: @currency($count)</h6>
-		<h6>Total Belum Membayar: @currency($countNon)</h6>
+		<h6>Total Pembayaran: @currency($countNon)</h6>
+		<h6>Total Belum Membayar: @currency($count)</h6>
 	</div>
 	
 </div>

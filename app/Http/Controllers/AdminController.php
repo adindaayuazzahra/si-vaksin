@@ -404,4 +404,17 @@ class AdminController extends Controller
         Status::destroy($id);
         return redirect("admin/data-status");
     }
+
+    //Data user
+    public function indexAkunUser(){
+        $akun=Auth::check();
+        $list_user=User::where('level',3)->get();
+        return view("Admin.akun.user.index",['akun'=>$akun,'list_user'=>$list_user]);
+    }
+
+    public function getInformasi($id){
+        $akun=Auth::check();
+        $user=InformasiUser::where('id_user',$id)->get();
+        return view("Admin.akun.user.informasi",['akun'=>$akun,'user'=>$user]);
+    }
 }

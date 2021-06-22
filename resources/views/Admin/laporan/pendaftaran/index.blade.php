@@ -1,5 +1,5 @@
 @extends('Template.template_admin')
-@section('title', 'goVaksin | Laporan')
+@section('title', 'goVaksin | Laporan Pendaftaran')
 @section('content')
 <div class="row">
 	<h2 class="text-dark justify-content-center">Data Pendaftaran Vaksin</h2>

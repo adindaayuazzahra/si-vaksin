@@ -74,6 +74,8 @@
 		            @if(auth()->user()->level==1)
 		            <li><a class="dropdown-item font-weight-bold" href="{{ route('admin.index') }}">Database Admin</a></li>
 		            <li><hr class="dropdown-divider"></li>
+		            <li><a class="dropdown-item font-weight-bold" href="{{ route('admin.user.index') }}">Database User</a></li>
+		            <li><hr class="dropdown-divider"></li>
 		            @endif
 
 		            <li><a class="dropdown-item font-weight-bold" href="{{ route('status.index') }}">Database Status</a></li>
