@@ -91,7 +91,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Vaksin</label>
                 <div class="col-sm-10">
-                  <select class="form-control" name="vaksin" id="vaksin">
+                  <select id="vaksinOption" class="form-control" name="vaksin" id="vaksin">
                     <option>-- Pilih Jenis Vaksin --</option>
                     @foreach($list_vs as $vs)
                       <option value="{{$vs->id_vaksin}}">{{$vs->nama_vaksin}} - @currency($vs->harga)</option>
@@ -104,7 +104,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Rumah Sakit</label>
                 <div class="col-sm-10">
-                  <select class="form-control" name="rs" id="rs">
+                  <select  id="rsOption" class="form-control" name="rs" id="rs">
                     <option>-- Pilih Rumah Sakit --</option>
                     @foreach($list_rs as $rs)
                       <option value="{{$rs->id_rs}}">{{$rs->nama_rs}}  Jadwal: {{$rs->jadwal}}</option>
@@ -271,8 +271,8 @@
     $("#nik2").val($("#nik").val());
     $("#nama2").val($("#nama").val());
     $("#alamat2").val($("#alamat").val());
-    $("#vaksin2").val($("#vaksin").val());
-    $("#rs2").val($("#rs").val());
+    $("#vaksin2").val($("#vaksinOption option:selected").text());
+    $("#rs2").val($("#rsOption option:selected").text());
     $("#tgl2").val($("#tgl").val());
     $("#time2").val($("#time").val());
   }
