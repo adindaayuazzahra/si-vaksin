@@ -77,9 +77,9 @@
           </div>
 
           <div class="form-group row mb-0">
-            <label class="col-sm-3 col-form-label text-dark">Tanggal Pembayaran</label>
+            <label class="col-sm-3 col-form-label text-dark">Tanggal Pendaftaran</label>
             <div class="col-sm-9">
-              <p class="text-dark">: {{$registrasi->pembayaran->tgl_pembayaran}}</p>
+              <p class="text-dark">: {{$registrasi->tgl_pendaftaran}}</p>
             </div>
           </div>
         

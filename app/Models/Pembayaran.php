@@ -14,7 +14,8 @@ class Pembayaran extends Model
     protected $fillable=[
         'id_pembayaran',
         'id_pendaftaran',
-        'total_harga'
+        'tgl_pembayaran',
+        'total_harga',
     ];
 
     public function registrasi(){
