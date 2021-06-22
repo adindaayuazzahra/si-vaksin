@@ -87,16 +87,16 @@
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label">New Password</label>
+                <label class="col-sm-2 col-form-label">Password Baru</label>
                 <div class="col-sm-10">
-                  <input id="password2" type="text" name="password2" class="form-control" placeholder="New password">
+                  <input id="password2" type="text" name="password2" class="form-control" placeholder="Password Baru">
                 </div>
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Current Password</label>
+                <label class="col-sm-2 col-form-label">Password Lama</label>
                 <div class="col-sm-10">
-                  <input id="password" type="text" name="password" class="@error('password') is-invalid @enderror form-control" placeholder="Current password">
+                  <input id="password" type="text" name="password" class="@error('password') is-invalid @enderror form-control" placeholder="Password Lama">
                 </div>
               </div>
             <div class="form-navigation">
