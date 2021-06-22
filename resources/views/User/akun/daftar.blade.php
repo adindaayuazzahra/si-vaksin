@@ -23,8 +23,10 @@
       .card-login {
         border: 0;
         border-radius: 1rem;
-        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.6);
         overflow: hidden;
+      }
+      .card-login:hover {
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.6);
       }
       .card-login .card-title {
         margin-bottom: 2rem;

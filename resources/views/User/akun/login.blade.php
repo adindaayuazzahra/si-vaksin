@@ -1,7 +1,7 @@
 @extends('Template.template_login')
 @section('title','goVaksin | Masuk')
 @section('content')
-  <div class="card-body">
+  <div class="card-body ">
       <h5 class="card-title text-center">Login</h5>
       <form action="{{ url('login') }}" method="POST">
         @csrf
@@ -27,7 +27,7 @@
 
           <div class="form-check my-3 ml-1">
               <input class="form-check-input" type="checkbox" name="remember">
-              <label class="form-check-label">
+              <label class="form-check-label" data-toggle="tooltip" data-placement="bottom" title="Indonesia Bebas Corona">
               Remember me
               </label>
           </div>

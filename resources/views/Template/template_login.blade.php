@@ -20,9 +20,11 @@
       .card-login {
         border: 0;
         border-radius: 1rem;
-        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.6);
         overflow: hidden;
         height: 31rem;
+      }
+      .card-login:hover {
+        box-shadow: 0 2rem 2rem 0 rgba(0, 0, 0, 0.6);
       }
       .card-login .card-title {
         margin-bottom: 2rem;
@@ -44,6 +46,7 @@
         border-radius: 5rem;
         height: 50px;
       }
+
     </style>
 
     {{-- font --}}

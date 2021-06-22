@@ -20,11 +20,13 @@
       color: white;
   }
   .card {
-      box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.5);
       border-radius: 20px;
       font-size: 18px;
       height: 36rem;
       color: black;
+  }
+  .card:hover{
+     box-shadow: 0 10px 15px 0 #000;
   }
   .card .card-title {
       font-weight: 700;
