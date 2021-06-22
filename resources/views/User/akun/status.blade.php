@@ -56,8 +56,14 @@
         <div class="card kartu2 mx-5 p-4 font-weight-bold">
           
           <div class="form-group row mb-0 ">
-            <label class="col-sm-3 col-form-label text-dark">#<?php echo ($count++); ?></label>
+            <label class="col-sm-1 col-form-label text-dark">#<?php echo ($count++); ?></label>
+            @if($registrasi->id_status<4)
+              <button class="btn col-sm-3 btn-success rounded">Aktif</button>
+            @else
+              <button class="btn col-sm-3 btn-primary rounded">Tidak aktif</button>
+            @endif
           </div>
+          
 
           <div class="form-group row mb-0">
             <label class="col-sm-3 col-form-label text-dark pt-0">ID Pendaftaran</label>

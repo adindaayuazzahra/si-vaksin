@@ -53,7 +53,11 @@
                 <a class="nav-link dropdown-toggle text-white" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> {{Auth::user()->nama}} </a>
                 <span id="notifikasi" class="position-absolute" style="top: 0;"></span>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="{{url('/status')}}">Riwayat Vaksinasi</a>
+                  <a class="dropdown-item" href="{{url('/status')}}">Riwayat Vaksinasi 
+                    <span id="notifikasi2" class="position-absolute btn-danger rounded-circle pl-3 pr-3 pt-1 pb-1" style="top:0;">1</span>
+
+                  </a>
+
                   <a class="dropdown-item" href="{{url('/edit-akun')}}">Edit Profile</a>
                 </div>
               </div>
@@ -98,6 +102,7 @@
         $.get('notifikasi/'+id,function(notifikasi){
           if (notifikasi!="0") {
             document.getElementById("notifikasi").textContent=notifikasi;
+            document.getElementById("notifikasi2").textContent=notifikasi;
           }
         });
         // setInterval(function(){
