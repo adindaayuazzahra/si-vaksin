@@ -45,10 +45,19 @@ Route::middleware(['auth'])->group(function(){
             Route::post('edit-akun-post',[Homecontroller::class, 'editAkunAction']);
 
             Route::group(['prefix'=>'laporan'], function(){
-                Route::get('/',[Admincontroller::class, 'indexLaporan'])->name('laporan.index');
-                Route::get('edit/{id}',[Admincontroller::class, 'editLaporan']);
-                Route::post('edit',[Admincontroller::class, 'editLaporanAction'])->name('laporan.edit');
-                Route::post('delete/{id}',[Admincontroller::class, 'delLaporan'])->name('laporan.delete');
+                Route::group(['prefix'=>'pendaftaran'], function(){
+                    Route::get('/',[Admincontroller::class, 'indexPendaftaran'])->name('pendaftaran.index');
+                    Route::get('edit/{id}',[Admincontroller::class, 'editPendaftaran']);
+                    Route::post('edit',[Admincontroller::class, 'editPendaftaranAction'])->name('pendaftaran.edit');
+                    Route::post('delete/{id}',[Admincontroller::class, 'delPendaftaran'])->name('pendaftaran.delete');
+                });
+
+                Route::group(['prefix'=>'pembayaran'], function(){
+                    Route::get('/',[Admincontroller::class, 'indexPembayaran'])->name('pembayaran.index');
+                    Route::get('edit/{id}',[Admincontroller::class, 'editLaporan']);
+                    Route::post('edit',[Admincontroller::class, 'editLaporanAction'])->name('laporan.edit');
+                    Route::post('delete/{id}',[Admincontroller::class, 'delLaporan'])->name('laporan.delete');
+                });
             });
 
             Route::group(['prefix'=>'data-vaksin'], function(){
