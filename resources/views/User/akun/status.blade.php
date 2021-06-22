@@ -55,7 +55,7 @@
         @foreach($registrasi as $registrasi)
         <div class="card kartu2 mx-5 p-4 font-weight-bold">
           
-          <div class="form-group row mb-0 ">
+          <div class="form-group row mb-3 ">
             <label class="col-sm-1 col-form-label text-dark">#<?php echo ($count++); ?></label>
             @if($registrasi->id_status<4)
               <button class="btn col-sm-3 btn-success rounded">Aktif</button>
@@ -97,6 +97,13 @@
             <label class="col-sm-3 col-form-label text-dark pt-0">Tanggal Pendaftaran</label>
             <div class="col-sm-9">
               <p class="text-dark">: {{$registrasi->tgl_pendaftaran}}</p>
+            </div>
+          </div>
+
+          <div class="form-group row mb-2">
+            <label class="col-sm-3 col-form-label text-dark pt-0">Tanggal Pendaftaran</label>
+            <div class="col-sm-9">
+              <p class="text-dark">: {{ \Carbon\Carbon::parse($registrasi->tanggal_vaksinasi)->format('d/m/Y')}}     {{\Carbon\Carbon::createFromFormat('H:i:s',$registrasi->jam_vaksinasi)->format('h:i')}}</p>
             </div>
           </div>
 

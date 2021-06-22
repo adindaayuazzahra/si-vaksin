@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 20, 2021 at 12:02 PM
+-- Generation Time: Jun 22, 2021 at 11:09 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.3
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `informasi_user` (
-  `id_informasi` int(11) NOT NULL,
+  `id_informasi` int(10) UNSIGNED NOT NULL,
   `id_user` int(10) UNSIGNED NOT NULL,
   `nik` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -42,7 +42,8 @@ CREATE TABLE `informasi_user` (
 --
 
 INSERT INTO `informasi_user` (`id_informasi`, `id_user`, `nik`, `nama`, `alamat`, `tgl_verifikasi`, `tgl_update`) VALUES
-(6, 760429892, '12345678910', 'user', 'Jl. Setia Budi', '2021-06-20 11:45:57', '2021-06-20 11:53:21');
+(2, 151067138, '10987654321', 'Andika Hiyahiya', 'Jl. Maju Jaya No. 28 Jakarta Selatan, DKI Jakarta', '2021-06-21 02:48:02', '2021-06-22 11:00:23'),
+(3, 983798788, '12345678910', 'Andy Losari', 'Jl. Setiabudi No. 27, Jakarta Selatan, DKI Jakarta', '2021-06-22 00:16:59', '2021-06-22 09:22:32');
 
 -- --------------------------------------------------------
 
@@ -63,11 +64,11 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2021_06_04_045933_create_status', 1),
-(3, '2021_06_05_072119_create_user_information', 1),
 (4, '2021_06_05_072249_create_rumah_sakit', 1),
 (5, '2021_06_05_132908_create_jenis_vaksin', 1),
 (6, '2021_06_05_141241_create_pendaftaran_vaksin', 1),
-(7, '2021_06_05_143909_create_pembayaran', 1);
+(8, '2021_06_05_072119_create_user_information', 2),
+(9, '2021_06_05_143909_create_pembayaran', 2);
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `pembayaran` (
   `id_pembayaran` int(10) UNSIGNED NOT NULL,
   `id_pendaftaran` int(10) UNSIGNED NOT NULL,
-  `tgl_pembayaran` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tgl_pembayaran` timestamp NULL DEFAULT NULL,
   `total_harga` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -87,7 +88,8 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `id_pendaftaran`, `tgl_pembayaran`, `total_harga`) VALUES
-(878610776, 658548810, '2021-06-20 11:54:53', '25000');
+(685928760, 350848739, NULL, '27000'),
+(939872399, 728964505, '2021-06-22 10:58:31', '20000');
 
 -- --------------------------------------------------------
 
@@ -112,7 +114,8 @@ CREATE TABLE `pendaftaran` (
 --
 
 INSERT INTO `pendaftaran` (`id_pendaftaran`, `id_user`, `id_rs`, `id_vaksin`, `tanggal_vaksinasi`, `jam_vaksinasi`, `keterangan`, `tgl_pendaftaran`, `id_status`) VALUES
-(658548810, 760429892, 1, 3, '2021-06-20', '19:52:00', NULL, '2021-06-20 11:54:52', NULL);
+(350848739, 151067138, 2, 2, '2021-06-24', '09:00:00', NULL, '2021-06-22 11:00:23', 1),
+(728964505, 983798788, 1, 1, '2021-06-25', '10:27:00', NULL, '2021-06-22 09:27:25', 1);
 
 -- --------------------------------------------------------
 
@@ -135,8 +138,8 @@ CREATE TABLE `rs` (
 --
 
 INSERT INTO `rs` (`id_rs`, `img`, `nama_rs`, `alamat`, `jadwal`, `keterangan`, `no_telephone`) VALUES
-(1, '1623570322-RS Cempaka Putih-jpg', 'RS Cempaka Putih', 'Jl. Setia Budi No 27 Jakarta Selatan', 'Senin - Jumat 08:00 - 16:00', NULL, '0856565657'),
-(3, '1623837401-RS Bunda Margonda.jpg', 'RS Bunda Margonda', 'Jl. Margonda Raya No.28, Pondok Cina, Kecamatan Beji, Kota Depok, Jawa Barat 16424', '24 hours', NULL, '1500799');
+(1, '1623570322-RS Cempaka Putih-jpg', 'RS Cempaka Putih', 'Jl. Cemp. Putih Tengah I No.1, RT.11/RW.5, Cemp. Putih Tim., Kec. Cemp. Putih, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10510', 'Senin - Jumat 08:00 - 16:00', NULL, '(021)4250451'),
+(2, '1623837401-RS Bunda Margonda.jpg', 'RS Bunda Margonda', 'Jl. Margonda Raya No.28, Pondok Cina, Kecamatan Beji, Kota Depok, Jawa Barat 16424', 'Senin - Jumat 08:00-15:00', NULL, '1500799');
 
 -- --------------------------------------------------------
 
@@ -154,9 +157,11 @@ CREATE TABLE `status` (
 --
 
 INSERT INTO `status` (`id_status`, `status`) VALUES
-(1, 'Vaksinasi pertama'),
-(2, 'Vaksinasi kedua'),
-(3, 'Menyelesaikan pendaftaran dan pembayaran');
+(1, 'Telah mendaftar'),
+(2, 'Telah membayar'),
+(3, 'Vaksinasi pertama'),
+(4, 'Vaksinasi kedua'),
+(5, 'Telah menyelesaikan vaksinasi');
 
 -- --------------------------------------------------------
 
@@ -181,9 +186,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `email`, `nama`, `password`, `level`, `created_at`, `updated_at`, `remember_token`) VALUES
-(1, 'admin', 'admin@example.com', 'admin', '$2y$10$rlF562xotqJoVkqHG8zr2e8VAqg8OK2shAl/iVaagrwvLQiq1bvMm', 1, '2021-06-13 00:42:08', '2021-06-13 00:42:08', NULL),
+(1, 'admin', 'admin@example.com', 'Yukanov', '$2y$10$aDP5V7LFISUODpq8rEm/lePnA4Otw8OGhYFMYVrKNSOQoHuVrX7ly', 1, '2021-06-13 00:42:08', '2021-06-22 11:04:29', NULL),
+(151067138, 'user2', 'user2@example.com', 'user2', '$2y$10$xqTjvIEOmPEZ6SKxLxfZ8.W1bGcx5tas7JsorTumC3Dx7RfbpFbke', 3, '2021-06-20 19:47:01', '2021-06-20 19:47:01', NULL),
 (721398505, 'admin2', 'admin2@example.com', 'admin2', '$2y$10$AllbpBU945vvSq5rDJmUruCnh9ERV6ScBxA2R9m6i.cPDLxVx4rf2', 2, '2021-06-14 02:59:14', '2021-06-17 05:33:05', NULL),
-(760429892, 'user', 'user@example.com', 'user', '$2y$10$ahyyt1Bb1/m3wA6rFl19bOiyBWgTHRHDzFrTwJoj0MPp5rH73UEsW', 3, '2021-06-17 05:55:09', '2021-06-17 05:55:09', NULL);
+(983798788, 'user', 'user@example.com', 'Andy Losari', '$2y$10$XzT/6lb7Td0OTr0tcGWMOeJnuZpUvC2UP99dNfWyuYXZHUa38kiHq', 3, '2021-06-21 06:24:23', '2021-06-22 02:19:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -275,19 +281,19 @@ ALTER TABLE `vaksin`
 -- AUTO_INCREMENT for table `informasi_user`
 --
 ALTER TABLE `informasi_user`
-  MODIFY `id_informasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_informasi` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
-  MODIFY `id_pendaftaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=658548811;
+  MODIFY `id_pendaftaran` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=783512914;
 
 --
 -- AUTO_INCREMENT for table `rs`
@@ -299,13 +305,13 @@ ALTER TABLE `rs`
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
-  MODIFY `id_status` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_status` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `vaksin`
 --
 ALTER TABLE `vaksin`
-  MODIFY `id_vaksin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_vaksin` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -315,13 +321,13 @@ ALTER TABLE `vaksin`
 -- Constraints for table `informasi_user`
 --
 ALTER TABLE `informasi_user`
-  ADD CONSTRAINT `vaksin_informasi_user_id_user_foreign` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
+  ADD CONSTRAINT `vaksin_informasi_user_id_user_foreign` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  ADD CONSTRAINT `vaksin_pembayaran_id_pendaftaran_foreign` FOREIGN KEY (`id_pendaftaran`) REFERENCES `pendaftaran` (`id_pendaftaran`);
+  ADD CONSTRAINT `vaksin_pembayaran_id_pendaftaran_foreign` FOREIGN KEY (`id_pendaftaran`) REFERENCES `pendaftaran` (`id_pendaftaran`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pendaftaran`

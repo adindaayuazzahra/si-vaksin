@@ -12,6 +12,7 @@ use App\Models\Pembayaran;
 use App\Models\User;
 use App\Models\Status;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -91,6 +92,31 @@ class AdminController extends Controller
         $akun=Auth::user();
         $laporan=Pembayaran::all();
         return view("Admin.laporan.pembayaran.index",['akun'=>$akun,'laporan'=>$laporan]);
+    }
+
+    public function valPembayaran(Request $request,$id){
+        $pembayaran=Pembayaran::find($id);
+        if ($request->submit=="payment") {
+            $current_timestamp = Carbon::now()->toDateTimeString();
+            $pembayaran->update([
+                'id_pembayaran'=>$pembayaran->id_pembayaran,
+                'id_pendaftaran'=>$pembayaran->id_pendaftaran,
+                'tgl_pembayaran'=>$current_timestamp,
+                'total_harga'=>$pembayaran->total_harga,
+            ]);
+        }
+        else{
+            if(!empty($pembayaran->tgl_pembayaran)){
+                $pembayaran->update([
+                    'id_pembayaran'=>$pembayaran->id_pembayaran,
+                    'id_pendaftaran'=>$pembayaran->id_pendaftaran,
+                    'tgl_pembayaran'=>null,
+                    'total_harga'=>$pembayaran->total_harga,
+                ]);
+            }
+        }
+        return redirect("admin/laporan/pembayaran");
+        
     }
 
     //Data Vaccine
