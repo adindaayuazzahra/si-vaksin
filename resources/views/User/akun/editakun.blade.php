@@ -96,7 +96,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Password Lama</label>
                 <div class="col-sm-10">
-                  <input id="password" type="text" name="password" class="@error('password') is-invalid @enderror form-control" placeholder="Password Lama">
+                  <input id="password" type="text" name="password" class="@error('password') is-invalid @enderror form-control" placeholder="Masukkan Password Lama untuk konfirmasi perubahan data">
                 </div>
               </div>
             <div class="form-navigation">
