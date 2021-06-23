@@ -41,7 +41,14 @@
     background: #7e21ff;
     color: white;
   }
-
+  @media (max-width: 850px) {
+    .card {
+      height: 38rem;
+    }
+    .judul {
+      font-size: 35px;
+    }
+  }
 </style>
 @endsection
 @section('content')
@@ -61,7 +68,7 @@
           <ul class="card-text">
             {!!$vaksin->deskripsi!!}
           </ul>
-          <h3><span class="badge badge-pill badge-info">@currency($vaksin->harga)</span></h3>
+          <h3><span class="badge badge-pill badge-info sticky-bottom">@currency($vaksin->harga)</span></h3>
         </div>
       </div>
     </div>

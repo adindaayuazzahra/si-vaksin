@@ -15,7 +15,7 @@
   .card {
       border-radius: 20px;
       border: 0;
-      height: 30rem;
+      height: 32rem;
       color: black;
   }
   .card:hover {

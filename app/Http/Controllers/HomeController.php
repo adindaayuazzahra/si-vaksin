@@ -10,7 +10,7 @@ use App\Models\RumahSakit;
 use App\Models\Vaksin;
 use App\Models\Pembayaran;
 use App\Models\User;
-use Cookie;
+use Illuminate\Support\Facades\Cookie;
 class HomeController extends Controller
 {
     public function notifikasi($id){
