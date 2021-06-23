@@ -12,6 +12,8 @@ use App\Models\Pembayaran;
 use App\Models\User;
 use App\Models\Status;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserNotificationEmail;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -77,7 +79,7 @@ class AdminController extends Controller
         Registrasi::find($request->id_pendaftaran)->update([
             'id_status'=>$request->id_status,
         ]);
-        
+
         $laporan=Registrasi::with(['status'])->find($request->id_pendaftaran);
         return response()->json($laporan);
     }
@@ -97,6 +99,8 @@ class AdminController extends Controller
     public function valPembayaran(Request $request,$id){
         $pembayaran=Pembayaran::find($id);
         if ($request->submit=="payment") {
+            $admin=Auth::user()->nama;
+            $registrasi=Registrasi::with(['user','status','rs','vaksin'])->find($pembayaran->id_pendaftaran);
             $current_timestamp = Carbon::now()->toDateTimeString();
             $pembayaran->update([
                 'id_pembayaran'=>$pembayaran->id_pembayaran,
@@ -104,6 +108,20 @@ class AdminController extends Controller
                 'tgl_pembayaran'=>$current_timestamp,
                 'total_harga'=>$pembayaran->total_harga,
             ]);
+            
+            $details=[
+                'title' => 'Registrasi Vaksinasi',
+                'body' => "Hai, {$registrasi->user->nama} goVaksin ingin mengingatkan untuk jangan lupa akan vaksinasi mu pada",
+                'id'=> $registrasi->id_pendaftaran,
+                'tgl'=> $registrasi->tanggal_vaksinasi,
+                'jam'=> $registrasi->jam_vaksinasi,
+                'rs'=> $registrasi->rs->nama_rs,
+                'vaksin'=> $registrasi->vaksin->nama_vaksin,
+                'motto'=>'Tetap jaga jarak dan biasakan hidup sehat',
+                'admin'=>$admin,
+            ];
+            Mail::to($registrasi->user->email)->send(new UserNotificationEmail($details));
+            
         }
         else{
             if(!empty($pembayaran->tgl_pembayaran)){
