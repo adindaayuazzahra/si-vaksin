@@ -97,10 +97,9 @@ class AdminController extends Controller
     }
 
     public function valPembayaran(Request $request,$id){
+        $admin=Auth::user()->nama;
         $pembayaran=Pembayaran::find($id);
         if ($request->submit=="payment") {
-            $admin=Auth::user()->nama;
-            $registrasi=Registrasi::with(['user','status','rs','vaksin'])->find($pembayaran->id_pendaftaran);
             $current_timestamp = Carbon::now()->toDateTimeString();
             $pembayaran->update([
                 'id_pembayaran'=>$pembayaran->id_pembayaran,
@@ -108,7 +107,12 @@ class AdminController extends Controller
                 'tgl_pembayaran'=>$current_timestamp,
                 'total_harga'=>$pembayaran->total_harga,
             ]);
-            
+
+            Registrasi::find($pembayaran->id_pendaftaran)->update([
+                'id_status'=> 2,
+            ]);
+
+            $registrasi=Registrasi::with(['user','status','rs','vaksin'])->find($pembayaran->id_pendaftaran);
             $details=[
                 'title' => 'Registrasi Vaksinasi',
                 'body' => "Hai, {$registrasi->user->nama} goVaksin ingin mengingatkan untuk jangan lupa akan vaksinasi mu pada",

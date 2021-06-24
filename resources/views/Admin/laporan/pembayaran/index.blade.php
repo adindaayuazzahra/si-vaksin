@@ -40,12 +40,8 @@
 						@else
 							Telah membayar
 							<?php $countNon+=$laporan->total_harga; ?>
+							</td>
 							<td id="kontrol">
-								<form method="POST" action="{{url('admin/laporan/pembayaran/konfirmasi/'.$laporan->id_pembayaran)}}">
-									@csrf
-									@method('post')
-									<button type="submit" value="nonpayment" name="submit" class="btn btn-danger text-white d-block m-auto">Belum membayar</button>
-								</form>
 							</td>
 						@endif
 				</tr>
