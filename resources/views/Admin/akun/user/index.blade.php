@@ -2,7 +2,7 @@
 @section('title','goVaksin | Data User')
 @section('content')
 <div class="row">
-	<h2 class="text-dark justify-content-center">Data Admin</h2>
+	<h2 class="text-dark justify-content-center">Data User</h2>
 </div>
 <div class="row">
 	<div class="col-md-12">
