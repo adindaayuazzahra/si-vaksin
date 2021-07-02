@@ -14,6 +14,12 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,700|Prata" rel="stylesheet">
 
     <title>@yield('title')</title>
+    <style>
+      @keyframes fade{
+        0%   {opacity: 0;}
+        100% {opacity: 1;}
+      }
+    </style>
     @yield('css')
 
   </head>

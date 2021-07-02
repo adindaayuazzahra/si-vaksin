@@ -7,6 +7,10 @@
     font-family: 'Lato', sans-serif;
     color: white;
   }
+  .container{
+    animation-name: fade;
+    animation-duration: 1s;
+  }
   .container img {
     margin-top: 50px;
   }

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\NotificationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +22,11 @@ Route::post('daftar', [Homecontroller::class, 'daftarAction'])->name('daftar.use
 Route::get('jadwal', [Homecontroller::class, 'infoJadwal'])->name('jadwal.user');
 Route::get('syarat', [Homecontroller::class, 'syarat'])->name('syarat.user');
 Route::get('harga', [Homecontroller::class, 'harga'])->name('harga.user');
+
+Route::get('notify',[NotificationController::class, 'notify']);
+Route::view('notification','notification');
+
+
 Route::middleware(['auth'])->group(function(){
     //User
     Route::middleware(['usercheck:3'])->group(function(){

@@ -39,6 +39,8 @@
   }
   .form-section.current{
     display: inherit;
+    animation-name: fade;
+    animation-duration: 1s;
   }
 
   .parsley-errors-list{
@@ -46,6 +48,16 @@
     padding: 0;
     list-style-type: none;
     color: red;
+  }
+
+  .next, .previous, .submit{
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+
+  .container{
+    animation-name: fade;
+    animation-duration: 1s;
   }
 
 
@@ -119,7 +131,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Jam</label>
                 <div class="col-sm-10">
-                  <input id="time" type="time" name="time" class="form-control" required>
+                  <input id="time" type="time" name="time" class="form-control">
                 </div>
               </div>
             </div>
@@ -182,7 +194,7 @@
             <div class="form-navigation">
               <button type="button" class="next btn btn-lg btn-primary float-right mt-2" onclick="registrasi()">Konfirmasi</button>
               <button type="button" class="previous btn btn-info float-left mt-2">Masih Ada Data yang Salah</button>
-              <button type="submit" name="submit" value="submit" class="btn btn-success float-right mt-2">Daftar dan Bayar</button>
+              <button type="submit" name="submit" value="submit" class="submit btn btn-success float-right mt-2">Daftar dan Bayar</button>
             </div>
           </form>
         </div>

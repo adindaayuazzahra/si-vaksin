@@ -25,6 +25,14 @@
 					padding: 0!important;
 				}
 			}
+			@keyframes fade{
+		        0%   {opacity: 0;}
+		        100% {opacity: 1;}
+		    }
+		    .container{
+		    	animation-name: fade;
+      			animation-duration: 1s;
+		    }
 		</style>
 	</head>
 

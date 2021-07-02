@@ -11,6 +11,8 @@
   }
   .container {
       margin-top: 50px;
+      animation-name: fade;
+      animation-duration: 1s;
   }
   .kartu1 {
       box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.5);

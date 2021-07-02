@@ -11,6 +11,8 @@
   }
   .container {
       margin-top: 50px;
+      animation-name: fade;
+      animation-duration: 1s;
   }
   .card {
       border-radius: 20px;

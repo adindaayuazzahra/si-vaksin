@@ -11,6 +11,8 @@
   }
   .container {
       margin-top: 50px;
+      animation-name: fade;
+      animation-duration: 1s;
   }
   .judul {
       font-weight: bolder;
@@ -41,7 +43,6 @@
     background: #7e21ff;
     color: white;
   }
-
 </style>
 @endsection
 @section('content')

@@ -12,6 +12,8 @@
   }
   .container {
       margin-top: 50px;
+      animation-name: fade;
+      animation-duration: 1s;
   }
   .judul {
       font-weight: bolder;
