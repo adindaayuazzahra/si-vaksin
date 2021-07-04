@@ -100,3 +100,9 @@
     </div>
   @endif
 @endsection
+
+@section('script')
+<script>
+  alert("Website ini hanya percobaan sebagai tugas kuliah. Mohon tidak memasukkan identitas diri");
+</script>
+@endsection

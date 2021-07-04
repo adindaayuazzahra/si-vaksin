@@ -9,7 +9,6 @@ $username = $url["user"];
 $password = $url["pass"];
 $database = substr($url["path"], 1);
 
-
 return [
 
     /*
@@ -71,7 +70,6 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-        
         
         'pgsql' => [
             'driver'   => 'pgsql',

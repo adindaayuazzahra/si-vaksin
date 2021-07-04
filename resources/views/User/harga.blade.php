@@ -55,7 +55,7 @@
    @foreach($list_vaksin as $vaksin)
     <div class="col-md-6 col-xl-4 mb-5">
       <div class="card border-0">
-        <img class="card-img-top w-100" src="{{asset('assets/vaksin/img/'.$vaksin->img)}}" alt="Card image cap" height="200">
+        <img class="card-img-top w-100" src="{{asset('assets/vaksin/img/'.$vaksin->img)}}" height="200">
         <div class="card-body">
           <h5 class="card-title"><i class="fas fa-syringe"></i> {{$vaksin->nama_vaksin}}<hr class="card-title"></h5>
           <strong>Efek Samping:</strong>
