@@ -46,7 +46,7 @@ class User extends Authenticatable
     //     'email_verified_at' => 'datetime',
     // ];
     public function informasiuser(){
-        return $this->hasOne(informasiUser::class, 'id_user');
+        return $this->hasOne(InformasiUser::class, 'id_user');
     }
 
     public function registrasi(){
