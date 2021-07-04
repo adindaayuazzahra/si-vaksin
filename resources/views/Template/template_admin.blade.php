@@ -33,6 +33,20 @@
 		    	animation-name: fade;
       			animation-duration: 1s;
 		    }
+		    td{
+		    	font-size: 1.1vw;
+		    }
+		    th{
+		    	font-size: 1.17vw;
+		    }
+		    #kontrol-laporan button, #kontrol-vaksin button, #kontrol-rs button, #text-control button, #text-button button{
+		    	font-size: 1.15vw;
+		    }
+		    @media screen and (max-width: 450px){
+		    	h2{
+		    		text-align: center;
+		    	}
+		    }
 		</style>
 	</head>
 
