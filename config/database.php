@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Str;
 
+$url = parse_url(getenv("DATABASE_URL"));
+
+$host = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$database = substr($url["path"], 1);
+
 return [
 
     /*
@@ -33,13 +40,7 @@ return [
     | choice installed on your machine before you begin development.
     |
     */
-    $url = parse_url(getenv("DATABASE_URL"));
-
-    $host = $url["host"];
-    $username = $url["user"];
-    $password = $url["pass"];
-    $database = substr($url["path"], 1);
-
+    
     'connections' => [
 
         'sqlite' => [
@@ -69,10 +70,8 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-
-        $herokuDb = parse_url(env('DATABASE_URL', "postgres://xuhbhifopowbtp:7ef3eaf173fa09446cf7adc4387ba7d3fa5ada26d66c4de9cb6b8c3ad8298611@ec2-52-86-25-51.compute-1.amazonaws.com:5432/d5g1svv5bku221"));
         
-         'pgsql' => [
+        'pgsql' => [
             'driver'   => 'pgsql',
             'host'     => $host,
             'database' => $database,
