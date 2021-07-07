@@ -57,7 +57,7 @@
 
 													<div class="form-group mb-3">
 														<label for="harga2">Harga</label>
-														<input id="harga2" type="text" name="harga" placeholder="@error('harga') Harga wajib diisi. @enderror" class="@error('harga') is-invalid @enderror form-control">
+														<input id="harga2" type="number" name="harga" class="@error('harga2') is-invalid @enderror form-control">
 													</div>
 
 													<div class="form-group mb-3">
@@ -111,8 +111,8 @@
 
 			<div class="form-group mb-3">
 				<label for="harga">Harga</label>
-				<input id="harga" type="text" name="harga" class="form-control">
-				<span class="text-danger" id="hargaError"></span>
+				<input id="harga" type="number" name="harga" class="form-control">
+				<span class="text-danger d-none" id="hargaError">Hanya masukkan numerik</span>
 			</div>
 
 			<div class="form-group mb-3">
@@ -140,7 +140,7 @@
 		$("#createForm").submit(function(e){
 	  		e.preventDefault();
 	  		let formData = new FormData(this);
-			$.ajax({
+  			$.ajax({
 				type: "POST",
 				url: "{{route('vaksin.add')}}",
 				data: formData,

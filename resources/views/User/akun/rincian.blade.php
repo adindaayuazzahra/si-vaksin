@@ -39,6 +39,11 @@
   #home{
     font-size: 15pt!important;
   }
+  @media screen and (max-width: 400px){
+    #printInvoice h2{
+          font-size: 5vw;
+    }
+  }
 </style>
 @endsection
 

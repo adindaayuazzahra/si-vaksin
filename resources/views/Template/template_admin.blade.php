@@ -79,7 +79,7 @@
 	</head>
 
 	<body>
-		<nav class="navbar navbar-expand-lg bg-dark">
+		<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
 		  <div class="container-fluid">
 		    <a class="navbar-brand" href="{{ url('/') }}">
 	          <img src="{{asset('img/goVaksinwhite.png')}}" height="35" class="d-inline-block align-top" alt="">

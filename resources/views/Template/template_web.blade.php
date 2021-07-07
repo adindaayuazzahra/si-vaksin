@@ -61,6 +61,14 @@
           font-size: 15px;
         }
       }
+      @media screen and (max-width: 768px){
+        .cetak button{
+          width: 100%;
+        }
+        .cetak #home{
+          text-align: center;
+        }
+      }
     </style>
     @yield('css')
 
