@@ -8,7 +8,7 @@
 
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
+		@yield('css')
 		<style>
 			body{
 				background: #7e21ff;
@@ -39,13 +39,41 @@
 		    th{
 		    	font-size: 1.17vw;
 		    }
-		    #kontrol-laporan button, #kontrol-vaksin button, #kontrol-rs button, #text-control button, #text-button button{
+		    #kontrol-laporan button, #kontrol-vaksin button, #kontrol-rs button, #text-control a,#text-control button, #text-button button{
 		    	font-size: 1.15vw;
 		    }
 		    @media screen and (max-width: 450px){
-		    	h2{
-		    		text-align: center;
+		    	.col-md-9{
+		    		margin-bottom: 20px;
 		    	}
+		    	h2{
+		    		text-align: center;	
+		    	}
+		    	th{
+		    		font-size: 8px;
+		    	}
+		    	td{
+		    		font-size: 7px;
+		    	}
+		    	#kontrol-laporan button, #kontrol-vaksin button, #kontrol-rs button, #text-control a, #text-control button, #text-button button{
+			    	font-size: 6px;
+					width: 100%!important;
+			    }
+			    #table_id_info{
+			    	font-size: 9px;
+			    }
+			    #table_id_previous, #table_id_next{
+			    	font-size: 9px;
+			    }
+			    .paginate_button{
+			    	font-size: 10px;
+			    }
+			    #table_id_filter label, #table_id_length label{
+			    	font-size: 10px;
+			    }
+			    #dropdownMenuLink{
+		          padding-left: 0;
+		        }
 		    }
 		</style>
 	</head>

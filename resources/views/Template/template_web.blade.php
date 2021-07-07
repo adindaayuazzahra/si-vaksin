@@ -19,6 +19,48 @@
         0%   {opacity: 0;}
         100% {opacity: 1;}
       }
+      @media screen and (max-width: 450px){
+        .form-group label{
+          font-size: 15px;
+        }
+        .form-control{
+          font-size: 12px;
+        }
+        .parsley-required{
+          font-size: 13px;
+        }
+        #status-text label {
+          width: 20%;
+        }
+        #status-text button{
+          font-size: 10px;
+          width: 40%;
+        }
+        .form-group label{
+          width: 43%;
+        }
+        .form-group .col-sm-9{
+          width: 50%;
+        }
+        .form-group label, .form-group p, .form-group a,.badge,.form-navigation button{
+          font-size: 10px;
+        }
+        #dropdownMenuLink{
+          padding-left: 0;
+        }
+        .col-md-6{
+          width: 50%;
+        }
+        .col-md-6 p{
+          font-size: 12px;
+        }
+        .text-md-right{
+          text-align: right;
+        }
+        h4{
+          font-size: 15px;
+        }
+      }
     </style>
     @yield('css')
 
@@ -124,6 +166,14 @@
             }
           });
         },1000); 
+      }
+
+      function printDiv() {
+         var printContents = document.getElementById("printInvoice").innerHTML;
+         var originalContents = document.body.innerHTML;
+         document.body.innerHTML = printContents;
+         window.print();
+         document.body.innerHTML = originalContents;
       }
     </script>
     @yield('script')

@@ -57,7 +57,7 @@
         @foreach($registrasi as $registrasi)
         <div class="card kartu2 mx-5 p-4 font-weight-bold">
           
-          <div class="form-group row mb-3 ">
+          <div id="status-text" class="form-group row mb-3 ">
             <label class="col-sm-1 col-form-label text-dark">#<?php echo ($count++); ?></label>
             @if($registrasi->id_status<4)
               <button class="btn col-sm-3 btn-success rounded">Aktif</button>

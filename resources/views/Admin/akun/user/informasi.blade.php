@@ -1,5 +1,15 @@
 @extends('Template.template_admin')
 @section('title','goVaksin | Data User')
+@section('css')
+<style>
+	@media screen and (max-width: 450px){
+		.mt-3 a{
+			font-size: 10px;
+			width: 100%;
+		}
+	}	
+</style>
+@endsection
 @section('content')
 <div class="row">
 	<h2 class="text-dark justify-content-center">Informasi User</h2>

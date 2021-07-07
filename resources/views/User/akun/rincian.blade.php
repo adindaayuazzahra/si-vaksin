@@ -185,15 +185,3 @@
   </div>
 </footer>  
 @endsection
-
-@section('script')
-<script>
-  function printDiv() {
-     var printContents = document.getElementById("printInvoice").innerHTML;
-     var originalContents = document.body.innerHTML;
-     document.body.innerHTML = printContents;
-     window.print();
-     document.body.innerHTML = originalContents;
-  }
-</script>
-@endsection
