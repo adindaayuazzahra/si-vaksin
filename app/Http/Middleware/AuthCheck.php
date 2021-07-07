@@ -29,9 +29,6 @@ class AuthCheck
                 }
             }
         }
-        abort(404);
-        // Auth::logout();
-        // return redirect('login-admin')->with('msg','Akun tidak memiliki izin akses!');
-        
+        abort(404);    
     }
 }
